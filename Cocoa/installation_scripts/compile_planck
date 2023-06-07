@@ -1,0 +1,92 @@
+if [ -z "${ROOTDIR}" ]; then
+  echo 'ERROR ROOTDIR not defined'
+  return
+fi
+if [ -z "${CXX_COMPILER}" ]; then
+  echo 'ERROR CXX_COMPILER not defined'
+  return 1
+fi
+if [ -z "${C_COMPILER}" ]; then
+  echo 'ERROR C_COMPILER not defined'
+  return 1
+fi
+if [ -z "${FORTRAN_COMPILER}" ]; then
+  echo 'ERROR FORTRAN_COMPILER not defined'
+  return 1
+fi
+if [ -z "${PYTHON3}" ]; then
+  echo 'ERROR PYTHON3 not defined'
+  return 1
+fi
+
+# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# ------------------------- COMPILE PLANCK LIKELIHOOD ------------------------
+# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+
+if [ -z "${IGNORE_PLANCK_COMPILATION}" ]; then
+  if [ -n "${CLIK_PATH}" ]; then
+      export OLD_CLIK_PATH=$CLIK_PATH
+  fi
+
+  if [ -n "${CLIK_DATA}" ]; then
+      export OLD_CLIK_DATA=$CLIK_DATA
+  fi
+
+  if [ -n "${CLIK_PLUGIN}" ]; then
+      export OLD_CLIK_PLUGIN=$CLIK_PLUGIN
+  fi
+
+  if [ -z "${USE_SPT_CLIK_PLANCK}" ]; then
+    cd $ROOTDIR/external_modules/code/planck/code/plc_3.0/plc-3.1/
+  else
+    cd $ROOTDIR/external_modules/code/planck/code/spt_clik/
+  fi
+  
+  rm -rf .waf*
+
+  $PYTHON3 waf distclean
+
+  if [ -z "${IGNORE_C_CFITSIO_INSTALLATION}" ]; then
+    if [ $? -ne 0 ] 
+    then
+      echo "PROBLEM CONF PLANCK"
+    fi
+    if [ -z "${IGNORE_FORTRAN_INSTALLATION}" ]; then
+      FC=$FORTRAN_COMPILER CC=$C_COMPILER CXX=$CXX_COMPILER $PYTHON3 waf configure --gcc --gfortran --cfitsio_islocal --prefix $ROOTDIR/.local --lapack_prefix=$ROOTDIR/.local --cfitsio_lib=$ROOTDIR/.local/lib --python=$ROOTDIR/.local/bin/python
+      if [ $? -ne 0 ] 
+      then
+        echo "PROBLEM CONF PLANCK"
+      fi
+    else
+      FC=$FORTRAN_COMPILER CC=$C_COMPILER CXX=$CXX_COMPILER $PYTHON3 waf configure --gcc --gfortran --cfitsio_islocal --prefix $ROOTDIR/.local --lapack_prefix=$GLOBAL_PACKAGES_LOCATION --cfitsio_lib=$ROOTDIR/.local/lib --python=$ROOTDIR/.local/bin/python
+      if [ $? -ne 0 ] 
+      then
+        echo "PROBLEM CONF PLANCK"
+      fi
+    fi
+  else
+    if [ -z "${IGNORE_FORTRAN_INSTALLATION}" ]; then
+      FC=$FORTRAN_COMPILER CC=$C_COMPILER CXX=$CXX_COMPILER $PYTHON3 waf configure --gcc --gfortran --cfitsio_islocal --prefix $ROOTDIR/.local --lapack_prefix=$ROOTDIR/.local --cfitsio_prefix=$GLOBAL_PACKAGES_LOCATION --python=$ROOTDIR/.local/bin/python
+      if [ $? -ne 0 ] 
+      then
+        echo "PROBLEM CONF PLANCK"
+      fi
+    else
+      FC=$FORTRAN_COMPILER CC=$C_COMPILER CXX=$CXX_COMPILER $PYTHON3 waf configure --gcc --gfortran --cfitsio_islocal --prefix $ROOTDIR/.local --lapack_prefix=$GLOBAL_PACKAGES_LOCATION --cfitsio_prefix=$GLOBAL_PACKAGES_LOCATION --python=$ROOTDIR/.local/bin/python
+      if [ $? -ne 0 ] 
+      then
+        echo "PROBLEM CONF PLANCK"
+      fi
+    fi
+  fi
+
+  $PYTHON3 waf install -v
+  if [ $? -ne 0 ] 
+  then
+    echo "PROBLEM INSTALLING PLANCK"
+  fi
+
+  cd $ROOTDIR
+fi
