@@ -25,12 +25,9 @@ if [ -z "${THREAD_UNXZ}" ]; then
 	# ---------------------------------------------
 	cd ./planck
 	# ---------------------------------------------
+	echo 'DECOMPRESSING SPT-3G'
 	rm -rf ./spt3g_Y1_EETE.clik/
 	tar xf spt3g_Y1_EETE.clik.xz
-	# ---------------------------------------------
-	echo 'DECOMPRESSING CAMSPEC (2018)'
-	rm -rf ./CamSpec2018/
-	tar xf CamSpec2018.xz
 	# ---------------------------------------------
 	echo 'DECOMPRESSING SUPPLEMENTAL DATA AND COVARIANCES'
 	rm -rf ./planck_supp_data_and_covmats/
@@ -52,24 +49,14 @@ if [ -z "${THREAD_UNXZ}" ]; then
 	rm -rf ./plik_lite/
 	tar xf plik_lite.xz
 	# ---------------------------------------------
-	cd ./camspec
-	rm -rf ./camspec_10.7HM_1400_TT_small.clik/
-	tar xf camspec_107HM_1400_TT_smallclik.xz
-	rm -rf ./camspec_10.7HM_1400_TTTEEE.clik/
-	tar xf camspec_10.7HM_1400_TTTEEEclik.xz
-	# ---------------------------------------------
 else
 	# ---------------------------------------------
 	cd ./planck
 	# ---------------------------------------------
 	rm -rf ./spt3g_Y1_EETE.clik/
 	tar xf spt3g_Y1_EETE.clik.xz &
-	proc10=$!
-	# ---------------------------------------------
-	rm -rf ./CamSpec2018/
-	tar xf CamSpec2018.xz &
-	# ---------------------------------------------
 	proc1=$!
+	# ---------------------------------------------
 	rm -rf ./planck_supp_data_and_covmats/
 	tar xf planck_supp_data_and_covmats.xz &
 	proc2=$!
@@ -93,20 +80,12 @@ else
 	tar xf plik_lite.xz	&
 	proc7=$!
 	# ---------------------------------------------
-	cd ./camspec
-	rm -rf ./camspec_10.7HM_1400_TT_small.clik/
-	tar xf camspec_107HM_1400_TT_smallclik.xz &
-	proc8=$!
-	rm -rf ./camspec_10.7HM_1400_TTTEEE.clik/
-	tar xf camspec_10.7HM_1400_TTTEEEclik.xz &
-	proc9=$!
 	# ---------------------------------------------
 	# ---------------------------------------------
-	# ---------------------------------------------
-	echo 'DECOMPRESSING CAMSPEC (2018)'
 	echo 'DECOMPRESSING SUPPLEMENTAL DATA AND COVARIANCES'
 	echo 'DECOMPRESSING PLANCK-2015 (PLC-2.0)'
 	echo 'DECOMPRESSING PLANCK-2018 (PLC-3.0)'
+	echo 'DECOMPRESSING SPT-3G'
 	echo 'DECOMPRESSION IS HAPPENING IN PARALLEL - WAITING ALL OF THEM TO FINISH'
-	wait "$proc1" "$proc2" "$proc3" "$proc4" "$proc5" "$proc6" "$proc7" "$proc8" "$proc9" "$proc10"
+	wait "$proc1" "$proc2" "$proc3" "$proc4" "$proc5" "$proc6" "$proc7" 
 fi
