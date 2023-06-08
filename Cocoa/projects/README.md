@@ -270,87 +270,63 @@ After that, just type
 
 (**Warning**) If the project name `XXX` contains more than the experiment name (e.g., `XXX = LSST_Y1`), we suggest to replacing `DES_` with just the experiment name (e.g., `LSST_BARYON_Q1`, `LSST_PM` and `LSST_DZ_L`). The convention adopted must be followed when changing the files `params_des_cosmic_shear.yaml` and `params_des_3x2pt.yaml`. 
 
-**Step 2:** Change the file `$ROOTDIR/projects/XXX/likelihood/des_3x2pt.py` following the instructions below
+**Step 2:** Change the file `$ROOTDIR/projects/XXX/likelihood/lsst_3x2pt.py` following the instructions below
     
-    // change des_y3 to XXX in the line below
-    from cobaya.likelihoods.des_y3._cosmolike_prototype_base import _cosmolike_prototype_base
-    // change cosmolike_des_y3_interface to cosmolike_XXX_interface in the line below
-    import cosmolike_des_y3_interface as ci
-
-(**Warning**) Similar changes must be made in the following files
+    // change lsst_y1 to XXX in the line below
+    from cobaya.likelihoods.lsst_y1._cosmolike_prototype_base import _cosmolike_prototype_base
+    // change cosmolike_lsst_y1_interface to cosmolike_XXX_interface in the line below
+    import cosmolike_lsst_y1_interface as ci
     
-    +-- cocoa_des_y3
-    |    +-- likelihood
-    |    |   +-- des_2x2pt.py
-    |    |   +-- des_clustering.py
-    |    |   +-- des_cosmic_shear.py
-    |    |   +-- des_ggl.py
-    |    |   +-- des_xi_ggl.py
-    
-**Step 3:** Change the file `$ROOTDIR/projects/XXX/likelihood/des_3x2pt.yaml` following the instructions below
+**Step 3:** Change the file `$ROOTDIR/projects/XXX/likelihood/lsst_3x2pt.yaml` following the instructions below
    
     (...)
     // change DES_Y3.dataset to XXX.dataset in the line below (adopted convention: .dataset file name = project name all in CAPS)
-    data_file: DES_Y3.dataset
-   
+    data_file: LSST_Y1.dataset
     (...)
-    // change params_des_3x2pt to params_XXX_3x2pt in the line below
-    params: !defaults [params_des_3x2pt]
+    // change params_lsst_3x2pt to params_XXX_3x2pt in the line below
+    params: !defaults [params_lsst_3x2pt]
 
-(**Warning**) Similar changes must be made in the following files
-    
-    +-- cocoa_des_y3
-    |    +-- likelihood
-    |    |   +-- des_2x2pt.yaml
-    |    |   +-- des_clustering.yaml
-    |    |   +-- des_cosmic_shear.yaml
-    |    |   +-- des_ggl.yaml
-    |    |   +-- des_xi_ggl.yaml
+**Step 4:** Rename the file `params_des_3x2pt.yaml` to `params_XXX_3x2pt.yaml`. Also, rename the associated parameter names, 
+replacing the `LSST_` prefix as shown below. 
 
-**Step 4:** Change the file `params_des_3x2pt.yaml` following the instructions below
+      XXX_DZ_S1:
+         prior:
+            dist: norm
+            loc: 0.0
+            scale: 0.005
+         ref:
+            dist: norm
+            loc: 0.0
+            scale: 0.005
+            proposal: 0.005
+         latex: \Delta z_\mathrm{s, XXX}^1
+         
+If the project name `XXX` contains more than the experiment name -  e.g., `XXX = DES_Y3` - we suggest to replacing the prefix `LSST_` with just the experiment name (e.g., `DES_DZ_S1` and `\Delta z_\mathrm{s, DES}^1`). 
 
-Replace the `DES_` prefix to the name of the survey associated w/ XXX.
-    
-    DES_DZ_S1:
-    	prior:
-      	    dist: norm
-      	    loc: 0.0
-      	    scale: 0.005
-    ref:
-        dist: norm
-        loc: 0.0
-        scale: 0.005
-    proposal: 0.005
-    latex: \Delta z_\mathrm{s, DES}^1
-
-(**Warning**) If the project name `XXX` contains more than the experiment name  (e.g., `XXX = LSST_Y1`), we suggest to replacing `DES_` with just the experiment name (e.g., `LSST_DZ_S1` and `\Delta z_\mathrm{s, LSST}^1`)
-
-(**Warning**) Similar changes must be made in `params_des_cosmic_shear.yaml`
-
-(**Warning**) Changes in either the number of lenses or source bins will require the introduction of new paremeters in 
-`params_des_cosmic_shear.yaml` and `params_des_3x2pt.yaml`
+Similar changes must be made in `params_XXX_cosmic_shear.yaml`. Note that changes either in the number of lenses or source bins will demand the introduction of new paremeters in 
+`params_XXX_cosmic_shear.yaml` and `params_XXX_3x2pt.yaml`
 
 ### Changes in the data folder
 
-**Step 1:** Rename the `.dataset` dile (adopted convention: `.dataset` file name = project name capitalized)
+**Step 1:** Rename the `.dataset` file. Our adopted convention is: `.dataset` file name = project name capitalized
 
-     $(cocoa)(.local) mv $ROOTDIR/projects/XXX/data/DES_Y3.dataset $ROOTDIR/projects/XXX/data/XXX.dataset
+     $(cocoa)(.local) cp $ROOTDIR/projects/LSST_Y1/data/LSST_Y1.dataset $ROOTDIR/projects/XXX/data/XXX.dataset
      
 **Step 2:** Update `XXX.dataset` file with the names of the new data vector, covariance, n(z), binning, mask...
 
-     data_file = LSST_Y1_nonlim
-     cov_file = cov_lsst_y1
-     mask_file = 3x2pt_baseline.mask
-     nz_lens_file = lens_LSSTY1.nz
-     nz_source_file = source_LSSTY1.nz
-     lensing_overlap_cut = 0.0015
-     lens_ntomo = 5
-     source_ntomo = 4
-     n_theta = 20
-     IA_model = 6
-     theta_min_arcmin = 2.5
-     theta_max_arcmin = 250.
-     #baryon_pca_file = pca.txt
+      data_file = XXX_nonlim
+      cov_file = cov_XXX
+      mask_file = 3x2pt_baseline.mask
+      nz_lens_file = lens_XXX.nz
+      nz_source_file = source_XXX.nz
+      lensing_overlap_cut = 0.0
+      lens_ntomo = 5
+      source_ntomo = 5
+      n_theta = 26
+      IA_model = 4
+      theta_min_arcmin = 2.5
+      theta_max_arcmin = 900.
+      #baryon_pca_file = pca.txt
 
 ## Major changes: <a name="appendix_lsst_y1_new_major"></a>  
 
