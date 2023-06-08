@@ -344,17 +344,17 @@ To avoid excessive compilation times during development, users can use specializ
 
 The installation of Cocoa required packages, as well as Boltzmann and Likelihood codes, are managed via the following scripts located at `./Cocoa`.
 
- - set_installation_options: This file contains environment variables that manage the installation process.
+ - set_installation_options: this file contains environment variables that manage the installation process.
 
- - setup_cocoa_installation_packages: This file has instructions on how to install packages required by the Cocoa Framework.
+ - setup_cocoa_installation_packages: this file has instructions on how to install packages required by the Cocoa Framework.
 
- - compile_external_modules: This file has instructions on how to compile Boltzmann, Sampler and likelihood codes. 
+ - compile_external_modules: this file has instructions on how to compile Boltzmann, Sampler and likelihood codes. 
 
- - start_cocoa: This file has instructions on how to set up the Python virtual environment.
+ - start_cocoa: this file has instructions on how to set up the Python virtual environment.
 
- - stop_cocoa: This file has instructions on how to unset the Python virtual environment - including recovering original `PYTHONPATH`, `LD_LIBRARY_PATH`, and `PATH`. 
+ - stop_cocoa: this file has instructions on how to unset the Python virtual environment. 
 
- - clean_all: This file has instructions on how to clean keys associated with the Python virtual environment and delete the compilation of the Boltzmann, Sampler, and likelihood codes, and local installation of the required packages installed by the [setup_cocoa_installation_packages].
+ - clean_all: this file has instructions on how to restore Cocoa to a clean state.
 
 ### Miniconda Installation <a name="overview_miniconda"></a>
 
