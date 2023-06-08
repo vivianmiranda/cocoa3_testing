@@ -66,7 +66,7 @@ Type the following commands to create the cocoa Conda environment.
        'conda-forge::matplotlib=3.5.0' \
        'conda-forge::astropy=4.3.1'
       
-If the user wants to add tensorflow, keras and torch for an emulator-based project, type
+If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based project, then type
  
       $ conda activate cocoa 
       
