@@ -27,6 +27,7 @@ There are two installation methods. Users must choose one of them:
 1. [Via Conda](#required_packages_conda) (easier, best)
 2. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable) 
 
+We also provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. See Appendix [The whovian-cocoa docker container](#appendix_jupyter_whovian) for further instructions.
 
 ### Via Conda <a name="required_packages_conda"></a>
 
@@ -375,10 +376,14 @@ The flag `-v $(pwd):/home/whovian/host/` ensures that the files on the host comp
 
 the user should see the host files on the screen.
 
-When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below
+When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below.
 
     whovian@cocoa:~$ conda init bash
     whovian@cocoa:~$ source ~/.bashrc
+
+The container already comes with conda Cocoa environment pre-installed:
+
+    $ whovian@cocoa:~$ conda activate cocoa
 
 When the user exits the container, how to restart it? Type 
     
