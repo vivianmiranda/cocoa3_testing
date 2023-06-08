@@ -2,7 +2,7 @@
 1. [Overview of the Cobaya-CosmoLike Joint Architecture (Cocoa)](#overview)
 3. [Installation of Cocoa's required packages](#required_packages)
     1. [Via Conda](#required_packages_conda)
-    3. [Via Cocoa's internal cache](#required_packages_cache)
+    3. (expert) [Via Cocoa's internal cache](#required_packages_cache)
 4. [Installation of Cobaya base code](#cobaya_base_code)
 5. [Running Cobaya Examples](#cobaya_base_code_examples)
 6. [Running Cosmolike projects](#running_cosmolike_projects)
