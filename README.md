@@ -37,7 +37,7 @@ There are two installation methods. Users must choose one of them:
 
 ### Via Conda <a name="required_packages_conda"></a>
 
-The most straightforward way to install Cocoa's prerequisites is via [Conda](https://github.com/conda/conda). We assume here the user had previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see section [Miniconda Installation](#sbu_overview_anaconda).
+The most direct method to install Cocoa's prerequisites is by using [Conda](https://github.com/conda/conda). We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If there are any issues with installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), refer to the [Miniconda Installation](#sbu_overview_anaconda) section for assistance.
 
 Type the following commands to create the cocoa Conda environment.
 
