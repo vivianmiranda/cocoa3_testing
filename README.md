@@ -522,6 +522,7 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
         $ conda activate cocoa 
       
         $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'gpy==1.10'
             'tensorflow-cpu==2.8.0' \
             'keras==2.8.0' \
             'keras-preprocessing==1.1.2' \
@@ -532,6 +533,7 @@ In case there are GPUs available, the following commands will install the GPU ve
 Tensorflow, Keras and Pytorch.
 
         $(cocoa) CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'gpy==1.10'
             'tensorflow==2.8.0' \
             'keras==2.8.0' \
             'keras-preprocessing==1.1.2' \
