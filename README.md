@@ -275,7 +275,7 @@ Remember to run the start_cocoa script only after cloning the project repository
     $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
     $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
-(**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m$/$\Omega_b$ parameterization. See Appendix(#appendix_example_runs) for further details.
+(**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix(#appendix_example_runs) for further details.
 
 ## Creating Cosmolike projects <a name="creating_cosmolike_projects"></a> 
 
