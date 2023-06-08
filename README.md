@@ -10,11 +10,10 @@
 8. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
     2. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
-    3. [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian)
     4. [Summary Information about Cocoa's configuration files](#appendix_config_files)
-    5. [Warning about Weak Lensing YAML files](#appendix_example_runs)
-    6. [Miniconda Installation](#overview_miniconda)
-    7. [Docker](#required_packages_docker)
+    5. [Miniconda Installation](#overview_miniconda)
+    6. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
+    7. [Warning about Weak Lensing YAML files](#appendix_example_runs)
 9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
 10. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
  
@@ -340,30 +339,6 @@ To avoid excessive compilation times during development, users can use specializ
     $(cocoa)(.local) source ./installation_scripts/compile_planck
     $(cocoa)(.local) source ./installation_scripts/compile_act
     $(cocoa)(.local) source ./installation_scripts/setup_polychord
-    
-### Running Jupyter Notebooks inside the Whovian-Cosmo docker container <a name="appendix_jupyter_whovian"></a>
-
-[Cobaya](https://github.com/CobayaSampler), the framework that Cocoa heavily depends on has excellent integration with Jupyter notebooks. Below, some in-depth instructions to run notebooks inside the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) docker container
-
-To start a jupyter notebook, type the following command on the docker container:
-
-    $ jupyter notebook --no-browser
-
-The terminal will show a message similar to the following template:
-
-    [... NotebookApp] Writing notebook server cookie secret to /home/whovian/.local/share/jupyter/runtime/notebook_cookie_secret
-    [... NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
-    [... NotebookApp] Serving notebooks from local directory: /home/whovian/host
-    [... NotebookApp] Jupyter Notebook 6.1.1 is running at:
-    [... NotebookApp] http://f0a13949f6b5:8888/?token=XXX
-    [... NotebookApp] or http://127.0.0.1:8888/?token=XXX
-    [... NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-
-where `XXX` in the line `[... NotebookApp] or http://127.0.0.1:8888/?token=XXX` is the token you need to save to access the notebook. We will assume you are running the docker container in a host server with URL `your_sever.com` that you are accessing via ssh. From your local PC type:
-
-    $ ssh your_username@your_sever.com -L 8080:localhost:8080
-
-   Finally, go to your browser and type `http://localhost:8080/?token=XXX`, where `XXX` is the previously saved token. For security, we do not allow password-based connections to the jupyter notebooks.
 
 ### Summary Information about Cocoa's configuration files <a name="appendix_config_files"></a>
 
@@ -380,15 +355,6 @@ The installation of Cocoa required packages, as well as Boltzmann and Likelihood
  - stop_cocoa: This file has instructions on how to unset the Python virtual environment - including recovering original `PYTHONPATH`, `LD_LIBRARY_PATH`, and `PATH`. 
 
  - clean_all: This file has instructions on how to clean keys associated with the Python virtual environment and delete the compilation of the Boltzmann, Sampler, and likelihood codes, and local installation of the required packages installed by the [setup_cocoa_installation_packages].
-    
-### Examples of Weak Lensing Runs <a name="appendix_example_runs"></a>
-
-We have provided examples of Weak Lensing runs within specific projects such as:
-
-- [LSST-Y1](https://github.com/CosmoLike/cocoa_lsst_y1/blob/main/EXAMPLE_MCMC1.yaml)
-- [DES-Y3](https://github.com/CosmoLike/cocoa_des_y3/blob/main/EXAMPLE_MCMC1.yaml)
-
-(**Warning**) The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$ where as camb **ONLY accepts** $\Omega_c h^2$ and $\Omega_b h^2$. In the YAMLs we provided, we included the option `drop: true` and the derived expressions to convert from $\Omega_m$/$\Omega_b$ to $\Omega_c h^2$/$\Omega_b h^2$. **Be aware that if this conversion is not present in the YAML file, a silent/terrible bug will be created**: the chains will continue to run without the matter density being updated on CAMB. Always ensure that the conversion is included in your YAML file when adopting the  $\Omega_m$/$\Omega_b$ parameterization.
 
 ### Miniconda Installation <a name="overview_miniconda"></a>
 
@@ -411,37 +377,60 @@ After installation, users must source conda configuration file
     && conda config --prepend channels conda-forge \
     && conda config --set channel_priority strict \
     && conda init bash
+    
+### The whovian-cocoa docker container <a name="appendix_jupyter_whovian"></a>
 
-### Via Docker (best for MacOS/Windows) <a name="required_packages_docker"></a>
+We provide the docker image [whovian-cocoa](https://hub.docker.com/r/vivianmiranda/whovian-cocoa) to facilitate the installation of Cocoa on Windows/MacOS. Installation of the [docker engine](https://docs.docker.com/engine/) on local PCs is a straightforward process, but it does require `sudo` privileges. See Docker's [official documentation](https://docs.docker.com/engine/install/) for OS-specific instructions.
 
-Docker installation will allow users to run Cocoa inside an instantiation of the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) docker image (i.e. a docker container!). Installation of the [docker engine](https://docs.docker.com/engine/) on local PCs is a straightforward process, but it does require `sudo` privileges (see Docker's [official documentation](https://docs.docker.com/engine/install/) for OS-specific instructions).
+To download and run the container for the first time, type:
 
-  On macOS, type:
+    $ docker run --platform linux/amd64 --hostname cocoa --name cocoa2023 -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cocoa
 
-    $ docker run -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cosmo:version-1.0.3
+The flag `-v $(pwd):/home/whovian/host/` ensures that the files on the host computer, where Cocoa should be located, have been mounted to the directory `/home/whovian/host/`. Therefore, the command
 
-Linux users must type the following command instead:
+    whovian@cocoa:~$ cd /home/whovian/host/; ls
 
-    $ docker run -it -p 8080:8888 --user $(id -u):$(id -g) -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cosmo:version-1.0.3
+should display the host files.
 
-(**warning**) When running the command `docker run (...)/whovian-cosmo:version-1.0.3` for the first time, the docker engine will automatically download the corresponding image. This step may take some time, as the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) image has approximately 700 Megabytes.
+When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below
 
-(**expert**) The flag `-v ~/.ssh:/home/whovian/.ssh:ro` allows users to pull, push and clone GitHub repositories from inside the container using the host ssh keys. Users must invoke the command on the parent directory of the path where access inside the docker container is sought. 
+    whovian@cocoa:~$ conda init bash
+    whovian@cocoa:~$ source ~/.bashrc
+    whovian@cocoa:~$ conda activate cocoa
 
-(**expert**) The flag `-p 8080:8888` forward the container port 8888 to the local `8080`. This port forwarding is in an important fact to understand when reading the appendix [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian).
+When you exit the container, how to restart it? type `docker start -ai cocoa2023`.
 
-  The last step is to access the folder `/home/whovian/host/` where the host files have been mounted:
+Cobaya also has an excellent integration with Jupyter notebooks. Below, we provide instructions on how o run notebooks inside the whovian-cocoa container. 
 
-    $ cd /home/whovian/host/
+To start a jupyter notebook, type the following command inside the whovian-Cosmo container:
 
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**  
+    $ jupyter notebook --no-browser
+
+The terminal will show a message similar to the following template:
+
+    [... NotebookApp] Writing notebook server cookie secret to /home/whovian/.local/share/jupyter/runtime/notebook_cookie_secret
+    [... NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+    [... NotebookApp] Serving notebooks from local directory: /home/whovian/host
+    [... NotebookApp] Jupyter Notebook 6.1.1 is running at:
+    [... NotebookApp] http://f0a13949f6b5:8888/?token=XXX
+    [... NotebookApp] or http://127.0.0.1:8888/?token=XXX
+    [... NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+
+We assume the user will run the docker container in a host server with URL `your_sever.com`. We also assume the server can be accessed via ssh protocol. From your local PC type:
+
+    $ ssh your_username@your_sever.com -L 8080:localhost:8080
+
+Finally, go to a browser and type `http://localhost:8080/?token=XXX`, where `XXX` is the previously saved token.
+
+### Examples of Weak Lensing Runs <a name="appendix_example_runs"></a>
+
+We have provided examples of Weak Lensing runs within specific projects such as:
+
+- [LSST-Y1](https://github.com/CosmoLike/cocoa_lsst_y1/blob/main/EXAMPLE_MCMC1.yaml)
+- [DES-Y3](https://github.com/CosmoLike/cocoa_des_y3/blob/main/EXAMPLE_MCMC1.yaml)
+
+(**Warning**) The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$ where as camb **ONLY accepts** $\Omega_c h^2$ and $\Omega_b h^2$. In the YAMLs we provided, we included the option `drop: true` and the derived expressions to convert from $\Omega_m$/$\Omega_b$ to $\Omega_c h^2$/$\Omega_b h^2$. **Be aware that if this conversion is not present in the YAML file, a silent/terrible bug will be created**: the chains will continue to run without the matter density being updated on CAMB. Always ensure that the conversion is included in your YAML file when adopting the  $\Omega_m$/$\Omega_b$ parameterization.
+
 
 (**warning**) There isn't permanent storage outside `/home/whovian/host/`. Be aware of this fact to not lose any work
 
-(**expert**) Most HPC systems don't allow users to run docker containers via the standard [docker engine](https://docs.docker.com/engine/) for [security reasons](https://www.reddit.com/r/docker/comments/7y2yp2/why_is_singularity_used_as_opposed_to_docker_in/?utm_source=share&utm_medium=web2x&context=3). There is, however, an alternative engine called [Singularity](https://sylabs.io/guides/3.6/user-guide/index.html) that is in compliance with most HPC requirements. The [Singularity](https://sylabs.io/guides/3.6/user-guide/index.html) engine installation requires administrative privileges, but many HPC enviroments have already adopted it. To run docker images with Singularity, go to the folder you want to store the image and type:
-
-    $ singularity build whovian-cosmo docker://vivianmiranda/whovian-cosmo
-
-This command will download the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) image and convert it to a format that can be understood by Singularity (this might take a few minutes). To run the container interactively, type:
-
-    $ singularity shell --no-home --bind /path/to/cocoa:/home/whovian/host --bind ~/.ssh:/home/whovian/.ssh:ro whovian-cosmo
