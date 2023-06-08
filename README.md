@@ -418,47 +418,47 @@ The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but as CAMB Boltzmann co
 
 2. Weak Lensing parameterization and  $\Omega_c h^2$ and $\Omega_b h^2$ as derived parameters.
 
-The adoption of $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya when (1) the option `drop: true` is absent, and (2) there is no derived $\Omega_c h^2$/$\Omega_b h^2$ expressions. The bug is silent because the MCMC runs smoothly without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are mistaken, but they still look somewhat reasonable to the untrained eyes. 
+The adoption of $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya. The problem occurs when (1) the option `drop: true` is absent in $\Omega_m$ and $\Omega_b$ parameters, and (2) there is no derived $\Omega_c h^2$/$\Omega_b h^2$ expressions. The bug is silent because the MCMC runs smoothly without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are flawed, but they may still seem somewhat reasonable to those who are not familiar with the issue. It's important to be aware of this bug to avoid any potential inaccuracies in the results.
 
 The correct way to create YAMLS with 
 
-   omegab:
-    prior:
-      min: 0.03
-      max: 0.07
-    ref:
-      dist: norm
-      loc: 0.0495
-      scale: 0.004
-    proposal: 0.004
-    latex: \Omega_\mathrm{b}
-    drop: true
-  omegam:
-    prior:
-      min: 0.1
-      max: 0.9
-    ref:
-      dist: norm
-      loc: 0.316
-      scale: 0.02
-    proposal: 0.02
-    latex: \Omega_\mathrm{m}
-    drop: true
-  mnu:
-    prior:
-      min: 0.06
-      max: 0.6
-    ref:
-      dist: norm
-      loc: 0.25
-      scale: 0.1
-  proposal: 0.05
-    omegabh2:
-    value: 'lambda omegab, H0: omegab*(H0/100)**2'
-    latex: \Omega_\mathrm{b} h^2
-   omegach2:
-      value: 'lambda omegam, omegab, mnu, H0: (omegam-omegab)*(H0/100)**2-(mnu*(3.046/3)**0.75)/94.0708'
-      latex: \Omega_\mathrm{c} h^2
+        omegab:
+            prior:
+              min: 0.03
+              max: 0.07
+            ref:
+              dist: norm
+              loc: 0.0495
+              scale: 0.004
+            proposal: 0.004
+            latex: \Omega_\mathrm{b}
+            drop: true
+        omegam:
+            prior:
+              min: 0.1
+              max: 0.9
+            ref:
+              dist: norm
+              loc: 0.316
+              scale: 0.02
+            proposal: 0.02
+            latex: \Omega_\mathrm{m}
+            drop: true
+        mnu:
+            prior:
+              min: 0.06
+              max: 0.6
+            ref:
+              dist: norm
+              loc: 0.25
+              scale: 0.1
+            proposal: 0.05
+        omegabh2:
+            value: 'lambda omegab, H0: omegab*(H0/100)**2'
+            latex: \Omega_\mathrm{b} h^2
+        omegach2:
+            value: 'lambda omegam, omegab, mnu, H0: (omegam-omegab)*(H0/100)**2-(mnu*(3.046/3)**0.75)/94.0708'
+            latex: \Omega_\mathrm{c} h^2
     
 We have provided examples of Weak Lensing runs within specific projects such as:
 
