@@ -12,7 +12,7 @@
     2. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
     3. [Miniconda Installation](#overview_miniconda)
     4. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
-    5. [Warning about Weak Lensing YAML files](#appendix_example_runs)
+    5. [Warning about Weak Lensing YAML files in Cobaya](#appendix_example_runs)
 9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
 10. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
  
@@ -410,8 +410,56 @@ To avoid excessive compilation times during development, users can use specializ
     $(cocoa)(.local) source ./installation_scripts/compile_act
     $(cocoa)(.local) source ./installation_scripts/setup_polychord
     
-### Examples of Weak Lensing Runs <a name="appendix_example_runs"></a>
+### Warning about Weak Lensing YAML files in Cobaya <a name="appendix_example_runs"></a>
 
+The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but as CAMB Boltzmann code only accepts $\Omega_c h^2$ and $\Omega_b h^2$ in Cobaya. There are two ways of creating YAML compatible with Weak Lensing Cosmolike: 
+
+1. CMB parameterization and  $\Omega_m$ and $\Omega_b$ as derived parameters
+
+2. Weak Lensing parameterization and  $\Omega_c h^2$ and $\Omega_b h^2$ as derived parameters.
+
+The adoption of $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya when (1) the option `drop: true` is absent, and (2) there is no derived $\Omega_c h^2$/$\Omega_b h^2$ expressions. The bug is silent because the MCMC runs smoothly without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are mistaken, but they still look somewhat reasonable to the untrained eyes. 
+
+The correct way to create YAMLS with 
+
+   omegab:
+    prior:
+      min: 0.03
+      max: 0.07
+    ref:
+      dist: norm
+      loc: 0.0495
+      scale: 0.004
+    proposal: 0.004
+    latex: \Omega_\mathrm{b}
+    drop: true
+  omegam:
+    prior:
+      min: 0.1
+      max: 0.9
+    ref:
+      dist: norm
+      loc: 0.316
+      scale: 0.02
+    proposal: 0.02
+    latex: \Omega_\mathrm{m}
+    drop: true
+  mnu:
+    prior:
+      min: 0.06
+      max: 0.6
+    ref:
+      dist: norm
+      loc: 0.25
+      scale: 0.1
+  proposal: 0.05
+    omegabh2:
+    value: 'lambda omegab, H0: omegab*(H0/100)**2'
+    latex: \Omega_\mathrm{b} h^2
+   omegach2:
+      value: 'lambda omegam, omegab, mnu, H0: (omegam-omegab)*(H0/100)**2-(mnu*(3.046/3)**0.75)/94.0708'
+      latex: \Omega_\mathrm{c} h^2
+    
 We have provided examples of Weak Lensing runs within specific projects such as:
 
 - [LSST-Y1](https://github.com/CosmoLike/cocoa_lsst_y1/blob/main/EXAMPLE_MCMC1.yaml)
