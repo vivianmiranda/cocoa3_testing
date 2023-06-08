@@ -538,7 +538,7 @@ Tensorflow, Keras and Pytorch.
     'torch==1.11.0' \
     'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
 
-Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named cocoa (CPU-only), while the other could be named cocoaemu and contain the GPU versions of the machine learning packages.
+Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
 
 For users that opt for the manual installation method via Cocoa's internal cache, commenting the following environmental flags on the script will activate the installation of machine-learning-related libraries via pip. 
 
