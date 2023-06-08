@@ -420,7 +420,7 @@ The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but as CAMB Boltzmann co
 
 The adoption of $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya. The problem occurs when (1) the option `drop: true` is absent in $\Omega_m$ and $\Omega_b$ parameters, and (2) there is no derived $\Omega_c h^2$/$\Omega_b h^2$ expressions. The bug is silent because the MCMC runs smoothly without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are flawed, but they may still seem somewhat reasonable to those who are not familiar with the issue. It's important to be aware of this bug to avoid any potential inaccuracies in the results.
 
-The correct way to create YAML files with 
+The correct way to create YAML files with $\Omega_m$ and $\Omega_b$ as main MCMC parameters is shown below 
 
         omegab:
             prior:
