@@ -90,7 +90,7 @@ When loading conda cocoa environment for the first time, users must also install
 
 ### (expert) Via Cocoa's internal cache <a name="required_packages_cache"></a>
 
-This method is slow and not advisable. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We provide a local copy of almost all required packages on Cocoa's cache folder named [cocoa_installation_libraries](https://github.com/CosmoLike/cocoa/tree/main/cocoa_installation_libraries). We assume the pre-installation of the following packages:
+This method is slow and not advisable. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We provide a local copy of almost all required packages on Cocoa's cache folder named *cocoa_installation_libraries*. We assume the pre-installation of the following packages:
 
    - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
    - [Git](https://git-scm.com) v1.8+;
@@ -113,7 +113,6 @@ To perform the local semi-autonomous installation, users must modify flags writt
     # --------------------------------------------------------------------------------------
     # --------------------------------------------------------------------------------------
     # --------------------------------------------------------------------------------------
-
     #export MINICONDA_INSTALLATION=1
     export MANUAL_INSTALLATION=1
     
@@ -166,9 +165,11 @@ Our scripts never install packages on `$HOME/.local`. All requirements for Cocoa
 
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
 
-Type:
+Assuming the user opted for the easier *Conda installation*, type:
 
-    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone https://github.com/SBU-UNESP-2022-COCOA/cocoa2.git
+    $ conda activate cocoa
+    
+    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone [github.com/CosmoLike/cocoa.git](https://github.com/CosmoLike/cocoa.git)
 
 to clone the repository. 
 
@@ -176,29 +177,32 @@ to clone the repository.
 
 (**expert**) Cocoa developers with set ssh keys in GitHub should use the command
 
-    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:SBU-UNESP-2022-COCOA/cocoa2.git
+    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:CosmoLike/cocoa.git
 
 Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below:
 
     [Extracted from set_installation_options script]
-    #  ---------------------------------------------------------------------------
-    # HOW COCOA BE INSTALLED? -------------------------------
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
+    # ----------------------- HOW COCOA SHOULD BE INSTALLED? -------------------------------
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
     export MINICONDA_INSTALLATION=1
     #export MANUAL_INSTALLATION=1
     
 The user must uncomment the appropriate key, and then type the following command
 
-    $ source setup_cocoa_installation_packages
+    $(cocoa) source setup_cocoa_installation_packages
 
 This script decompress the data files and install all packages that may have been left out in the Conda/Docker/Manual installation. File decompression should only take a few minutes, while package installation time ranges from a few minutes (installation via *Conda*) to more than one hour (installation *via Cocoa's internal scripts and cache*).
 
 Finally, type
 
-    $ source compile_external_modules
+    $(cocoa) source compile_external_modules
     
-to compile CAMB, CLASS, Planck and Polychord.
-
-to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then read the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
+to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then refer to the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
 
 ## Running Cobaya Examples <a name="cobaya_base_code_examples"></a>
 
