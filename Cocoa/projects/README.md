@@ -1,6 +1,6 @@
 # Table of contents
 1. [The Projects Folder](#appendix_projects_folder)
-2. [Adapting LSST_Y1 repository to a new project](#appendix_lsst_y1_new)
+2. [Adapting the COCOA_LSST_Y1 repository to a new project](#appendix_lsst_y1_new)
    1. [Minor changes: the easy way](#appendix_lsst_y1_new_small)
    2. [Minor changes: the hard way](#appendix_lsst_y1_new_small2)
    3. [Major changes](#appendix_lsst_y1_new_major)
@@ -43,7 +43,7 @@ Projects should be hosted on independent GitHub repositories; our convention is 
     |    +-- EXAMPLE_EVALUATE_1.YAML
     |    +-- EXAMPLE_MCMC_1.YAML
 
-# Adapting LSST_Y1 repository to a new project <a name="appendix_lsst_y1_new"></a> 
+# Adapting the COCOA_LSST_Y1 repository to a new project <a name="appendix_lsst_y1_new"></a> 
 
 Adapting the LSST_Y1 folder to construct a new project involves many small core changes and a few major ones. They are tedious but straightforward. The easier way to apply most of the minor core changes to the code is via the bash script *transfer_project.sh*.
 
