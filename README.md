@@ -290,7 +290,7 @@ By no means, we want to discourage people from cloning code from their original 
 
 ### The whovian-cocoa docker container <a name="appendix_jupyter_whovian"></a>
 
-We provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. This docker image assumes the user already has the docker engine installed on their local PC. For instructions on installing the docker engine on your specific operating system, please refer to [Docker's official documentation](https://docs.docker.com/engine/install/). 
+We provide the docker image [whovian-cocoa](https://hub.docker.com/r/vivianmiranda/whovian-cocoa) to promote the installation of Cocoa on Windows/MacOS. This docker image assumes the user already has the docker engine installed on their local PC. For instructions on installing the docker engine on your specific operating system, please refer to [Docker's official documentation](https://docs.docker.com/engine/install/). 
 
 To download and run the container for the first time, type:
 
