@@ -64,7 +64,7 @@ Type the following commands to create the cocoa Conda environment.
        'conda-forge::scipy=1.7.2' \
        'conda-forge::pandas=1.3.4' \
        'conda-forge::mpi4py=3.1.2' \
-       'conda-forge::matplotlib=3.5.0' \
+       'conda-forge::matplotlib=3.5.1' \
        'conda-forge::astropy=4.3.1'
       
 For machine-learning emulator projects, please refer to appendix [Setting-up conda environment for Machine Learning emulators](ml_emulators) for further instructions
@@ -522,6 +522,7 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
         $ conda activate cocoa 
       
         $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'gpy==1.10'
             'tensorflow-cpu==2.8.0' \
             'keras==2.8.0' \
             'keras-preprocessing==1.1.2' \
@@ -532,6 +533,7 @@ In case there are GPUs available, the following commands will install the GPU ve
 Tensorflow, Keras and Pytorch.
 
         $(cocoa) CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'gpy==1.10'
             'tensorflow==2.8.0' \
             'keras==2.8.0' \
             'keras-preprocessing==1.1.2' \
