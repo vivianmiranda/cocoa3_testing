@@ -179,7 +179,7 @@ to clone the repository.
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:CosmoLike/cocoa.git
 
-Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below:
+Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the *set_installation_options* script (Cocoa/ subdirectory), as shown below:
 
     [Extracted from set_installation_options script]
     # --------------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ Cocoa is made aware of the chosen installation method of required packages via s
     export MINICONDA_INSTALLATION=1
     #export MANUAL_INSTALLATION=1
     
-The user must uncomment the appropriate key, and then type the following command
+The user must uncomment the appropriate key (here, we assume Conda), and then type the following command
 
     $(cocoa) source setup_cocoa_installation_packages
 
