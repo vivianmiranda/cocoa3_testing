@@ -190,7 +190,7 @@ Cocoa is made aware of the chosen installation method of required packages via s
     export MINICONDA_INSTALLATION=1
     #export MANUAL_INSTALLATION=1
     
-The user must uncomment the appropriate key (here, we assume Conda), and then type the following command
+The user must uncomment the appropriate key (here, we assume `MINICONDA_INSTALLATION`), and then type the following command
 
     $(cocoa) source setup_cocoa_installation_packages
 
