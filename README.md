@@ -9,9 +9,9 @@
 7. [Creating Cosmolike projects](#creating_cosmolike_projects)
 8. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
-    2. [Miniconda Installation](#overview_miniconda)
-    3. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
-    4. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
+    2. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
+    3. [Miniconda Installation](#overview_miniconda)
+    4. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     5. [Warning about Weak Lensing YAML files](#appendix_example_runs)
 9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
 10. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
@@ -330,38 +330,6 @@ The following is not an exhaustive list of the codes we use
 
 By no means, we want to discourage people from cloning code from their original repositories. We've included these codes as compressed [xz file format](https://tukaani.org/xz/format.html) in our repository for convenience in the initial development. The work of those authors is extraordinary, and they must be properly cited.
 
-### Miniconda Installation <a name="overview_miniconda"></a>
-
-Download and run Miniconda installation script (please adapt `CONDA_DIR`):
-
-    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
-
-    mkdir $CONDA_DIR
-
-    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
-    
-    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
-
-After installation, users must source conda configuration file
-
-    source $CONDA_DIR/etc/profile.d/conda.sh \
-    && conda config --set auto_update_conda false \
-    && conda config --set show_channel_urls true \
-    && conda config --set auto_activate_base false \
-    && conda config --prepend channels conda-forge \
-    && conda config --set channel_priority strict \
-    && conda init bash
-    
-### Compiling Boltzmann, CosmoLike and Likelihood codes separatelly <a name="appendix_compile_separatelly"></a>
-
-To avoid excessive compilation times during development, users can use specialized scripts located at `Cocoa/installation_scripts/` that compile only a specific module. A few examples of these scripts are: 
-
-    $(cocoa)(.local) source ./installation_scripts/compile_class
-    $(cocoa)(.local) source ./installation_scripts/compile_camb
-    $(cocoa)(.local) source ./installation_scripts/compile_planck
-    $(cocoa)(.local) source ./installation_scripts/compile_act
-    $(cocoa)(.local) source ./installation_scripts/setup_polychord
-   
 ### The whovian-cocoa docker container <a name="appendix_jupyter_whovian"></a>
 
 We provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. This docker image assumes the user already has the docker engine installed on their local PC. For instructions on installing the docker engine on your specific operating system, please refer to [Docker's official documentation](https://docs.docker.com/engine/install/). 
@@ -409,6 +377,38 @@ Below, we assume the user runs the container in a server with the URL `your_seve
 
 Finally, go to a browser and type `http://localhost:8080/?token=XXX`, where `XXX` is the previously saved token.
 
+### Miniconda Installation <a name="overview_miniconda"></a>
+
+Download and run Miniconda installation script (please adapt `CONDA_DIR`):
+
+    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
+
+    mkdir $CONDA_DIR
+
+    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
+    
+    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
+
+After installation, users must source conda configuration file
+
+    source $CONDA_DIR/etc/profile.d/conda.sh \
+    && conda config --set auto_update_conda false \
+    && conda config --set show_channel_urls true \
+    && conda config --set auto_activate_base false \
+    && conda config --prepend channels conda-forge \
+    && conda config --set channel_priority strict \
+    && conda init bash
+    
+### Compiling Boltzmann, CosmoLike and Likelihood codes separatelly <a name="appendix_compile_separatelly"></a>
+
+To avoid excessive compilation times during development, users can use specialized scripts located at `Cocoa/installation_scripts/` that compile only a specific module. A few examples of these scripts are: 
+
+    $(cocoa)(.local) source ./installation_scripts/compile_class
+    $(cocoa)(.local) source ./installation_scripts/compile_camb
+    $(cocoa)(.local) source ./installation_scripts/compile_planck
+    $(cocoa)(.local) source ./installation_scripts/compile_act
+    $(cocoa)(.local) source ./installation_scripts/setup_polychord
+    
 ### Examples of Weak Lensing Runs <a name="appendix_example_runs"></a>
 
 We have provided examples of Weak Lensing runs within specific projects such as:
@@ -417,7 +417,3 @@ We have provided examples of Weak Lensing runs within specific projects such as:
 - [DES-Y3](https://github.com/CosmoLike/cocoa_des_y3/blob/main/EXAMPLE_MCMC1.yaml)
 
 (**Warning**) The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$ where as camb **ONLY accepts** $\Omega_c h^2$ and $\Omega_b h^2$. In the YAMLs we provided, we included the option `drop: true` and the derived expressions to convert from $\Omega_m$/$\Omega_b$ to $\Omega_c h^2$/$\Omega_b h^2$. **Be aware that if this conversion is not present in the YAML file, a silent/terrible bug will be created**: the chains will continue to run without the matter density being updated on CAMB. Always ensure that the conversion is included in your YAML file when adopting the  $\Omega_m$/$\Omega_b$ parameterization.
-
-
-(**warning**) There isn't permanent storage outside `/home/whovian/host/`. Be aware of this fact to not lose any work
-
