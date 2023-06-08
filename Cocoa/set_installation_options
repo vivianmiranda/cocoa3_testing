@@ -1,0 +1,229 @@
+source ./installation_scripts/impl_unset_keys.sh
+export ROOTDIR=$PWD
+
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# ----------------------- HOW COCOA SHOULD BE INSTALLED? -------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+
+export MINICONDA_INSTALLATION=1
+#export MANUAL_INSTALLATION=1
+
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# ---------------------------------- GLOBAL SETTINGS -----------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------------
+# ----- SETUP_REQUIRED_PACKAGES SCRIPT MAY TAKE A LONG TIME - THREADING W/ 4 CORES -----
+# --------------------------------------------------------------------------------------
+export THREAD_UNXZ=1
+export MAKE_NUM_THREADS=4
+
+# --------------------------------------------------------------------------------------
+# --------- IF TRUE, THEN COCOA USES CLIK FROM https://github.com/benabed/clik ---------
+# --------------------------------------------------------------------------------------
+export USE_SPT_CLIK_PLANCK=1
+
+# --------------------------------------------------------------------------------------
+# ----- IF DEFINED, COSMOLIKE WILL BE COMPILED WITH DEBUG FLAG -------------------------
+# ----- DEBUG FLAG = ALL COMPILER WARNINGS + NO MATH OPTIMIZATION + NO OPENMP ----------
+# --------------------------------------------------------------------------------------
+#export COSMOLIKE_DEBUG_MODE=1
+
+# --------------------------------------------------------------------------------------
+# ----------------- CONTROL OVER THE COMPILATION OF EXTERNAL CODES ---------------------
+# --------------------------------------------------------------------------------------
+#export IGNORE_CAMB_COMPILATION=1
+#export IGNORE_CLASS_COMPILATION=1
+#export IGNORE_COSMOLIKE_COMPILATION=1
+#export IGNORE_POLYCHORD_COMPILATION=1
+#export IGNORE_PLANCK_COMPILATION=1
+#export IGNORE_ACT_COMPILATION=1
+# --------------------------------------------------------------------------------------
+# --- IN CASE SOME PREREQUISITE PACKAGE FAILS TO COMPILE, THESE FLAGS CAN BE USEFUL  ---
+# --------------------------------------------------------------------------------------
+#export DEBUG_CPP_PACKAGES=1
+#export DEBUG_C_PACKAGES=1
+#export DEBUG_FORTRAN_PACKAGES=1
+
+
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+
+
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------- DERIVED OPTIONS  -----------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+if [ -n "${MANUAL_INSTALLATION}" ]; then
+
+    export GLOBAL_PACKAGES_LOCATION=/usr/local
+    export PYTHON_VERSION=3
+    export FORTRAN_COMPILER=gfortran
+    
+    export C_COMPILER=gcc
+    export CXX_COMPILER=g++
+    export GLOBALPYTHON3=python3
+    export MPI_FORTRAN_COMPILER=mpif90
+    export MPI_CXX_COMPILER=mpicc
+    export MPI_CC_COMPILER=mpicxx
+
+    # IF TRUE, THEN COCOA ADOPTS FFTW10. OTHERWISE, COCOA ADOPTS FFTW8
+    #export FFTW_NEW_VERSION=1
+    #export DONT_USE_SYSTEM_PIP_PACKAGES=1
+    
+    # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
+    #export IGNORE_EMULATOR_PIP_PACKAGES=1
+
+    #export IGNORE_DISTUTILS_INSTALLATION=1
+    #export IGNORE_OPENBLAS_INSTALLATION=1
+    #export IGNORE_XZ_INSTALLATION=1
+    #export IGNORE_ALL_PIP_INSTALLATION=1
+    #export IGNORE_CMAKE_INSTALLATION=1
+    #export IGNORE_CPP_BOOST_INSTALLATION=1
+    #export IGNORE_CPP_ARMA_INSTALLATION=1
+    #export IGNORE_CPP_SPDLOG_INSTALLATION=1
+    #export IGNORE_C_GSL_INSTALLATION=1
+    #export IGNORE_C_CFITSIO_INSTALLATION=1
+    #export IGNORE_C_FFTW_INSTALLATION=1
+    #export IGNORE_OPENBLAS_INSTALLATION=1
+    #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+
+    if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
+        export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake
+        export CMAKE=$ROOTDIR/.local/bin/cmake
+    else
+        export CMAKE=cmake
+    fi
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+elif [ -n "${MINICONDA_INSTALLATION}" ]; then
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+    export PATH=$CONDA_PREFIX/bin:$PATH
+    
+    export LDFLAGS="-L$CONDA_PREFIX/lib":$LDFLAGS
+
+    export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CPLUS_INCLUDE_PATH
+    export C_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$C_INCLUDE_PATH
+    
+    export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/lib/python${PYTHON_VERSION}/site-packages/numpy/core/include/:$CPLUS_INCLUDE_PATH
+    export C_INCLUDE_PATH=$CONDA_PREFIX/lib/python${PYTHON_VERSION}/site-packages/numpy/core/include:$C_INCLUDE_PATH
+    
+    export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include:$CPLUS_INCLUDE_PATH
+    export C_INCLUDE_PATH=$CONDA_PREFIX/include:$C_INCLUDE_PATH
+
+    export GLOBALPYTHON3=$CONDA_PREFIX/bin/python3.7
+    export GLOBAL_PACKAGES_LOCATION=$CONDA_PREFIX
+
+    export PYTHON_VERSION=3.7
+    export PYTHONPATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$PYTHONPATH
+    export PYTHONPATH=$CONDA_PREFIX/lib:$PYTHONPATH
+    
+    # This causes errors on SeaWulf
+    #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib
+
+    export LD_RUN_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$LD_RUN_PATH
+    export LD_RUN_PATH=$CONDA_PREFIX/lib:$LD_RUN_PATH
+    
+    export LIBRARY_PATH=$LIBRARY_PATH:$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages
+    export LIBRARY_PATH=$LIBRARY_PATH:$CONDA_PREFIX/lib
+
+    export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CMAKE_INCLUDE_PATH
+    export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/:$CMAKE_INCLUDE_PATH    
+    export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$CMAKE_LIBRARY_PATH
+    export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib:$CMAKE_LIBRARY_PATH
+
+    export INCLUDE_PATH=$CONDA_PREFIX/include/:$INCLUDE_PATH
+    export INCLUDEPATH=$CONDA_PREFIX/include/:$INCLUDEPATH
+    export INCLUDE=$CONDA_PREFIX/include/:$INCLUDE
+    export CPATH=$CONDA_PREFIX/include/:$CPATH
+
+    export OBJC_INCLUDE_PATH=$CONDA_PREFIX/include/:OBJC_INCLUDE_PATH
+    export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
+
+    ulimit -s unlimited
+
+    export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
+    export C_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
+    export CXX_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
+    
+    export MPI_FORTRAN_COMPILER=$CONDA_PREFIX/bin/mpif90
+    export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicc
+    export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicxx
+
+    export IGNORE_XZ_INSTALLATION=1
+    export IGNORE_DISTUTILS_INSTALLATION=1
+    export IGNORE_C_GSL_INSTALLATION=1
+    export IGNORE_C_CFITSIO_INSTALLATION=1
+    export IGNORE_C_FFTW_INSTALLATION=1
+    export IGNORE_CPP_BOOST_INSTALLATION=1
+    export IGNORE_CMAKE_INSTALLATION=1
+    export IGNORE_OPENBLAS_INSTALLATION=1
+    export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+    export IGNORE_CPP_ARMA_INSTALLATION=1
+
+    if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
+        export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake
+        export CMAKE=$ROOTDIR/.local/bin/cmake
+    else
+        export CMAKE=cmake
+    fi
+fi
+# --------------------------------------------------------------------------------------
+if [ -n "${IGNORE_CPP_INSTALLATION}" ]; then
+    export IGNORE_CPP_BOOST_INSTALLATION=1
+    export IGNORE_CPP_ARMA_INSTALLATION=1
+    export IGNORE_CPP_SPDLOG_INSTALLATION=1
+    export IGNORE_CPP_CARMA_INSTALLATION=1
+fi
+# --------------------------------------------------------------------------------------
+if [ -n "${IGNORE_C_INSTALLATION}" ]; then
+    export IGNORE_C_CFITSIO_INSTALLATION=1
+    export IGNORE_C_FFTW_INSTALLATION=1
+    export IGNORE_C_GSL_INSTALLATION=1
+fi
+# --------------------------------------------------------------------------------------
+if [ -n "${IGNORE_FORTRAN_INSTALLATION}" ]; then
+    export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+fi
+# --------------------------------------------------------------------------------------
+if [ -n "${GLOBAL_PACKAGES_LOCATION}" ]; then
+    export GLOBAL_PACKAGES_INCLUDE=$GLOBAL_PACKAGES_LOCATION/include
+    export GLOBAL_PACKAGES_LIB=$GLOBAL_PACKAGES_LOCATION/lib
+fi
+# --------------------------------------------------------------------------------------
+if [ -z "${THREAD_UNXZ}" ]; then
+    export MAKE_NUM_THREADS=1
+fi
+# --------------------------------------------------------------------------------------
+export PIP3=$ROOTDIR/.local/bin/pip$PYTHON_VERSION
+export PYTHON3=$ROOTDIR/.local/bin/python$PYTHON_VERSION
+export COBAYA_PACKAGES_PATH=external_modules
+# --------------------------------------------------------------------------------------
+if [ -n "${COSMOLIKE_DEBUG_MODE}" ]; then
+    export SPDLOG_LEVEL=debug
+else
+    export SPDLOG_LEVEL=info
+fi
+# --------------------------------------------------------------------------------------
