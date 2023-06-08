@@ -169,7 +169,7 @@ Assuming the user opted for the easier *Conda installation*, type:
 
     $ conda activate cocoa
     
-    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone [github.com/CosmoLike/cocoa.git](https://github.com/CosmoLike/cocoa.git)
+    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone https://github.com/CosmoLike/cocoa.git
 
 to clone the repository. 
 
