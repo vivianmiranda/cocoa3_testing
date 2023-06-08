@@ -312,8 +312,6 @@ The `XXX` project needs to have more or less the following structure
     |    +-- chains
     |    |   +-- README
 
-We expect to have a public project that can be used as a template for new Cosmolike projects in the near future.
-
 ## Appendix <a name="appendix"></a>
 
 ### Proper Credits <a name="appendix_proper_credits"></a>
