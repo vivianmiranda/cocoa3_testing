@@ -28,11 +28,11 @@ This readme file presents basic and advanced instructions for installing all [Co
 
 ## Installation of Cocoa's required packages <a name="required_packages"></a>
 
-[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require many C, C++ and Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicate the installation of Cocoa in HPC environments and the verification of numerical results. This section standardize the package environment.
+[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require many C, C++ and Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicates the installation of Cocoa in HPC environments and the verification of numerical results. This section standardizes the package environment.
 
 There are two installation methods. Users must choose one of them:
 
-1. [Via Conda](#required_packages_conda) (best)
+1. [Via Conda](#required_packages_conda) (easier, best)
 3. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable)
 
 ### Via Conda (best for Linux/HPC) <a name="required_packages_conda"></a>
