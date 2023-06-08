@@ -194,7 +194,7 @@ The user must uncomment the appropriate key (here, we assume `MINICONDA_INSTALLA
     $(cocoa) cd ./Cocoa/
     $(cocoa) source setup_cocoa_installation_packages
 
-This script decompresses the data files and installs any remaining necessary packages. File decompression should only take a few minutes. Depending on the installation method, package installation time ranges from a few minutes (installation via Conda) to more than one hour (installation via Cocoa's internal cache). Finally, type
+`Cocoa/` is the Cocoa main folder. The script `setup_cocoa_installation_packages` decompresses the data files and installs any remaining necessary packages. File decompression should only take a few minutes. On the other hand, package installation time ranges, depending on the installation method, from a few minutes (installation via Conda) to more than one hour (installation via Cocoa's internal cache). Finally, type
 
     $(cocoa) source compile_external_modules
     
