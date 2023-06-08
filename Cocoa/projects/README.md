@@ -118,14 +118,14 @@ After that, just type
 
     def __bootstrap__():
         (...)
-        // change cosmolike_des_y3_interface.so to cosmolike_XXX_interface.so in the line below 
-        __file__ = pkg_resources.resource_filename(__name__,'cosmolike_des_y3_interface.so')
+        // change cosmolike_lsst_y1_interface.so to cosmolike_XXX_interface.so in the line below 
+        __file__ = pkg_resources.resource_filename(__name__,'cosmolike_lsst_y1_interface.so')
         
 **Step 4** Change the file `$ROOTDIR/projects/XXX/interface/interface.cpp` following the instructions below
     
     (...)
     
-    // change cosmolike_des_y3_interface to cosmolike_XXX_interface in the line below
+    // change cosmolike_lsst_y1_interface to cosmolike_XXX_interface in the line below
     PYBIND11_MODULE(cosmolike_lsst_y1_interface, m)
     {
         // change the description below
@@ -140,15 +140,15 @@ After that, just type
     
     $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/compile_lsst_y1 $ROOTDIR/projects/XXX/scripts/compile_XXX
     
-**Step 2:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/start_des_y3` using the command below 
+**Step 2:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/start_lsst_y1` using the command below 
     
     $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/start_lsst_y1 $ROOTDIR/projects/XXX/scripts/start_XXX
     
-**Step 3:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/stop_des_y3` using the command below 
+**Step 3:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/stop_lsst_y1` using the command below 
     
     $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/stop_lsst_y1 $ROOTDIR/projects/XXX/scripts/stop_XXX
 
-**Step 4:** Change the file `$ROOTDIR/projects/XXX/scripts/compile_des_y3` following the instructions below
+**Step 4:** Change the file `$ROOTDIR/projects/XXX/scripts/compile_lsst_y1` following the instructions below
 
     (...)
 
@@ -329,4 +329,3 @@ Similar changes must be made in `params_XXX_cosmic_shear.yaml`. Note that change
 * Simulation of new `n(z)` for lenses and sources
 * Updates to the Cosmolike C++ interface so the appropriate routines can be called from the Python likelihood
 * Updates to the Cosmolike Python likelihoods and their associated Yaml files. These include, for example, `/likelihood/lsst_3x2pt.py` and `/likelihood/lsst_3x2pt.yaml`
-* Updates to the `/data/DES_Y3.dataset`
