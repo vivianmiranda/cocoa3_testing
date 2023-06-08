@@ -64,7 +64,7 @@ Type the following commands to create the cocoa Conda environment.
        'conda-forge::scipy=1.7.2' \
        'conda-forge::pandas=1.3.4' \
        'conda-forge::mpi4py=3.1.2' \
-       'conda-forge::matplotlib=3.5.0' \
+       'conda-forge::matplotlib=3.5.1' \
        'conda-forge::astropy=4.3.1'
       
 For machine-learning emulator projects, please refer to appendix [Setting-up conda environment for Machine Learning emulators](ml_emulators) for further instructions
