@@ -10,10 +10,9 @@
 8. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
     2. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
-    4. [Summary Information about Cocoa's configuration files](#appendix_config_files)
-    5. [Miniconda Installation](#overview_miniconda)
-    6. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
-    7. [Warning about Weak Lensing YAML files](#appendix_example_runs)
+    3. [Miniconda Installation](#overview_miniconda)
+    4. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
+    5. [Warning about Weak Lensing YAML files](#appendix_example_runs)
 9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
 10. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
  
@@ -339,22 +338,6 @@ To avoid excessive compilation times during development, users can use specializ
     $(cocoa)(.local) source ./installation_scripts/compile_planck
     $(cocoa)(.local) source ./installation_scripts/compile_act
     $(cocoa)(.local) source ./installation_scripts/setup_polychord
-
-### Summary Information about Cocoa's configuration files <a name="appendix_config_files"></a>
-
-The installation of Cocoa required packages, as well as Boltzmann and Likelihood codes, are managed via the following scripts located at `./Cocoa`.
-
- - set_installation_options: this file contains environment variables that manage the installation process.
-
- - setup_cocoa_installation_packages: this file has instructions on how to install packages required by the Cocoa Framework.
-
- - compile_external_modules: this file has instructions on how to compile Boltzmann, Sampler and likelihood codes. 
-
- - start_cocoa: this file has instructions on how to set up the Python virtual environment.
-
- - stop_cocoa: this file has instructions on how to unset the Python virtual environment. 
-
- - clean_all: this file has instructions on how to restore Cocoa to a clean state.
 
 ### Miniconda Installation <a name="overview_miniconda"></a>
 
