@@ -85,7 +85,7 @@ When loading conda cocoa environment for the first time, users must also install
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs install
 
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)** 
+Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
 
 ### (expert) Via Cocoa's internal cache <a name="required_packages_cache"></a>
 
@@ -160,7 +160,7 @@ Our scripts never install packages on `$HOME/.local`. All requirements for Cocoa
     Cocoa/.local/lib
     Cocoa/.local/share
 
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
+Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
 
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
 
