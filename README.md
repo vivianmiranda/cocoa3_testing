@@ -35,7 +35,7 @@ There are two installation methods. Users must choose one of them:
 1. [Via Conda](#required_packages_conda) (easier, best)
 3. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable)
 
-### Via Conda (best for Linux/HPC) <a name="required_packages_conda"></a>
+### Via Conda <a name="required_packages_conda"></a>
 
 The most straightforward way to install Cocoa's prerequisites is via [Conda](https://github.com/conda/conda). We assume here the user had previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see section [Miniconda Installation](#sbu_overview_anaconda).
 
