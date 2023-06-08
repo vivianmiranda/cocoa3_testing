@@ -4,34 +4,29 @@
 3. [Minor core changes when adapting DES_Y3 to a new project - the easy way](#appendix_des_y3_new_small)
 3. [Minor core changes when adapting DES_Y3 to a new project - the hard way](#appendix_des_y3_new_small2)
  
-## The Projects Folder <a name="appendix_projects_folder"></a> 
+# The Projects Folder <a name="appendix_projects_folder"></a> 
 
-The `projects` folder includes all the projects that our group is developing. Individual projects must be hosted on independent folders named `cocoa_XXX` where XXX is the project name. The majority of projects we are working on are not public (yet). However, the backbone Cosmolike software is publicly available at `external_modules/code`.
+The `projects` folder includes all the projects linked to Cosmolike; they can also help organize general investigations even if they don't use Cosmolike directly. 
 
-The `cocoa_XXX` folder that host the `XXX` project needs to have more or less the following structure (taken from our private DES_Y3 project)
+Individual projects should be hosted on independent GitHub repositories; our convention is to  `cocoa_XXX`, where XXX is the project name. Projects that utilize Cosmolike needs to have more or less the following structure, taken from a [LSST_Y1 project](https://github.com/CosmoLike/cocoa_lsst_y1)
 
-    +-- cocoa_des_y3
+    +-- cocoa_lsst_y1
     |    +-- likelihood
     |    |   +-- _cosmolike_prototype_base.py
-    |    |   +-- des_3x2pt.py
-    |    |   +-- des_3x2pt.yaml
-    |    |   +-- des_2x2pt.py
-    |    |   +-- des_2x2pt.yaml
-    |    |   +-- des_clustering.py
-    |    |   +-- des_clustering.yaml
-    |    |   +-- des_cosmic_shear.py
-    |    |   +-- des_cosmic_shear.yaml
-    |    |   +-- des_ggl.py
-    |    |   +-- des_ggl.yaml
-    |    |   +-- des_xi_ggl.py
-    |    |   +-- des_xi_ggl.yaml
+    |    |   +-- lsst_3x2pt.py
+    |    |   +-- lsst_3x2pt.yaml
+    |    |   +-- lsst_2x2pt.py
+    |    |   +-- lsst_2x2pt.yaml
+    |    |   +-- lsst_clustering.py
+    |    |   +-- lsst_clustering.yaml
+    |    |   +-- lsst_cosmic_shear.py
+    |    |   +-- lsst_cosmic_shear.yaml
     |    +-- scripts
-    |    |   +-- compile_des_y3
-    |    |   +-- start_des_y3
-    |    |   +-- stop_des_y3
+    |    |   +-- compile_lsst_y1
+    |    |   +-- start_lsst_y1
+    |    |   +-- stop_lsst_y1
     |    +-- data
-    |    |   +-- DES.paramnames
-    |    |   +-- DES_Y3.dataset
+    |    |   +-- LSST_Y1.dataset
     |    |   +-- datavector.txt
     |    |   +-- covariance.txt
     |    |   +-- nzlens.txt
@@ -39,46 +34,33 @@ The `cocoa_XXX` folder that host the `XXX` project needs to have more or less th
     |    |   +-- mask.mask
     |    +-- interface
     |    |   +-- MakefileCosmolike
-    |    |   +-- cosmolike_des_y3_interface.py
+    |    |   +-- cosmolike_lsst_y1_interface.py
     |    |   +-- interface.cpp
     |    |   +-- interface.hpp
     |    +-- chains
     |    |   +-- README
+    |    +-- EXAMPLE_EVALUATE_1.YAML
+    |    +-- EXAMPLE_MCMC_1.YAML
 
-## Adapting DES_Y3 to a new project <a name="appendix_des_y3_new"></a> 
+# Adapting LSST_Y1 to a new project <a name="appendix_des_y3_new"></a> 
 
-(**warning**) The `DES_Y3` project is not public yet, but our group will be release the code soon. 
+Adapting the LSST_Y1 folder to construct a new project involves many small core changes and a few major ones. They are tedious but straightforward. The easier way to apply most of the minor core changes to the code is via the bash script *transfer_project.sh*.
 
-Adapting the DES_Y3` folder to construct a new project involves many small core changes and a few major ones. **All minor core changes have been automatized in the script [transfer_project.sh](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/projects/transfer_project.sh)**.
+## Minor changes: the easy way <a name="appendix_des_y3_new_small"></a> 
 
-**The Major changes are:**
+ To properly use the bash script *transfer_project.sh*., users must set the following variables at the beginning of the file:
 
-* Computation of the covariance matrix using either [CosmoCov](https://github.com/CosmoLike/CosmoCov) or [CosmoCovFourier](https://github.com/CosmoLike/CosmoCov_Fourier) (replacing `/projects/des_y3/data/cov_Y3.txt`)
-* Simulation of new `n(z)` for lenses and sources (replacing `/projects/des_y3/data/nz_lens_Y3.txt` and `/projects/des_y3/data/nz_source_Y3.txt`)
-* Changes to the Cosmolike C++ interface so the appropriate routines can be called from the Python likelihood (will your project compute `3x2pt`, `6x2pt`, `4x2pt+N` or what?)
-* Changes to the Cosmolike Python likelihood so `Cobaya` can call the appropriate routines
-* Additional changes in the files located at `/data`, including the `DES_Y3.dataset`
-* Changes to the number of lens and source bins in `.dataset` and in `params_XXX_3x2pt` files (and any additional files where the nuisance parameters are listed)
+     OLD_PROJECT="lsst_y1"
+     OLD_SURVEY="LSST"
 
-We list below the long list of small core changes so the C - C++ - Python interface can work flawlessly. They are tedious but straightforward. **All core changes have been automatized in the script [transfer_project.sh](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/projects/transfer_project.sh)**
-
-## Minor core changes when adapting DES_Y3 to a new project - the easy way <a name="appendix_des_y3_new_small"></a> 
-
-The easier way to create a new project and apply the many minor core changes to the code is via the bash script [transfer_project.sh](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/projects/transfer_project.sh). To proper use the bash script, users must set the following variables (set at the beginning of the [transfer_project.sh](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/projects/transfer_project.sh) file):
-
-     OLD_PROJECT="des_y3"
-     OLD_SURVEY="DES"
-
-     NEW_PROJECT="lsst_y1"
-     NEW_SURVEY="LSST"
+     NEW_PROJECT="des_y3"
+     NEW_SURVEY="DES"
 
 After that, just type
 
      $(cocoa)(.local) bash transfer_project.sh
 
-(**Warning**): It Goes Without Saying that the script [transfer_project.sh](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/projects/transfer_project.sh) **does not magically transform DES into LSST (or Roman) analysis**. [transfer_project.sh](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/projects/transfer_project.sh) **only perform the appropriate renaming of files, scripts and links**
-
-## Minor core changes when adapting DES_Y3 to a new project - the hard way <a name="appendix_des_y3_new_small2"></a> 
+## Minor changes: the hard way <a name="appendix_des_y3_new_small2"></a> 
 
 ### Create the new project
 
@@ -387,3 +369,11 @@ Replace the `DES_` prefix to the name of the survey associated w/ XXX.
      $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.input.yaml
      $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.updated.yaml 
      $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.pyc
+
+**Major changes:**
+
+* Computation of a new covariance matrix using either [CosmoCov](https://github.com/CosmoLike/CosmoCov) or [CosmoCovFourier](https://github.com/CosmoLike/CosmoCov_Fourier)
+* Simulation of new `n(z)` for lenses and sources
+* Updates to the Cosmolike C++ interface so the appropriate routines can be called from the Python likelihood
+* Updates to the Cosmolike Python likelihoods and their associated Yaml files. These include, for example, `/likelihood/lsst_3x2pt.py` and `/likelihood/lsst_3x2pt.yaml`
+* Updates to the `/data/DES_Y3.dataset`
