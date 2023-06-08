@@ -123,31 +123,37 @@ Finally, set the following environmental keys
   
     elif [ -n "${MANUAL_INSTALLATION}" ]; then
 
-      export GLOBAL_PACKAGES_LOCATION=/usr/local
-      export PYTHON_VERSION=3
-      export FORTRAN_COMPILER=gfortran
-    
-      export C_COMPILER=gcc
-      export CXX_COMPILER=g++
-      export GLOBALPYTHON3=python3
-      export MPI_FORTRAN_COMPILER=mpif90
-      export MPI_CXX_COMPILER=mpicc
-      export MPI_CC_COMPILER=mpicxx
-    
-      # In case global packages are available 
-      #export IGNORE_DISTUTILS_INSTALLATION=1
-      #export IGNORE_OPENBLAS_INSTALLATION=1
-      #export IGNORE_XZ_INSTALLATION=1
-      #export IGNORE_ALL_PIP_INSTALLATION=1
-      #export IGNORE_CMAKE_INSTALLATION=1
-      #export IGNORE_CPP_BOOST_INSTALLATION=1
-      #export IGNORE_CPP_ARMA_INSTALLATION=1
-      #export IGNORE_CPP_SPDLOG_INSTALLATION=1
-      #export IGNORE_C_GSL_INSTALLATION=1
-      #export IGNORE_C_CFITSIO_INSTALLATION=1
-      #export IGNORE_C_FFTW_INSTALLATION=1 
-      #export IGNORE_OPENBLAS_INSTALLATION=1
-      #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+        export GLOBAL_PACKAGES_LOCATION=/usr/local
+        export PYTHON_VERSION=3
+        export FORTRAN_COMPILER=gfortran
+
+        export C_COMPILER=gcc
+        export CXX_COMPILER=g++
+        export GLOBALPYTHON3=python3
+        export MPI_FORTRAN_COMPILER=mpif90
+        export MPI_CXX_COMPILER=mpicc
+        export MPI_CC_COMPILER=mpicxx
+
+        # IF TRUE, THEN COCOA ADOPTS FFTW10. OTHERWISE, COCOA ADOPTS FFTW8
+        #export FFTW_NEW_VERSION=1
+        #export DONT_USE_SYSTEM_PIP_PACKAGES=1
+
+        # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
+        #export IGNORE_EMULATOR_PIP_PACKAGES=1
+
+        #export IGNORE_DISTUTILS_INSTALLATION=1
+        #export IGNORE_OPENBLAS_INSTALLATION=1
+        #export IGNORE_XZ_INSTALLATION=1
+        #export IGNORE_ALL_PIP_INSTALLATION=1
+        #export IGNORE_CMAKE_INSTALLATION=1
+        #export IGNORE_CPP_BOOST_INSTALLATION=1
+        #export IGNORE_CPP_ARMA_INSTALLATION=1
+        #export IGNORE_CPP_SPDLOG_INSTALLATION=1
+        #export IGNORE_C_GSL_INSTALLATION=1
+        #export IGNORE_C_CFITSIO_INSTALLATION=1
+        #export IGNORE_C_FFTW_INSTALLATION=1
+        #export IGNORE_OPENBLAS_INSTALLATION=1
+        #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
    
 Our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
 
