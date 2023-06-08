@@ -14,8 +14,8 @@
     4. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     5. [Warning about Weak Lensing YAML files in Cobaya](#appendix_example_runs)
     6. [Manual Blocking of Cosmolike Parameters](#manual_blocking_cosmolike)
-9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
-10. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
+9. [The projects folder (external readme)](Cocoa/projects/)
+10. [Adapting new modified CAMB/CLASS (external readme)](Cocoa/external_modules/code)
  
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
