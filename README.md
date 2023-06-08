@@ -22,14 +22,12 @@
 
 Cocoa allows users to run [CosmoLike](https://github.com/CosmoLike) routines inside the [Cobaya](https://github.com/CobayaSampler) framework. [CosmoLike](https://github.com/CosmoLike) can analyze data primarily from the [Dark Energy Survey](https://www.darkenergysurvey.org) and simulate future multi-probe analyses for LSST and Roman Space Telescope. Besides integrating [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike), Cocoa introduces shell scripts and readme instructions that allow users to containerize [Cobaya](https://github.com/CobayaSampler). The container structure ensures that users will adopt the same compiler and libraries (including their versions), and that they will be able to use multiple [Cobaya](https://github.com/CobayaSampler) instances consistently. This readme file presents basic and advanced instructions for installing all [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike) components.
 
-## Installation of Cocoa's required packages <a name="required_packages"></a>
-
-[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require many C, C++ and Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicates the installation of Cocoa in HPC environments and the verification of numerical results. Cocoa standardizes the package environment.
-
-There are two installation methods. Users must choose one of them:
+[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require several C/C++/Python packages to be installed as prerequisites. The existence of many compiler and package versions, each with a different set of bugs and regressions, complicates the installation of Cocoa in HPC environments and the verification of numerical results. In this context, Cocoa standardizes the package environment. There are two installation methods. Users must choose one of them:
 
 1. [Via Conda](#required_packages_conda) (easier, best)
-3. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable)
+2. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable) 
+
+## Installation of Cocoa's required packages <a name="required_packages"></a>
 
 ### Via Conda <a name="required_packages_conda"></a>
 
