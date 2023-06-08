@@ -65,11 +65,11 @@ After that, just type
 
 ### Create the new project
 
-**Step 1:** Choose a project name (e.g., project XXX), and copy the `DES_Y3` project using the command below
+**Step 1:** Choose a project name (e.g., project XXX), and copy the `LSST_Y1` project using the command below
     
-    $(cocoa)(.local) cp $ROOTDIR/projects/des_y3/ $ROOTDIR/projects/xxx
+    $(cocoa)(.local) cp $ROOTDIR/projects/lsst_y1/ $ROOTDIR/projects/xxx
 
-**Step 2:** Remove the git repository associated with DES_Y3` project
+**Step 2:** Remove the git repository associated with LSST_Y1 project
 
     $(cocoa)(.local) rm -rf $ROOTDIR/projects/$NEW_PROJECT/.git/
 
@@ -94,25 +94,25 @@ After that, just type
     (...)
     
     all:  shared
-    // change cosmolike_des_y3_interface.so to cosmolike_XXX_interface.so in the line below
-    shared: cosmolike_des_y3_interface.so
+    // change cosmolike_lsst_y1_interface.so to cosmolike_XXX_interface.so in the line below
+    shared: cosmolike_lsst_y1_interface.so
     
     (...)
     
-    // change cosmolike_des_y3_interface.so to cosmolike_XXX_interface.so in the line below
-    cosmolike_des_y3_interface.so: $(OBJECTC) $(CSOURCES) interface.cpp
+    // change cosmolike_lsst_y1_interface.so to cosmolike_XXX_interface.so in the line below
+    cosmolike_lsst_y1_interface.so: $(OBJECTC) $(CSOURCES) interface.cpp
         $(CXX) $(CXXFLAGS) -DCOBAYA_SAMPLER -shared -fPIC -o $@ $(OBJECTC) interface.cpp $(LDFLAGS)
         @rm *.o
     
     (...)
     
-    // change cosmolike_des_y3_interface.so to cosmolike_XXX_interface.so in the line below 
+    // change cosmolike_lsst_y1_interface.so to cosmolike_XXX_interface.so in the line below 
     clean:
-        @rm -rf cosmolike_des_y3_interface.so cosmolike_des_y3_interface.so.dSYM  *.o
+        @rm -rf cosmolike_lsst_y1_interface.so cosmolike_lsst_y1_interface.so.dSYM  *.o
 
-**Step 2:** Change the name of the File `$ROOTDIR/projects/XXX/interface/cosmolike_des_y3_interface.py` using the command below
+**Step 2:** Change the name of the File `$ROOTDIR/projects/XXX/interface/cosmolike_lsst_y1_interface.py` using the command below
     
-    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/interface/cosmolike_des_y3_interface.py $ROOTDIR/projects/XXX/interface/cosmolike_XXX_interface.py
+    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/interface/cosmolike_lsst_y1_interface.py $ROOTDIR/projects/XXX/interface/cosmolike_XXX_interface.py
 
 **Step 3** Changes in the newly created file `$ROOTDIR/projects/XXX/interface/cosmolike_XXX_interface.py` 
 
@@ -126,44 +126,44 @@ After that, just type
     (...)
     
     // change cosmolike_des_y3_interface to cosmolike_XXX_interface in the line below
-    PYBIND11_MODULE(cosmolike_des_y3_interface, m)
+    PYBIND11_MODULE(cosmolike_lsst_y1_interface, m)
     {
         // change the description below
-        m.doc() = "CosmoLike Interface for DES-Y3 3x2 Module";
+        m.doc() = "CosmoLike Interface for LSST_Y1 3x2pt Module";
         
        (...)
     }
     
 ### Changes in the script folder
 
-**Step 1:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/compile_des_y3` using the command below 
+**Step 1:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/compile_lsst_y1` using the command below 
     
-    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/compile_des_y3 $ROOTDIR/projects/XXX/scripts/compile_XXX
+    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/compile_lsst_y1 $ROOTDIR/projects/XXX/scripts/compile_XXX
     
 **Step 2:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/start_des_y3` using the command below 
     
-    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/start_des_y3 $ROOTDIR/projects/XXX/scripts/start_XXX
+    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/start_lsst_y1 $ROOTDIR/projects/XXX/scripts/start_XXX
     
 **Step 3:** Change the name of the file `$ROOTDIR/projects/XXX/scripts/stop_des_y3` using the command below 
     
-    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/stop_des_y3 $ROOTDIR/projects/XXX/scripts/stop_XXX
+    $(cocoa)(.local) mv $ROOTDIR/projects/XXX/scripts/stop_lsst_y1 $ROOTDIR/projects/XXX/scripts/stop_XXX
 
 **Step 4:** Change the file `$ROOTDIR/projects/XXX/scripts/compile_des_y3` following the instructions below
 
     (...)
 
-    // change $ROOTDIR/projects/des_y3/interface to $ROOTDIR/projects/XXX/interface in the line below 
-    cd $ROOTDIR/projects/des_y3/interface
+    // change $ROOTDIR/projects/lsst_y1/interface to $ROOTDIR/projects/XXX/interface in the line below 
+    cd $ROOTDIR/projects/lsst_y1/interface
     
-**Step 5:** Change the file `$ROOTDIR/projects/XXX/scripts/start_des_y3` following the instructions below
+**Step 5:** Change the file `$ROOTDIR/projects/XXX/scripts/start_lsst_y1` following the instructions below
 
     (...)
 
-    // change $ROOTDIR/projects/des_y3/interface to $ROOTDIR/projects/XXX/interface in the line below 
-    addvar LD_LIBRARY_PATH $ROOTDIR/projects/des_y3/interface
+    // change $ROOTDIR/projects/lsst_y1/interface to $ROOTDIR/projects/XXX/interface in the line below 
+    addvar LD_LIBRARY_PATH $ROOTDIR/projects/lsst_y1/interface
     
-    // change $ROOTDIR/projects/des_y3/interface to $ROOTDIR/projects/XXX/interface in the line below 
-    addvar PYTHONPATH $ROOTDIR/projects/des_y3/interface
+    // change $ROOTDIR/projects/lsst_y1/interface to $ROOTDIR/projects/XXX/interface in the line below 
+    addvar PYTHONPATH $ROOTDIR/projects/lsst_y1/interface
 
 ### Changes in the likelihood folder
 
@@ -171,8 +171,8 @@ After that, just type
 
     (...) 
     
-    // change cosmolike_des_y3_interface to cosmolike_XXX_interface in the line below 
-    import cosmolike_des_y3_interface as ci
+    // change cosmolike_lsst_y1_interface to cosmolike_XXX_interface in the line below 
+    import cosmolike_lsst_y1_interface as ci
     
     (...)
      
@@ -180,8 +180,8 @@ After that, just type
         ci.set_nuisance_shear_calib(
           M = [
             params_values.get(p, None) for p in [
-              // change DES_ to the name of the survey associated w/ XXX)
-              "DES_M"+str(i+1) for i in range(self.source_ntomo)
+              // change LSST_ to the name of the survey associated w/ XXX)
+              "LSST_M"+str(i+1) for i in range(self.source_ntomo)
             ]
           ]
         )
@@ -189,8 +189,8 @@ After that, just type
         ci.set_nuisance_shear_photoz(
           bias = [
             params_values.get(p, None) for p in [
-              // change DES_ to the name of the survey associated w/ XXX)
-              "DES_DZ_S"+str(i+1) for i in range(self.source_ntomo)
+              // change LSST_ to the name of the survey associated w/ XXX)
+              "LSST_DZ_S"+str(i+1) for i in range(self.source_ntomo)
             ]
           ]
         )
@@ -198,20 +198,20 @@ After that, just type
         ci.set_nuisance_ia(
           A1 = [
             params_values.get(p, None) for p in [
-              // change DES_ to the name of the survey associated w/ XXX)
-              "DES_A1_"+str(i+1) for i in range(self.source_ntomo)
+              // change LSST_ to the name of the survey associated w/ XXX)
+              "LSST_A1_"+str(i+1) for i in range(self.source_ntomo)
             ]
           ],
           A2 = [
             params_values.get(p, None) for p in [
-              // change DES_ to the name of the survey associated w/ XXX)
-              "DES_A2_"+str(i+1) for i in range(self.source_ntomo)
+              // change LSST_ to the name of the survey associated w/ XXX)
+              "LSST_A2_"+str(i+1) for i in range(self.source_ntomo)
             ]
           ],
           B_TA = [
             params_values.get(p, None) for p in [
-              // change DES_ to the name of the survey associated w/ XXX)
-              "DES_BTA_"+str(i+1) for i in range(self.source_ntomo)
+              // change LSST_ to the name of the survey associated w/ XXX)
+              "LSST_BTA_"+str(i+1) for i in range(self.source_ntomo)
             ]
           ],
         )
@@ -223,19 +223,19 @@ After that, just type
             B1 = [
                 params_values.get(p, None) for p in [
                   // change DES_ to the name of the survey associated w/ XXX)
-                  "DES_B1_"+str(i+1) for i in range(self.lens_ntomo)
+                  "LSST_B1_"+str(i+1) for i in range(self.lens_ntomo)
                 ]
             ], 
             B2 = [
                   params_values.get(p, None) for p in [
                   // change DES_ to the name of the survey associated w/ XXX)
-                  "DES_B2_"+str(i+1) for i in range(self.lens_ntomo)
+                  "LSST_B2_"+str(i+1) for i in range(self.lens_ntomo)
                 ]
             ],
             B_MAG = [
                 params_values.get(p, None) for p in [
                   // change DES_ to the name of the survey associated w/ XXX)
-                  "DES_BMAG_"+str(i+1) for i in range(self.lens_ntomo)
+                  "LSST_BMAG_"+str(i+1) for i in range(self.lens_ntomo)
                 ]
             ]
         )
@@ -243,7 +243,7 @@ After that, just type
             bias = [
                 params_values.get(p, None) for p in [
                   // change DES_ to the name of the survey associated w/ XXX)
-                  "DES_DZ_L"+str(i+1) for i in range(self.lens_ntomo)
+                  "LSST_DZ_L"+str(i+1) for i in range(self.lens_ntomo)
                 ]
             ]
         )
@@ -251,7 +251,7 @@ After that, just type
             PMV = [
                 params_values.get(p, None) for p in [
                   // change DES_ to the name of the survey associated w/ XXX)
-                  "DES_PM"+str(i+1) for i in range(self.lens_ntomo)
+                  "LSST_PM"+str(i+1) for i in range(self.lens_ntomo)
                 ]
             ]
         )
@@ -259,16 +259,13 @@ After that, just type
     (...)
      
     def set_baryon_related(self, **params_values):
-        // change DES_ to the name of the survey associated w/ XXX)
-        self.baryon_pcs_qs[0] = params_values.get("DES_BARYON_Q1", None)
-        // change DES_ to the name of the survey associated w/ XXX)
-        self.baryon_pcs_qs[1] = params_values.get("DES_BARYON_Q2", None)
-        // change DES_ to the name of the survey associated w/ XXX)
-        self.baryon_pcs_qs[2] = params_values.get("DES_BARYON_Q3", None)
-        // change DES_ to the name of the survey associated w/ XXX)
-        self.baryon_pcs_qs[3] = params_values.get("DES_BARYON_Q4", None)
+        // change LSST_ to the name of the survey associated w/ XXX)
+        self.baryon_pcs_qs[0] = params_values.get("LSST_BARYON_Q1", None)
+        self.baryon_pcs_qs[1] = params_values.get("LSST_BARYON_Q2", None)
+        self.baryon_pcs_qs[2] = params_values.get("LSST_BARYON_Q3", None)
+        self.baryon_pcs_qs[3] = params_values.get("LSST_BARYON_Q4", None)
 
-(**Warning**) If the project name `XXX` contains more than the experiment name (e.g., `XXX = LSST_Y1`), we suggest to replacing `DES_` with just the experiment name (e.g., `LSST_BARYON_Q1`, `LSST_PM` and `LSST_DZ_L`). The convention adopted must be followed when changing the files `params_des_cosmic_shear.yaml` and `params_des_3x2pt.yaml`. 
+If the project name `XXX` contains more than the experiment name, we suggest replacing `LSST_` with just the experiment name. For example, if `XXX = DES_Y3`, then adopt `DES_DZ_L1` for the name of the redshift shift on lens bin 1. The convention adopted must be followed when changing the files `params_des_cosmic_shear.yaml` and `params_des_3x2pt.yaml`. 
 
 **Step 2:** Change the file `$ROOTDIR/projects/XXX/likelihood/lsst_3x2pt.py` following the instructions below
     
@@ -280,13 +277,13 @@ After that, just type
 **Step 3:** Change the file `$ROOTDIR/projects/XXX/likelihood/lsst_3x2pt.yaml` following the instructions below
    
     (...)
-    // change DES_Y3.dataset to XXX.dataset in the line below (adopted convention: .dataset file name = project name all in CAPS)
+    // change LSST_Y1.dataset to XXX.dataset in the line below (adopted convention: .dataset file name = project name all in CAPS)
     data_file: LSST_Y1.dataset
     (...)
     // change params_lsst_3x2pt to params_XXX_3x2pt in the line below
     params: !defaults [params_lsst_3x2pt]
 
-**Step 4:** Rename the file `params_des_3x2pt.yaml` to `params_XXX_3x2pt.yaml`. Also, rename the associated parameter names, 
+**Step 4:** Rename the file `params_lsst_3x2pt.yaml` to `params_XXX_3x2pt.yaml`. Also, rename the associated parameter names, 
 replacing the `LSST_` prefix as shown below. 
 
       XXX_DZ_S1:
@@ -301,8 +298,6 @@ replacing the `LSST_` prefix as shown below.
             proposal: 0.005
          latex: \Delta z_\mathrm{s, XXX}^1
          
-If the project name `XXX` contains more than the experiment name -  e.g., `XXX = DES_Y3` - we suggest to replacing the prefix `LSST_` with just the experiment name (e.g., `DES_DZ_S1` and `\Delta z_\mathrm{s, DES}^1`). 
-
 Similar changes must be made in `params_XXX_cosmic_shear.yaml`. Note that changes either in the number of lenses or source bins will demand the introduction of new paremeters in 
 `params_XXX_cosmic_shear.yaml` and `params_XXX_3x2pt.yaml`
 
