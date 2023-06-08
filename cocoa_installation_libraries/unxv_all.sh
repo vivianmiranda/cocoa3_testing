@@ -28,14 +28,17 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
         tar xf pip_cache.xz &
         proc2=$!
     fi
-
-    rm -rf ./expat241/
-    if [ -z "${THREAD_UNXZ}" ]; then
+    if [ -z "${MINICONDA_INSTALLATION}" ]; then
+      rm -rf ./expat241/
+      if [ -z "${THREAD_UNXZ}" ]; then
         tar xf expat241.xz
-        proc2X=$!
-    else
+        proc2A=$!
+      else
         tar xf expat241.xz &
         proc2A=$!
+      fi
+    else
+      proc2A=1
     fi
 else
   proc2=1
