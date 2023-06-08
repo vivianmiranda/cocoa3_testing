@@ -176,7 +176,7 @@ to clone the repository. Cocoa developers with set ssh keys in GitHub should ins
 
 (**Warning**) We have a limited monthly quota in bandwidth for Git LFS files, and therefore we ask users to use good judgment in the number of times they clone files from Cocoa's main repository.
  
-Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the *set_installation_options* script (Cocoa/ subdirectory), as shown below:
+Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the *Cocoa/set_installation_options* scrips, as shown below:
 
     [Extracted from set_installation_options script]
     # --------------------------------------------------------------------------------------
@@ -191,6 +191,7 @@ Cocoa is made aware of the chosen installation method of required packages via s
     
 The user must uncomment the appropriate key (here, we assume `MINICONDA_INSTALLATION`), and then type the following command
 
+    $(cocoa) cd ./Cocoa/
     $(cocoa) source setup_cocoa_installation_packages
 
 This script decompresses the data files and installs any remaining necessary packages. File decompression should only take a few minutes. Depending on the installation method, package installation time ranges from a few minutes (installation via Conda) to more than one hour (installation via Cocoa's internal cache). Finally, type
