@@ -1,8 +1,9 @@
 # Table of contents
 1. [The Projects Folder](#appendix_projects_folder)
-2. [Adapting DES_Y3 to a new project](#appendix_des_y3_new)
-3. [Minor core changes when adapting DES_Y3 to a new project - the easy way](#appendix_des_y3_new_small)
-3. [Minor core changes when adapting DES_Y3 to a new project - the hard way](#appendix_des_y3_new_small2)
+2. [Adapting LSST_Y1 repository to a new project](#appendix_lsst_y1_new)
+   1. [Minor changes: the easy way](#appendix_lsst_y1_new_small)
+   2. [Minor changes: the hard way](#appendix_lsst_y1_new_small2)
+   3. [Major changes](#appendix_lsst_y1_new_major)
  
 # The Projects Folder <a name="appendix_projects_folder"></a> 
 
@@ -42,11 +43,11 @@ Individual projects should be hosted on independent GitHub repositories; our con
     |    +-- EXAMPLE_EVALUATE_1.YAML
     |    +-- EXAMPLE_MCMC_1.YAML
 
-# Adapting LSST_Y1 to a new project <a name="appendix_des_y3_new"></a> 
+# Adapting LSST_Y1 repository to a new project <a name="appendix_lsst_y1_new"></a> 
 
 Adapting the LSST_Y1 folder to construct a new project involves many small core changes and a few major ones. They are tedious but straightforward. The easier way to apply most of the minor core changes to the code is via the bash script *transfer_project.sh*.
 
-## Minor changes: the easy way <a name="appendix_des_y3_new_small"></a> 
+## Minor changes: the easy way <a name="appendix_lsst_y1_new_small"></a> 
 
  To properly use the bash script *transfer_project.sh*., users must set the following variables at the beginning of the file:
 
@@ -60,7 +61,7 @@ After that, just type
 
      $(cocoa)(.local) bash transfer_project.sh
 
-## Minor changes: the hard way <a name="appendix_des_y3_new_small2"></a> 
+## Minor changes: the hard way <a name="appendix_lsst_y1_new_small2"></a> 
 
 ### Create the new project
 
@@ -351,26 +352,7 @@ Replace the `DES_` prefix to the name of the survey associated w/ XXX.
      theta_max_arcmin = 250.
      #baryon_pca_file = pca.txt
 
-### Changes in the chain folder
-
-**Step 1:** Remove possible old chains associated with the old `des_y3` project 
-
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.1.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.2.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.3.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.4.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.5.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.6.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.7.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.8.txt
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.py
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.yaml
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.input.yaml
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.updated.yaml 
-     $(cocoa)(.local) rm $ROOTDIR/projects/$NEW_PROJECT/chains/*.pyc
-
-**Major changes:**
+## Major changes: <a name="appendix_lsst_y1_new_major"></a>  
 
 * Computation of a new covariance matrix using either [CosmoCov](https://github.com/CosmoLike/CosmoCov) or [CosmoCovFourier](https://github.com/CosmoLike/CosmoCov_Fourier)
 * Simulation of new `n(z)` for lenses and sources
