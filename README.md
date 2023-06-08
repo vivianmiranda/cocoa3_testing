@@ -9,8 +9,8 @@
 7. [Creating Cosmolike projects](#creating_cosmolike_projects)
 8. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
-    2. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
-    3. [Miniconda Installation](#overview_miniconda)
+    2. [Miniconda Installation](#overview_miniconda)
+    3. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     4. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
     5. [Warning about Weak Lensing YAML files](#appendix_example_runs)
 9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
@@ -329,16 +329,6 @@ The following is not an exhaustive list of the codes we use
 
 By no means, we want to discourage people from cloning code from their original repositories. We've included these codes as compressed [xz file format](https://tukaani.org/xz/format.html) in our repository for convenience in the initial development. The work of those authors is extraordinary, and they must be properly cited.
 
-### Compiling Boltzmann, CosmoLike and Likelihood codes separatelly <a name="appendix_compile_separatelly"></a>
-
-To avoid excessive compilation times during development, users can use specialized scripts located at `Cocoa/installation_scripts/` that compile only a specific module. A few examples of these scripts are: 
-
-    $(cocoa)(.local) source ./installation_scripts/compile_class
-    $(cocoa)(.local) source ./installation_scripts/compile_camb
-    $(cocoa)(.local) source ./installation_scripts/compile_planck
-    $(cocoa)(.local) source ./installation_scripts/compile_act
-    $(cocoa)(.local) source ./installation_scripts/setup_polychord
-
 ### Miniconda Installation <a name="overview_miniconda"></a>
 
 Download and run Miniconda installation script (please adapt `CONDA_DIR`):
@@ -361,6 +351,16 @@ After installation, users must source conda configuration file
     && conda config --set channel_priority strict \
     && conda init bash
     
+### Compiling Boltzmann, CosmoLike and Likelihood codes separatelly <a name="appendix_compile_separatelly"></a>
+
+To avoid excessive compilation times during development, users can use specialized scripts located at `Cocoa/installation_scripts/` that compile only a specific module. A few examples of these scripts are: 
+
+    $(cocoa)(.local) source ./installation_scripts/compile_class
+    $(cocoa)(.local) source ./installation_scripts/compile_camb
+    $(cocoa)(.local) source ./installation_scripts/compile_planck
+    $(cocoa)(.local) source ./installation_scripts/compile_act
+    $(cocoa)(.local) source ./installation_scripts/setup_polychord
+   
 ### The whovian-cocoa docker container <a name="appendix_jupyter_whovian"></a>
 
 We provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. This docker image assumes the user already has the docker engine installed on their local PC. For instructions on installing the docker engine on your specific operating system, please refer to [Docker's official documentation](https://docs.docker.com/engine/install/). 
