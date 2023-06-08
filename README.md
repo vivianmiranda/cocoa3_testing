@@ -12,7 +12,7 @@
     2. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     3. [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian)
     4. [Summary Information about Cocoa's configuration files](#appendix_config_files)
-    5. [Examples (and warning) about Weak Lensing YAML files](#appendix_example_runs)
+    5. [Warning about Weak Lensing YAML files](#appendix_example_runs)
     6. [Miniconda Installation](#overview_miniconda)
     7. [Docker](#required_packages_docker)
 9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
@@ -275,11 +275,11 @@ Remember to run the start_cocoa script only after cloning the project repository
     $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
     $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
-(**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix(#appendix_example_runs) for further details.
+(**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
 
 ## Creating Cosmolike projects <a name="creating_cosmolike_projects"></a> 
 
-The `XXX` project needs to have more or less the following structure (taken from our private DES-Y3 project)
+The `XXX` project needs to have more or less the following structure
 
     +-- cocoa_des_y3
     |    +-- likelihood
