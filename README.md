@@ -380,31 +380,30 @@ After installation, users must source conda configuration file
     
 ### The whovian-cocoa docker container <a name="appendix_jupyter_whovian"></a>
 
-We provide the docker image [whovian-cocoa](https://hub.docker.com/r/vivianmiranda/whovian-cocoa) to facilitate the installation of Cocoa on Windows/MacOS. Installation of the [docker engine](https://docs.docker.com/engine/) on local PCs is a straightforward process, but it does require `sudo` privileges. See Docker's [official documentation](https://docs.docker.com/engine/install/) for OS-specific instructions.
+We provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. This docker image assumes the user already has the docker engine installed on their local PC. For instructions on installing the docker engine on your specific operating system, please refer to [Docker's official documentation](https://docs.docker.com/engine/install/). 
 
 To download and run the container for the first time, type:
 
     $ docker run --platform linux/amd64 --hostname cocoa --name cocoa2023 -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cocoa
 
-The flag `-v $(pwd):/home/whovian/host/` ensures that the files on the host computer, where Cocoa should be located, have been mounted to the directory `/home/whovian/host/`. Therefore, the command
+The flag `-v $(pwd):/home/whovian/host/` ensures that the files on the host computer where the user plans to install Cocoa have been properly mounted to the directory `/home/whovian/host/`.  After executing the command
 
     whovian@cocoa:~$ cd /home/whovian/host/; ls
 
-should display the host files.
+the user should see the host files on the screen.
 
 When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below
 
     whovian@cocoa:~$ conda init bash
     whovian@cocoa:~$ source ~/.bashrc
-    whovian@cocoa:~$ conda activate cocoa
 
-When you exit the container, how to restart it? type `docker start -ai cocoa2023`.
+When the user exits the container, how to restart it? Type 
+    
+    $ docker start -ai cocoa2023
 
-Cobaya also has an excellent integration with Jupyter notebooks. Below, we provide instructions on how o run notebooks inside the whovian-cocoa container. 
+How to run Jupyter Notebooks remotely when using Cocoa within the whovian-cocoa container? First, type the following command:
 
-To start a jupyter notebook, type the following command inside the whovian-Cosmo container:
-
-    $ jupyter notebook --no-browser
+    whovian@cocoa:~$ jupyter notebook --no-browser
 
 The terminal will show a message similar to the following template:
 
@@ -416,7 +415,7 @@ The terminal will show a message similar to the following template:
     [... NotebookApp] or http://127.0.0.1:8888/?token=XXX
     [... NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
 
-We assume the user will run the docker container in a host server with URL `your_sever.com`. We also assume the server can be accessed via ssh protocol. From your local PC type:
+Below, we assume the user runs the container in a server with the URL `your_sever.com`. We also presume the server can be accessed via ssh protocol. From a local PC, type:
 
     $ ssh your_username@your_sever.com -L 8080:localhost:8080
 
