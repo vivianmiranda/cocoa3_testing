@@ -194,9 +194,7 @@ The user must uncomment the appropriate key (here, we assume Conda), and then ty
 
     $(cocoa) source setup_cocoa_installation_packages
 
-This script decompress the data files and install all packages that may have been left out in the Conda/Docker/Manual installation. File decompression should only take a few minutes, while package installation time ranges from a few minutes (installation via *Conda*) to more than one hour (installation *via Cocoa's internal scripts and cache*).
-
-Finally, type
+This script decompresses the data files and installs any remaining necessary packages. File decompression should only take a few minutes. Depending on the installation method, package installation time ranges from a few minutes (installation via Conda) to more than one hour (installation via Cocoa's internal cache). Finally, type
 
     $(cocoa) source compile_external_modules
     
