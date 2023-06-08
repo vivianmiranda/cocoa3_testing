@@ -175,8 +175,8 @@ to clone the repository. Cocoa developers with set ssh keys in GitHub should ins
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:CosmoLike/cocoa.git
 
-(**Warning**) We have a limited monthly quota in bandwidth for [Git LFS](https://git-lfs.github.com) files, and therefore we ask users to use good judgment in the number of times they clone Cocoa's main repository. 
-
+(**Warning**) We have a limited monthly quota in bandwidth for Git LFS files, and therefore we ask users to use good judgment in the number of times they clone files from Cocoa's main repository.
+ 
 Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the *set_installation_options* script (Cocoa/ subdirectory), as shown below:
 
     [Extracted from set_installation_options script]
@@ -235,41 +235,36 @@ MCMC:
      $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
 
 (**expert**) Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
-(**expert**) Why the `--bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS}` flag? To enable hybrid MPI + OpenMP with NUMA architecture.
+(**expert**) Why the `--bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS}` flag? This flag enables efficient hybrid MPI + OpenMP runs on NUMA architecture.
 
 Once the work is done, type:
 
     $(cocoa)(.local) source stop_cocoa
-    
-and (optional)  
-    
     $(cocoa) conda deactivate cocoa
 
 ## Running Cosmolike projects <a name="running_cosmolike_projects"></a> 
 
-The projects folder was designed to include all Cosmolike projects. Like the last section, we assume the user opted for the easier *Conda installation*, and located the terminal at the folder *where Cocoa was cloned*.
+The *projects* folder was designed to include Cosmolike projects. Similar to the previous section, we assume the user opted for the more direct *Conda installation* method. We also presume the user's terminal is in the folder where Cocoa was cloned.
 
-**Step 1 of 5**: go to the project folder (`./cocoa/Cocoa/projects`) and clone a Cosmolike project, with fictitious name XXX,  as shown below:
-
-    $ cd ./cocoa/Cocoa/projects
-    $ git clone git@github.com:CosmoLike/cocoa_XXX.git XXX
-
-The Cosmolike Organization hosts a Cobaya-Cosmolike project named XXX at `CosmoLike/cocoa_XXX`. However, our provided scripts and template YAML files assume the removal of the `cocoa_` prefix when cloning the repository.The prefix `cocoa_` on Cosmolike organization avoids mixing Cobaya-Cosmolike projects with code meant to be run on the legacy CosmoLike code.
-
-Example of cosmolike projects: [lsst_y1](https://github.com/SBU-UNESP-2022-COCOA/cocoa_lsst_y1), [des_y3](https://github.com/SBU-UNESP-2022-COCOA/cocoa_des_y3).
-
-(**warning**) A silent bug will be introduced if the YAML is not properly configured for camb. See Appendix(#appendix_example_runs) for examples of CosmoLike chains.
-
-**Step 2 of 5**: go back to Cocoa main folder
+**Step 1 of 5**: activate the Conda Cocoa environment
     
-    $ cd ../
-    
-**Step 3 of 5**: activate conda Cocoa environment and the private python environment
+    $ conda activate cocoa
 
-     $ conda activate cocoa
-     $(cocoa) source start_cocoa
+**Step 2 of 5**: go to the project folder (`./cocoa/Cocoa/projects`) and clone a Cosmolike project, with fictitious name `XXX`:
+    
+    $(cocoa) cd ./cocoa/Cocoa/projects
+    $(cocoa) $CONDA_PREFIX/bin/git clone git@github.com:CosmoLike/cocoa_XXX.git XXX
+
+By convention, the Cosmolike Organization hosts a Cobaya-Cosmolike project named XXX at `CosmoLike/cocoa_XXX`. However, our provided scripts and template YAML files assume the removal of the `cocoa_` prefix when cloning the repository. The prefix `cocoa_` on the Cosmolike organization avoids mixing Cobaya-Cosmolike projects with code meant to be run on the legacy CosmoLike code.
+
+Example of cosmolike projects: [lsst_y1](https://github.com/CosmoLike/cocoa_lsst_y1), [des_y3](https://github.com/CosmoLike/cocoa_des_y3).
  
-Please run the start_cocoa script *after* cloning the project repository. The script start_cocoa creates symbolic links, in all available projects, between `./project/XXX/likelihood` and `./cobaya/cobaya/likelihoods/XXX`; `./project/XXX/data` and `./external_modules/data/XXX`; `./project/XXX/interface` and `./external_modules/code/XXX`. The script start_cocoa also adds the *Cobaya-Cosmolike interface* of all projects to `LD_LIBRARY_PATH` and `PYTHONPATH` by calling `./projects/XXX/scripts/start_XXX`.
+**Step 3 of 5**: go back to Cocoa main folder, and activate the private python environment
+    
+    $(cocoa) cd ../
+    $(cocoa) source start_cocoa
+ 
+Remember to run the start_cocoa script only after cloning the project repository is essential. The script *start_cocoa* creates necessary symbolic links and also adds the *Cobaya-Cosmolike interface* of all projects to `LD_LIBRARY_PATH` and `PYTHONPATH` paths.
 
 **Step 4 of 5**: compile the project
  
@@ -277,9 +272,10 @@ Please run the start_cocoa script *after* cloning the project repository. The sc
   
  **Step 5 of 5**: select the number of OpenMP cores and run a template yaml file
     
-    $(cocoa)(.local) export OMP_NUM_THREADS = 4
+    $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
     $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
+(**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m$/$\Omega_b$ parameterization. See Appendix(#appendix_example_runs) for further details.
 
 ## Creating Cosmolike projects <a name="creating_cosmolike_projects"></a> 
 
