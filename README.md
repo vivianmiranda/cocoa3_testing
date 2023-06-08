@@ -32,7 +32,7 @@ This readme file presents basic and advanced instructions for installing all [Co
 
 There are two installation methods. Users must choose one of them:
 
-1. [Via Conda](#required_packages_conda) (best for Linux)
+1. [Via Conda](#required_packages_conda) (best)
 3. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable)
 
 ### Via Conda (best for Linux/HPC) <a name="required_packages_conda"></a>
