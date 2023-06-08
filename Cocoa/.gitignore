@@ -26,12 +26,6 @@ external_modules/data/simons_observatory/
 external_modules/data/h0licow_distance_chains/
 external_modules/data/spt_hiell_2020
 
-set_installation_options
-compile_external_modules
-setup_cocoa_installation_packages
-start_cocoa
-stop_cocoa
-
 projects/desxplanck
 projects/lsst_fourier
 projects/des_y3
