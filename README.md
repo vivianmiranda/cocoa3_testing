@@ -517,7 +517,7 @@ Below we provide an example YAML configuration for an MCMC chain that with DES 3
                 
 ### Setting-up conda environment for Machine Learning emulators <a name="ml_emulators"></a>
 
-If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based project, then type
+If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based project via Conda, then type
  
       $ conda activate cocoa 
       
@@ -539,3 +539,11 @@ Tensorflow, Keras and Pytorch.
     'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
 
 Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named cocoa (CPU-only), while the other could be named cocoaemu and contain the GPU versions of the machine learning packages.
+
+For users that opt for the manual installation method via Cocoa's internal cache, the following flags on the script will activate the installation of machine-learning-related libraries via pip. 
+
+    # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
+    export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
+    export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
+
+Unlike other pip packages, these ML packages will require an internet connection to be installed, as they are too large to be stored on our GIT-LFS cache.  
