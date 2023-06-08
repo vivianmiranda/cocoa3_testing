@@ -31,7 +31,7 @@ We also provide the docker image whovian-cocoa to promote the installation of Co
 
 ### Via Conda <a name="required_packages_conda"></a>
 
-We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If there are any issues with installing Minicoda, refer to the [Miniconda Installation](#sbu_overview_anaconda) section for assistance.
+We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If this is not the case, then refer to the [Miniconda Installation](#overview_miniconda) section for further instructions.
 
 Type the following commands to create the cocoa Conda environment.
 
