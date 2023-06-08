@@ -459,10 +459,6 @@ The correct way to create YAMLS with
         omegach2:
             value: 'lambda omegam, omegab, mnu, H0: (omegam-omegab)*(H0/100)**2-(mnu*(3.046/3)**0.75)/94.0708'
             latex: \Omega_\mathrm{c} h^2
-    
-We have provided examples of Weak Lensing runs within specific projects such as:
-
-- [LSST-Y1](https://github.com/CosmoLike/cocoa_lsst_y1/blob/main/EXAMPLE_MCMC1.yaml)
-- [DES-Y3](https://github.com/CosmoLike/cocoa_des_y3/blob/main/EXAMPLE_MCMC1.yaml)
-
-(**Warning**) The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$ where as camb **ONLY accepts** $\Omega_c h^2$ and $\Omega_b h^2$. In the YAMLs we provided, we included the option `drop: true` and the derived expressions to convert from $\Omega_m$/$\Omega_b$ to $\Omega_c h^2$/$\Omega_b h^2$. **Be aware that if this conversion is not present in the YAML file, a silent/terrible bug will be created**: the chains will continue to run without the matter density being updated on CAMB. Always ensure that the conversion is included in your YAML file when adopting the  $\Omega_m$/$\Omega_b$ parameterization.
+        omegamh2:
+            derived: 'lambda omegam, H0: omegam*(H0/100)**2'
+            latex: \Omega_\mathrm{m} h^2
