@@ -518,10 +518,10 @@ Below we provide an example YAML configuration for an MCMC chain that with DES 3
 ### Setting-up conda environment for Machine Learning emulators <a name="ml_emulators"></a>
 
 If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based project via Conda, then type
- 
-      $ conda activate cocoa 
+
+        $ conda activate cocoa 
       
-      $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
+        $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
         'tensorflow-cpu==2.8.0' \
         'keras==2.8.0' \
         'keras-preprocessing==1.1.2' \
@@ -531,19 +531,19 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
 In case there are GPUs available, the following commands will install the GPU version of 
 Tensorflow, Keras and Pytorch.
 
-    $CONDA_PREFIX/bin/pip install --no-cache-dir \
-    'tensorflow==2.8.0' \
-    'keras==2.8.0' \
-    'keras-preprocessing==1.1.2' \
-    'torch==1.11.0' \
-    'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
+        $(cocoa) CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'tensorflow==2.8.0' \
+            'keras==2.8.0' \
+            'keras-preprocessing==1.1.2' \
+            'torch==1.11.0' \
+            'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
 
 Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
 
 For users that opt for the manual installation method via Cocoa's internal cache, commenting the following environmental flags on the script will activate the installation of machine-learning-related libraries via pip. 
 
-    # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
-    #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
-    #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
+        # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
+        #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
+        #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
 
 Unlike other pip packages, these ML packages will require an internet connection to be installed, as they exceed the limited capacity of our GIT-LFS-based pip_cache folder. In addition, this installation method is not the most employed in our group for us to pay for the extra GIT-LFS bandwith.  
