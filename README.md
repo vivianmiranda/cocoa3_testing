@@ -259,7 +259,7 @@ The *projects* folder was designed to include Cosmolike projects. Similar to the
 
 By convention, the Cosmolike Organization hosts a Cobaya-Cosmolike project named XXX at `CosmoLike/cocoa_XXX`. However, our provided scripts and template YAML files assume the removal of the `cocoa_` prefix when cloning the repository. The prefix `cocoa_` on the Cosmolike organization avoids mixing Cobaya-Cosmolike projects with code meant to be run on the legacy CosmoLike code.
 
-Example of cosmolike projects: [lsst_y1](https://github.com/CosmoLike/cocoa_lsst_y1), [des_y3](https://github.com/CosmoLike/cocoa_des_y3).
+Example of cosmolike projects: [lsst_y1](https://github.com/CosmoLike/cocoa_lsst_y1).
  
 **Step 3 of 5**: go back to Cocoa main folder, and activate the private python environment
     
