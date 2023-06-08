@@ -6,7 +6,7 @@
 4. [Installation of Cobaya base code](#cobaya_base_code)
 5. [Running Cobaya Examples](#cobaya_base_code_examples)
 6. [Running Cosmolike projects](#running_cosmolike_projects)
-7. [Creating Cosmolike projects](#creating_cosmolike_projects)
+7. [Creating Cosmolike projects (external readme)](Cocoa/projects/)
 8. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
     2. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
@@ -14,8 +14,7 @@
     4. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     5. [Warning about Weak Lensing YAML files in Cobaya](#appendix_example_runs)
     6. [Manual Blocking of Cosmolike Parameters](#manual_blocking_cosmolike)
-9. [The projects folder (external readme)](Cocoa/projects/)
-10. [Adapting new modified CAMB/CLASS (external readme)](Cocoa/external_modules/code)
+    7. [Adapting new modified CAMB/CLASS (external readme)](Cocoa/external_modules/code)
  
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
@@ -278,39 +277,6 @@ Remember to run the start_cocoa script only after cloning the project repository
     $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
 (**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
-
-## Creating Cosmolike projects <a name="creating_cosmolike_projects"></a> 
-
-The `XXX` project needs to have more or less the following structure
-
-    +-- cocoa_des_y3
-    |    +-- likelihood
-    |    |   +-- _cosmolike_prototype_base.py
-    |    |   +-- des_3x2pt.py
-    |    |   +-- des_3x2pt.yaml
-    |    |   +-- des_2x2pt.py
-    |    |   +-- des_3x2pt.yaml
-    |    |   +-- des_cosmic_shear.py
-    |    |   +-- des_cosmic_shear.yaml
-    |    +-- scripts
-    |    |   +-- compile_des_y3
-    |    |   +-- start_des_y3
-    |    |   +-- stop_des_y3
-    |    +-- data
-    |    |   +-- DES.paramnames
-    |    |   +-- DES_Y3.dataset
-    |    |   +-- datavector.txt
-    |    |   +-- covariance.txt
-    |    |   +-- nzlens.txt
-    |    |   +-- nzsource.txt
-    |    |   +-- mask.mask
-    |    +-- interface
-    |    |   +-- MakefileCosmolike
-    |    |   +-- cosmolike_des_y3_interface.py
-    |    |   +-- interface.cpp
-    |    |   +-- interface.hpp
-    |    +-- chains
-    |    |   +-- README
 
 ## Appendix <a name="appendix"></a>
 
