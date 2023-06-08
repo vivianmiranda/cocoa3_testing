@@ -385,7 +385,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
   fi
 
   if [ -z "${MINICONDA_INSTALLATION}" ]; then
-    if [ -z "${IGNORE_EMULATOR_PIP_PACKAGES}" ]; then
+    if [ -z "${IGNORE_EMULATOR_CPU_PIP_PACKAGES}" ]; then
       # ------------------------------------------------------------------------
       # ------------------------------------------------------------------------
       # THE EMULATOR PACKAGES WILL REQUIRE INTERNET ACCESS (too large even for GIT-LFS)
@@ -434,6 +434,58 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
       fi
     fi
   fi
+
+  if [ -z "${MINICONDA_INSTALLATION}" ]; then
+    if [ -z "${IGNORE_EMULATOR_GPU_PIP_PACKAGES}" ]; then
+      # ------------------------------------------------------------------------
+      # ------------------------------------------------------------------------
+      # THE EMULATOR PACKAGES WILL REQUIRE INTERNET ACCESS (too large even for GIT-LFS)
+      # ------------------------------------------------------------------------
+      # ------------------------------------------------------------------------
+      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'tensorflow==2.8.0' --upgrade \
+      --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null
+      if [ $? -ne 0 ]; then
+        echo "PROBLEM PIP tensorflow-gpu"
+        return 1
+      fi
+
+      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'keras==2.8.0' --upgrade \
+      --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null
+      if [ $? -ne 0 ]; then
+        echo "PROBLEM PIP keras"
+        return 1
+      fi
+
+      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'keras-preprocessing==1.1.2' --upgrade \
+      --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null
+      if [ $? -ne 0 ]; then
+        echo "PROBLEM PIP keras-preprocessing"
+        return 1
+      fi
+
+      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'keras-preprocessing==1.1.2' --upgrade \
+      --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null
+      if [ $? -ne 0 ]; then
+        echo "PROBLEM PIP keras-preprocessing"
+        return 1
+      fi
+      
+      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'torch==1.11.0' --upgrade \
+      --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null
+      if [ $? -ne 0 ]; then
+        echo "PROBLEM PIP torch-gpu"
+        return 1
+      fi
+
+      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'torchvision==0.12.0+cpu' --upgrade \
+      --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null
+      if [ $? -ne 0 ]; then
+        echo "PROBLEM PIP torchvision"
+        return 1
+      fi
+    fi
+  fi
+
 fi
 
 # PS: --no-index option prevent pip from using internet (forces to use our local cache)
