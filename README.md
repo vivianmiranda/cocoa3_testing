@@ -71,7 +71,7 @@ Type the following commands to create the cocoa Conda environment.
  
       $ conda activate cocoa 
       
-      $ $CONDA_PREFIX/bin/pip install --no-cache-dir \
+      $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
         'tensorflow-cpu==2.8.0' \
         'keras==2.8.0' \
         'keras-preprocessing==1.1.2' \
