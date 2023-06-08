@@ -550,4 +550,4 @@ For users that opt for the manual installation method via Cocoa's internal cache
         #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
         #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
 
-Unlike other pip packages, these ML packages will require an internet connection to be installed, as they exceed the limited capacity of our GIT-LFS-based pip_cache folder. In addition, this installation method is not the most employed in our group for us to pay for the extra GIT-LFS bandwith.  
+Unlike other pip packages, these ML packages will require an internet connection to be installed, as they exceed the limited capacity of our GIT-LFS-based `pip_cache` folder. In addition, this installation method is not the most employed in our group for us to pay for the extra GIT-LFS bandwith.  
