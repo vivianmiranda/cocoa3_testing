@@ -218,7 +218,7 @@ Assuming the user opted for the easier *Conda installation* and located the term
 
 Users will see a terminal that looks like this: `$(Cocoa)(.local)`. *This is a feature, not a bug*! 
 
-(**expert**)  Why did we choose to have two environments? The Conda environment should be the same for all Cocoa instances, with *start_cocoa*/*stop_cocoa* scripts loading/unloading the environmental path variables associated with each instance. Having multiple Cocoa instances can be quite handy: while users may be running chains in one Cocoa instance, they can install and use a second Cocoa instantiation to make experimental changes.
+Why did we choose to have two separate bash environments? We want to provide the opportunity for users to manipulate multiple Cocoa instances. This can be quite handy: while users may be running chains in one Cocoa instance, they can install and use a second Cocoa instantiation to make experimental changes. The Conda environment must be the same for all Cocoa instances, while the *start_cocoa*/*stop_cocoa* scripts load/unload the environmental path variables associated with each Cocoa instance. 
 
 **Step 4 of 5**: select the number of OpenMP cores
     
