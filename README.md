@@ -414,45 +414,72 @@ To avoid excessive compilation times during development, users can use specializ
 
 The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but as CAMB Boltzmann code only accepts $\Omega_c h^2$ and $\Omega_b h^2$ in Cobaya. There are two ways of creating YAML compatible with Weak Lensing Cosmolike: 
 
-1. CMB parameterization and  $\Omega_m$ and $\Omega_b$ as derived parameters
+1. CMB parameterization and  $\Omega_m$ and $\Omega_b$ as derived parameters. An example is shown below (for when selecting the CAMB Boltzmann code)
+
+        omegabh2:
+            prior:
+                min: 0.01
+                max: 0.04
+            ref:
+                dist: norm
+                loc: 0.022383
+                scale: 0.005
+            proposal: 0.005
+            latex: \Omega_\mathrm{b} h^2
+        omegach2:
+            prior:
+                min: 0.06
+                max: 0.2
+            ref:
+                dist: norm
+                loc: 0.12011
+                scale: 0.03
+            proposal: 0.03
+            latex: \Omega_\mathrm{c} h^2
+        mnu:
+            value: 0.06
+            latex: m_\\nu
+        omegam:
+            latex: \Omega_\mathrm{m}
+        omegamh2:
+            derived: 'lambda omegam, H0: omegam*(H0/100)**2'
+            latex: \Omega_\mathrm{m} h^2
+        omegab:
+            derived: 'lambda omegabh2, H0: omegabh2/((H0/100)**2)'
+            latex: \Omega_\mathrm{b}
+        omegac:
+            derived: 'lambda omegach2, H0: omegach2/((H0/100)**2)'
+            latex: \Omega_\mathrm{c}
 
 2. Weak Lensing parameterization and  $\Omega_c h^2$ and $\Omega_b h^2$ as derived parameters.
 
-The adoption of $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya. The problem occurs when (1) the option `drop: true` is absent in $\Omega_m$ and $\Omega_b$ parameters, and (2) there is no derived $\Omega_c h^2$/$\Omega_b h^2$ expressions. The bug is silent because the MCMC runs smoothly without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are flawed, but they may still seem somewhat reasonable to those who are not familiar with the issue. It's important to be aware of this bug to avoid any potential inaccuracies in the results.
-
-The correct way to create YAML files with $\Omega_m$ and $\Omega_b$ as main MCMC parameters is shown below 
+Adopting $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya. The problem occurs when (1) the option `drop: true` is absent in $\Omega_m$ and $\Omega_b$ parameters, and (2) there is no derived $\Omega_c h^2$/$\Omega_b h^2$ expressions. The bug is silent because the MCMC runs smoothly without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are flawed, but they may seem reasonable to those unfamiliar with the issue. It's important to be aware of this bug to avoid any potential inaccuracies in the results. The correct way to create YAML files with $\Omega_m$ and $\Omega_b$ as main MCMC parameters is exemplified below (for when selecting the CAMB Boltzmann code)
 
         omegab:
             prior:
-              min: 0.03
-              max: 0.07
+                min: 0.03
+                max: 0.07
             ref:
-              dist: norm
-              loc: 0.0495
-              scale: 0.004
+                dist: norm
+                loc: 0.0495
+                scale: 0.004
             proposal: 0.004
             latex: \Omega_\mathrm{b}
             drop: true
         omegam:
             prior:
-              min: 0.1
-              max: 0.9
+                min: 0.1
+                max: 0.9
             ref:
-              dist: norm
-              loc: 0.316
-              scale: 0.02
+                dist: norm
+                loc: 0.316
+                scale: 0.02
             proposal: 0.02
             latex: \Omega_\mathrm{m}
             drop: true
         mnu:
-            prior:
-              min: 0.06
-              max: 0.6
-            ref:
-              dist: norm
-              loc: 0.25
-              scale: 0.1
-            proposal: 0.05
+            value: 0.06
+            latex: m_\\nu
         omegabh2:
             value: 'lambda omegab, H0: omegab*(H0/100)**2'
             latex: \Omega_\mathrm{b} h^2
