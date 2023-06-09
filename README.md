@@ -453,7 +453,7 @@ Cosmolike Weak Lensing pipeline contains parameters with different speed hierarc
 
 Cobaya can't automatically handle parameters associated with the same likelihood that have different speed hierarchies. Luckily, we can manually impose the speed hierarchy in Cobaya using the `blocking:` option. The only drawback of this method is that parameters of all adopted likelihoods need to be manually specified, not only the ones required by Cosmolike.
 
-In addition to that, Cosmolike can't cache the intermediate products of the last **two** evaluations, which is necessary to exploit optimization associated with dragging. However, Cosmolike caches the previous evaluation's intermediate product, allowing the utilization of one of the slow/fast decomposition optimizations in Cobaya. 
+In addition to that, Cosmolike can't cache the intermediate products of the last two evaluations, which is necessary to exploit optimizations associated with dragging (`drag: True`). However, Cosmolike caches the intermediate products of the previous evaluation, thereby enabling the user to take advantage of the slow/fast decomposition of parameters in Cobaya's main MCMC sampler. 
 
 Below we provide an example YAML configuration for an MCMC chain that with DES 3x2pt likelihood.
 
