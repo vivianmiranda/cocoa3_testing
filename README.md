@@ -550,4 +550,4 @@ For users that opted for the manual installation via Cocoa's internal cache, com
         #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
         #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
 
-Unlike most installed pip prerequisites that are cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of Machine Learning packages will require an active internet connection. 
+Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries/pip_cache.xz`, installing the Machine Learning packages listed above will require an active internet connection.
