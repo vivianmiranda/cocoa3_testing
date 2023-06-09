@@ -565,7 +565,7 @@ The underlying reason for `AccuracyBoost` inefficiency is that this flag raises 
 
 The crucial point to note is that not all CAMB modules need a higher boost factor. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. 
 
-Below is an example of possible modifications. We do not implement such changes by default in `$ROOTDIR/external_modules/code/CAMB/`: 
+Below is an example of possible modifications: 
 
     def set_accuracy(self, AccuracyBoost=1., ...):
         (...)
@@ -596,3 +596,5 @@ Below is an example of possible modifications. We do not implement such changes 
         
         (...)
         return self
+  
+Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/` because the choice of critical flags depends on the specific models and experiments under consideration in an MCMC. 
