@@ -592,7 +592,7 @@ Below is an example of possible modifications:
         self.Accuracy.BessIntBoost = AccuracyBoost
         self.Accuracy.BesselBoost = AccuracyBoost
         self.Accuracy.KmaxBoost = AccuracyBoost      
-        #VM ENDS
+        #COCOA: ENDS
         
         (...)
         return self
