@@ -302,7 +302,7 @@ Following the command above, users should see the following text on the screen t
 
 <img width="1121" alt="Screen Shot 2023-06-09 at 2 48 23 PM" src="https://github.com/vivianmiranda/cocoa3_testing/assets/3210728/8ad62524-ed62-4560-9e8e-0187a8f8cb3b">
 
-(**expert**) The flag `-v $(pwd):/home/whovian/host/` ensures that the files on the host computer, where the user should install Cocoa to avoid losing work in case the docker image needs to be deleted, have been mounted to the directory `/home/whovian/host/`. Therefore, the user should see the host files of the directory where the whovian-cocoa container was initialized after typing `cd /home/whovian/host/; ls`
+(**expert**) The flag `-v $(pwd):/home/whovian/host/` ensures that files on the host computer, where the user should install Cocoa to avoid losing work in case the docker image needs to be deleted, have been mounted to the directory `/home/whovian/host/`. Therefore, the user should see the host files of the directory where the whovian-cocoa container was initialized after typing `cd /home/whovian/host/; ls`
 
 When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below.
 
