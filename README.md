@@ -28,7 +28,7 @@ There are two installation methods. Users must choose one of them:
 1. [Via Conda](#required_packages_conda) (easier, best)
 2. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable) 
 
-We also provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. For further instructions, refer to the Appendix [whovian-cocoa docker container](#appendix_jupyter_whovian).
+We also provide the docker image whovian-cocoa to facilitate the installation of Cocoa on Windows and MacOS. For further instructions, refer to the Appendix [whovian-cocoa docker container](#appendix_jupyter_whovian).
 
 ### Via Conda <a name="required_packages_conda"></a>
 
@@ -290,17 +290,17 @@ By no means, we want to discourage people from cloning code from their original 
 
 ### The whovian-cocoa docker container <a name="appendix_jupyter_whovian"></a>
 
-We provide the docker image [whovian-cocoa](https://hub.docker.com/r/vivianmiranda/whovian-cocoa) to promote the installation of Cocoa on Windows/MacOS. This docker image assumes the user already has the docker engine installed on their local PC. For instructions on installing the docker engine on your specific operating system, please refer to [Docker's official documentation](https://docs.docker.com/engine/install/). 
+We provide the docker image [whovian-cocoa](https://hub.docker.com/r/vivianmiranda/whovian-cocoa) to facilitate the installation of Cocoa on Windows and MacOS. In this appendix, we assume the users already have the docker engine installed on their local PC. For instructions on the installation of the docker engine on specific operating systems, please refer to [Docker's official documentation](https://docs.docker.com/engine/install/). 
 
 To download and run the container for the first time, type:
 
     $ docker run --platform linux/amd64 --hostname cocoa --name cocoa2023 -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cocoa
 
-The flag `-v $(pwd):/home/whovian/host/` ensures that the files on the host computer where the user plans to install Cocoa have been properly mounted to the directory `/home/whovian/host/`.  After executing the command
+The flag `-v $(pwd):/home/whovian/host/` ensures that the files on the host computer, where the user should install Cocoa to avoid losing work in case the docker image needs to be updated, have been mounted to the directory `/home/whovian/host/`. 
 
     whovian@cocoa:~$ cd /home/whovian/host/; ls
 
-the user should see the host files on the screen.
+the user should see the host files of the directory where the whovian-cocoa container was initialized.
 
 When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below.
 
