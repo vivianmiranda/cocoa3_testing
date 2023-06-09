@@ -16,7 +16,8 @@
     6. [Manual Blocking of Cosmolike Parameters](#manual_blocking_cosmolike)
     7. [Setting-up conda environment for Machine Learning emulators](#ml_emulators)
     8. [Adding a new modified CAMB/CLASS to Cocoa (external readme)](Cocoa/external_modules/code)
- 
+    9. [Fine-tunning CAMB Accuracy](#camb_accuracy)
+
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
 Cocoa allows users to run [CosmoLike](https://github.com/CosmoLike) routines inside the [Cobaya](https://github.com/CobayaSampler) framework. [CosmoLike](https://github.com/CosmoLike) can analyze data primarily from the [Dark Energy Survey](https://www.darkenergysurvey.org) and simulate future multi-probe analyses for LSST and Roman Space Telescope. Besides integrating [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike), Cocoa introduces shell scripts and readme instructions that allow users to containerize [Cobaya](https://github.com/CobayaSampler). The container structure ensures that users will adopt the same compiler and libraries (including their versions), and that they will be able to use multiple [Cobaya](https://github.com/CobayaSampler) instances consistently. This readme file presents basic and advanced instructions for installing all [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike) components.
@@ -555,3 +556,43 @@ For users that opted for the manual installation via Cocoa's internal cache, com
         #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
 
 Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries/pip_cache.xz`, installing the Machine Learning packages listed above will require an active internet connection.
+
+### Fine-tunning CAMB Accuracy <a name="camb_accuracy"></a>
+
+The accurate computation of many CMB and large-scale-structure data vectors requires high `AccuracyBoost` values in CAMB. However, this parameter is inefficient, causing an exponential increase in CAMB's runtime. This issue has been frequent enough that we provide below a simple but partial solution 
+
+The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost should be adjusted until the $\chi^2$ of the adopted experiments remain stable. 
+
+The crucial point to note is that not all CAMB modules need a higher boost factor for a stable experiment's $\chi^2$ to be achieved. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. 
+
+Below is an example of possible modifications. We do not implement such changes by default in `$ROOTDIR/external_modules/code/CAMB/`: 
+
+    def set_accuracy(self, AccuracyBoost=1., ...):
+        (...)
+        
+        #COCOA: BEGINS
+        #COCOA: Set most flags to a modest hardcoded increase in Accuracy (Accuracy.AccuracyBoost=1.05)
+        self.Accuracy.AccuracyBoost = 1.05
+        self.Accuracy.TimeStepBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.BackgroundTimeStepBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.IntTolBoost = self.Accuracy.AccuracyBoost        
+        self.Accuracy.IntkAccuracyBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.NonFlatIntAccuracyBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.LensingBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.NonlinSourceBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.LimberBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.SourceLimberBoost = self.Accuracy.AccuracyBoost
+        self.Accuracy.neutrino_q_boost = self.Accuracy.AccuracyBoost
+
+        #COCOA: Only critical flags continue to be sensitive to the AccuracyBoost variable
+        #COCOA WARNING: what makes a flag critical? That is a model and data dependent statement
+        #COCOA WARNING: check the \delta chi^2 of the adopted experiments to select the critical flags
+        self.Accuracy.SourcekAccuracyBoost = AccuracyBoost
+        self.Accuracy.TransferkBoost = AccuracyBoost
+        self.Accuracy.BessIntBoost = AccuracyBoost
+        self.Accuracy.BesselBoost = AccuracyBoost
+        self.Accuracy.KmaxBoost = AccuracyBoost      
+        #VM ENDS
+        
+        (...)
+        return self
