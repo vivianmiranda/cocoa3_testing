@@ -584,9 +584,9 @@ Below is an example of possible modifications:
         self.Accuracy.SourceLimberBoost = self.Accuracy.AccuracyBoost
         self.Accuracy.neutrino_q_boost = self.Accuracy.AccuracyBoost
 
-        #COCOA: Only critical flags continue to be sensitive to the AccuracyBoost variable
-        #COCOA WARNING: what makes a flag critical? That is a model and data dependent statement
-        #COCOA WARNING: check the \delta chi^2 of the adopted experiments to select the critical flags
+        #COCOA: Only critical self.Accuracy flags continue to be sensitive to AccuracyBoost variable
+        #COCOA WARNING: What makes a self.Accuracy flag critical? That depends on the specific models 
+        #COCOA WARNING: and experiments under consideration in an MCMC.
         self.Accuracy.SourcekAccuracyBoost = AccuracyBoost
         self.Accuracy.TransferkBoost = AccuracyBoost
         self.Accuracy.BessIntBoost = AccuracyBoost
@@ -597,4 +597,4 @@ Below is an example of possible modifications:
         (...)
         return self
   
-Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/` because the choice of critical flags depends on the specific models and experiments under consideration in an MCMC. 
+Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/` because the choice of critical `self.Accuracy` flags depends on the specific models and experiments under consideration in an MCMC. 
