@@ -28,11 +28,11 @@ There are two installation methods. Users must choose one of them:
 1. [Via Conda](#required_packages_conda) (easier, best)
 2. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable) 
 
-We also provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. See Appendix [The whovian-cocoa docker container](#appendix_jupyter_whovian) for further instructions.
+We also provide the docker image whovian-cocoa to promote the installation of Cocoa on Windows/MacOS. For further instructions, refer to the Appendix [whovian-cocoa docker container](#appendix_jupyter_whovian).
 
 ### Via Conda <a name="required_packages_conda"></a>
 
-We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If this is not the case, then refer to the [Miniconda Installation](#overview_miniconda) appendix for further instructions.
+We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If this is not the case, then refer to the Appendix [Miniconda Installation](#overview_miniconda) for further instructions.
 
 Type the following commands to create the cocoa Conda environment.
 
@@ -67,17 +67,17 @@ Type the following commands to create the cocoa Conda environment.
        'conda-forge::matplotlib=3.5.1' \
        'conda-forge::astropy=4.3.1'
       
-For machine-learning emulator projects, please refer to appendix [Setting-up conda environment for Machine Learning emulators](ml_emulators) for further instructions
+For those working on projects that utilize machine-learning-based emulators, the Appendix [Setting-up conda environment for Machine Learning emulators](ml_emulators) provides additional commands for installing the necessary packages.
 
-With this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below 
+When adopting this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below.
 
     $ conda activate cocoa
     
-When loading conda cocoa environment for the first time, users must also install git-lfs
+Furthermore, users must install GIT-LFS on the first loading of the Conda cocoa environment.
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs install
 
-Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
+Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code).
 
 ### (expert) Via Cocoa's internal cache <a name="required_packages_cache"></a>
 
