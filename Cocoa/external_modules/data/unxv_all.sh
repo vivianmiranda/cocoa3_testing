@@ -3,9 +3,6 @@
 rm -rf ./sn_data/
 tar xf sn_data.xz
 
-rm -rf ./des_data/
-tar xf des_data.xz
-
 rm -rf ./bicep_keck_2015/
 tar xf bicep_keck_2015.xz
 
