@@ -34,9 +34,9 @@ Installing a new CAMB code in Cocoa requires a few changes to the existing code 
     
     #Will detect ifort/gfortran or edit for your compiler
     #ifneq ($(COMPILER),gfortran)
-    #ifortErr = $(shell which ifort >/dev/null 2>&1; echo $$?)
+    #  ifortErr = $(shell which ifort >/dev/null 2>&1; echo $$?)
     #else
-    #ifortErr = 1
+    #  ifortErr = 1
     #endif
     ifortErr = 1
     
@@ -64,9 +64,9 @@ Installing a new CAMB code in Cocoa requires a few changes to the existing code 
 
     (...)
     #ifneq ($(COMPILER),gfortran)
-      #ifortErr = $(shell which ifort >/dev/null 2>&1; echo $$?)
+    #  ifortErr = $(shell which ifort >/dev/null 2>&1; echo $$?)
     #else
-      #ifortErr = 1
+    #  ifortErr = 1
     #endif
     ifortErr = 1
     
@@ -77,7 +77,7 @@ Installing a new CAMB code in Cocoa requires a few changes to the existing code 
     else
         #major_version = $(shell gfortran -dumpversion 2>&1 | cut -d " " -f 3 | cut -d. -f 1)
         #ifneq ($(shell test $(major_version) -gt 5; echo $$?),0)
-          #$(error gfortran version 6.3 or higher (or ifort 14+) is required)
+        #  $(error gfortran version 6.3 or higher (or ifort 14+) is required)
         #endif
         #compiler_ver = $(shell gfortran -dumpversion 2>&1)
         F90C ?= $(FORTRAN_COMPILER)
