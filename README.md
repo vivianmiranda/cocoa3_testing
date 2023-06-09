@@ -563,7 +563,7 @@ The accurate computation of many CMB and large-scale-structure data vectors requ
 
 The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost should be adjusted until the $\chi^2$ of the adopted experiments remain stable. 
 
-The crucial point to note is that not all CAMB modules need a higher boost factor for a stable experiment's $\chi^2$ to be achieved. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. 
+The crucial point to note is that not all CAMB modules need a higher boost factor. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. 
 
 Below is an example of possible modifications. We do not implement such changes by default in `$ROOTDIR/external_modules/code/CAMB/`: 
 
