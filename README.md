@@ -371,9 +371,9 @@ To avoid excessive compilation times during development, users can use specializ
     
 ### Warning about Weak Lensing YAML files in Cobaya <a name="appendix_example_runs"></a>
 
-The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but as CAMB Boltzmann code only accepts $\Omega_c h^2$ and $\Omega_b h^2$ in Cobaya. There are two ways of creating YAML compatible with Weak Lensing Cosmolike: 
+The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but the CAMB Boltzmann code only accepts $\Omega_c h^2$ and $\Omega_b h^2$ in Cobaya. Therefore, there are two ways of creating YAML compatible with CAMB and Cosmolike: 
 
-1. CMB parameterization and  $\Omega_m$ and $\Omega_b$ as derived parameters. An example is shown below (for when selecting the CAMB Boltzmann code)
+1. CMB parameterization and  $\Omega_m$ and $\Omega_b$ as derived parameters.
 
         omegabh2:
             prior:
@@ -412,7 +412,9 @@ The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but as CAMB Boltzmann co
 
 2. Weak Lensing parameterization and  $\Omega_c h^2$ and $\Omega_b h^2$ as derived parameters.
 
-Adopting $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya. The problem occurs when (1) the option `drop: true` is absent in $\Omega_m$ and $\Omega_b$ parameters, and (2) there is no derived $\Omega_c h^2$/$\Omega_b h^2$ expressions. The bug is silent because the MCMC runs smoothly without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are flawed, but they may seem reasonable to those unfamiliar with the issue. It's important to be aware of this bug to avoid any potential inaccuracies in the results. The correct way to create YAML files with $\Omega_m$ and $\Omega_b$ as main MCMC parameters is exemplified below (for when selecting the CAMB Boltzmann code)
+Adopting $\Omega_m$ and $\Omega_b$ as main MCMC parameters can create a silent bug in Cobaya. The problem occurs when the option `drop: true` is absent in $\Omega_m$ and $\Omega_b$ parameters, and there are no expressions that define the derived $\Omega_c h^2$/$\Omega_b h^2$ parameters. The bug is silent because the MCMC runs without any warnings, but the CAMB Boltzmann code does not update the cosmological parameters at every MCMC iteration. As a result, the resulting posteriors are flawed, but they may seem reasonable to those unfamiliar with the issue. It's important to be aware of this bug to avoid any potential inaccuracies in the results. 
+
+The correct way to create YAML files with $\Omega_m$ and $\Omega_b$ as main MCMC parameters is exemplified below
 
         omegab:
             prior:
