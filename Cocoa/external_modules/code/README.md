@@ -6,15 +6,15 @@
 
 Installing a new CAMB code in Cocoa requires a few changes to the existing code that ensures the CAMB scripts use the correct compiler and that Cocoa's shell scripts can compile and link CAMB. In this section, we summarize these steps, which can be helpful for users who maintain modified versions of the Boltzmann code. We assume the user opted for the easier Cocoa Conda installation and located the terminal in the folder where Cocoa was cloned.
 
-**Step 1 of 13**: Activate the Conda environment, go to the Cocoa main folder, and start the `(.local)` Python private environment
+**Step 1 of 13**: Activate the Cocoa conda environment, then go to the Cocoa main folder, and start the `(.local)` Python private environment.
 
     $ conda activate cocoa
     $(cocoa) cd ./cocoa/Cocoa
     $(cocoa) source start_cocoa
     
-**Step 2 of 13**: Move the Boltzmann code to the folder `$ROOTDIR/external_modules/code/XXX`. The string `XXX` should be replaced by the modified CAMB adopted name (e.g., CAMBQ). 
+**Step 2 of 13**: Move the modified CAMB code to the folder `$ROOTDIR/external_modules/code/XXX`. The string `XXX` should be replaced by the new code's adopted name (e.g., CAMBQ). 
     
-**Step 3 of 13**: Modify the `get_gfortran_version` function located in the file `$ROOTDIR/external_modules/code/XXX/camb/_compilers.py`. $ROOTDIR is the absolute path of the main `Cocoa/` folder.
+**Step 3 of 13**: Modify the `get_gfortran_version` Python function located in the file `$ROOTDIR/external_modules/code/XXX/camb/_compilers.py`. $ROOTDIR is the absolute path of the main `Cocoa/` folder.
     
     (...)
     
