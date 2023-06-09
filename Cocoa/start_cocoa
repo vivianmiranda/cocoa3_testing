@@ -125,6 +125,18 @@ else
     export OLD_OBJC_PATH="x"
 fi
 
+if [ -n "${CFLAGS}" ]; then
+    export OLD_CFLAGS=$CFLAGS
+else
+    export OLD_CFLAGS="x"
+fi
+
+if [ -n "${INCLUDE_PATH}" ]; then
+    export OLD_INCLUDE_PATH=$INCLUDE_PATH
+else
+    export OLD_INCLUDE_PATH="x"
+fi
+
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
@@ -155,23 +167,26 @@ export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$ROOTDIR/.local/lib/python$PYTHON_
 export NUMPY_HEADERS=$ROOTDIR/.local/lib/python$PYTHON_VERSION/site-packages/numpy/core/include
 export LD_LIBRARY_PATH=$ROOTDIR/.local/lib/python$PYTHON_VERSION/site-packages/numpy/core/lib:$LD_LIBRARY_PATH
 export CPATH=$CPATH:$ROOTDIR/.local/lib/python$PYTHON_VERSION/site-packages/numpy/core/include
-export CFLAGS=$CFLAGS:$ROOTDIR/.local/lib/python$PYTHON_VERSION/site-packages/numpy/core/include
+
+export CFLAGS="${CFLAGS} -I$ROOTDIR/.local/lib/python$PYTHON_VERSION/site-packages/numpy/core/include"
+export LDFLAGS="${LDFLAGS} -L$ROOTDIR/.local/lib"
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ROOTDIR/.local/lib
-export LDFLAGS="-L$ROOTDIR/.local/lib":$LDFLAGS
+
 export LD_RUN_PATH=$ROOTDIR/.local/lib:$LD_RUN_PATH
-export LD_RUN_PATH=$ROOTDIR/.local/lib:$LD_RUN_PATH
-export LIBRARY_PATH=$ROOTDIR/.local/lib:$LIBRARY_PATH
 export LIBRARY_PATH=$ROOTDIR/.local/lib:$LIBRARY_PATH
 
 export CMAKE_INCLUDE_PATH=$ROOTDIR/.local/include/python${PYTHON_VERSION}m/:$CMAKE_INCLUDE_PATH
 export CMAKE_INCLUDE_PATH=$ROOTDIR/.local/include/:$CMAKE_INCLUDE_PATH    
+
 export CMAKE_LIBRARY_PATH=$ROOTDIR/.local/lib/python$PYTHON_VERSION/site-packages:$CMAKE_LIBRARY_PATH
 export CMAKE_LIBRARY_PATH=$ROOTDIR/.local/lib:$CMAKE_LIBRARY_PATH
 
 export INCLUDE_PATH=$ROOTDIR/.local/include/:$INCLUDE_PATH
 export INCLUDEPATH=$ROOTDIR/.local/include/:$INCLUDEPATH
+
 export INCLUDE=$ROOTDIR/.local/include/:$INCLUDE
+
 export CPATH=$ROOTDIR/.local/include/:$CPATH
 
 export OBJC_INCLUDE_PATH=$ROOTDIR/.local/:OBJC_INCLUDE_PATH

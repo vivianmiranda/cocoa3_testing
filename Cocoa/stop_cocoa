@@ -163,6 +163,24 @@ if [ -n "${OLD_NUMPY_HEADERS}" ]; then
   unset OLD_NUMPY_HEADERS
 fi
 
+if [ -n "${OLD_CFLAGS}" ]; then
+  if [ "${OLD_CFLAGS}" != "x" ]; then
+    export CFLAGS=$OLD_CFLAGS
+  else
+    unset CFLAGS
+  fi
+  unset OLD_CFLAGS
+fi
+
+if [ -n "${OLD_INCLUDE_PATH}" ]; then
+  if [ "${OLD_INCLUDE_PATH}" != "x" ]; then
+    export INCLUDE_PATH=$OLD_INCLUDE_PATH
+  else
+    unset INCLUDE_PATH
+  fi
+  unset OLD_INCLUDE_PATH
+fi
+
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
 # ----------------------------- PLANCK LIKELIHOOD ----------------------------

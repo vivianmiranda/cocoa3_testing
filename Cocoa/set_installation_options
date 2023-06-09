@@ -123,7 +123,8 @@ elif [ -n "${MINICONDA_INSTALLATION}" ]; then
 # --------------------------------------------------------------------------------------
     export PATH=$CONDA_PREFIX/bin:$PATH
     
-    export LDFLAGS="-L$CONDA_PREFIX/lib":$LDFLAGS
+    export CFLAGS="${CFLAGS} -I$CONDA_PREFIX/include"
+    export LDFLAGS="${LDFLAGS} -L$CONDA_PREFIX/lib"
 
     export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CPLUS_INCLUDE_PATH
     export C_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$C_INCLUDE_PATH
@@ -152,12 +153,16 @@ elif [ -n "${MINICONDA_INSTALLATION}" ]; then
 
     export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CMAKE_INCLUDE_PATH
     export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/:$CMAKE_INCLUDE_PATH    
+    
     export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$CMAKE_LIBRARY_PATH
     export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib:$CMAKE_LIBRARY_PATH
 
     export INCLUDE_PATH=$CONDA_PREFIX/include/:$INCLUDE_PATH
     export INCLUDEPATH=$CONDA_PREFIX/include/:$INCLUDEPATH
+    
+    export INCLUDE=$CONDA_PREFIX/x86_64-conda-linux-gnu/include:$INCLUDE
     export INCLUDE=$CONDA_PREFIX/include/:$INCLUDE
+    
     export CPATH=$CONDA_PREFIX/include/:$CPATH
 
     export OBJC_INCLUDE_PATH=$CONDA_PREFIX/include/:OBJC_INCLUDE_PATH
