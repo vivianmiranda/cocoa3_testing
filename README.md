@@ -559,7 +559,7 @@ Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries
 
 ### Fine-tunning CAMB Accuracy <a name="camb_accuracy"></a>
 
-The accurate computation of many CMB and large-scale-structure data vectors requires high `AccuracyBoost` values in CAMB. However, this parameter is inefficient, causing an exponential increase in CAMB's runtime. This issue has been frequent enough that we provide below a simple but partial solution 
+The accurate computation of many CMB and large-scale-structure data vectors requires high `AccuracyBoost` values in CAMB. However, this parameter is particularly inefficient, causing an exponential increase in CAMB's runtime. This issue has been frequent enough that we provide below a simple but partial solution 
 
 The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost should be adjusted until the $\chi^2$ of the adopted experiments remain stable. 
 
