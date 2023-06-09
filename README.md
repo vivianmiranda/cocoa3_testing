@@ -67,7 +67,7 @@ Type the following commands to create the cocoa Conda environment.
        'conda-forge::matplotlib=3.5.1' \
        'conda-forge::astropy=4.3.1'
       
-For those working on projects that utilize machine-learning-based emulators, the Appendix [Setting-up conda environment for Machine Learning emulators](ml_emulators) provides additional commands for installing the necessary packages.
+For those working on projects that utilize machine-learning-based emulators, the Appendix [Setting-up conda environment for Machine Learning emulators](#ml_emulators) provides additional commands for installing the necessary packages.
 
 When adopting this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below.
 
