@@ -544,10 +544,10 @@ Tensorflow, Keras and Pytorch.
 
 Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
 
-For users that opt for the manual installation method via Cocoa's internal cache, commenting the following environmental flags on the script will activate the installation of machine-learning-related libraries via pip. 
+For users that opted for the manual installation via Cocoa's internal cache, commenting out the environmental flags shown below, located at *set_installation_options* script, will enable the installation of machine-learning-related libraries via pip.  
 
         # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
         #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
         #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
 
-Unlike other pip packages, these ML packages will require an internet connection to be installed, as they exceed the limited capacity of our GIT-LFS-based `pip_cache` folder. In addition, this installation method is not the most employed in our group for us to pay for the extra GIT-LFS bandwith.  
+Unlike most installed pip prerequisites that are cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of Machine Learning packages will require an active internet connection. 
