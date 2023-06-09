@@ -144,14 +144,7 @@ Finally, set the following environmental keys
         #export IGNORE_C_FFTW_INSTALLATION=1
         #export IGNORE_OPENBLAS_INSTALLATION=1
         #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
-   
-Our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
-
-    Cocoa/.local/bin
-    Cocoa/.local/include
-    Cocoa/.local/lib
-    Cocoa/.local/share
-
+ 
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
 
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
@@ -186,7 +179,16 @@ The user must uncomment the appropriate key (here, we assume `MINICONDA_INSTALLA
     $(cocoa) cd ./Cocoa/
     $(cocoa) source setup_cocoa_installation_packages
 
-`Cocoa/` is the Cocoa main folder. The script `setup_cocoa_installation_packages` decompresses the data files and installs any remaining necessary packages. File decompression should only take a few minutes. On the other hand, package installation time ranges, depending on the installation method, from a few minutes (installation via Conda) to more than one hour (installation via Cocoa's internal cache). Finally, type
+The script `setup_cocoa_installation_packages` decompresses the data files, which only takes a few minutes, and installs any remaining necessary packages. Typical package installation time ranges, depending on the installation method, from a few minutes (installation via Conda) to more than one hour (installation via Cocoa's internal cache). It is important to note that our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
+
+    Cocoa/.local/bin
+    Cocoa/.local/include
+    Cocoa/.local/lib
+    Cocoa/.local/share
+
+This behavior is critical to enable users to work on multiple instances of Cocoa simultaneously.
+
+Finally, type
 
     $(cocoa) source compile_external_modules
     
