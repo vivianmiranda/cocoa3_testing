@@ -17,6 +17,7 @@
     7. [Setting-up conda environment for Machine Learning emulators](#ml_emulators)
     8. [Adding a new modified CAMB/CLASS to Cocoa (external readme)](Cocoa/external_modules/code)
     9. [Fine-tunning CAMB Accuracy](#camb_accuracy)
+    10. [Bash/C/C++ Notes](#lectnotes)
 
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
@@ -598,3 +599,9 @@ Below is an example of possible modifications:
         return self
   
 Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/` because the choice of critical `self.Accuracy` flags depends on the specific models and experiments under consideration in an MCMC. 
+
+### Bash/C/C++ Notes <a name="lectnotes"></a>
+
+To effectively work with the Cobaya framework and Cosmolike codes at the developer level, a working knowledge of Python to understand Cobaya and Bash language to comprehend Cocoa's scripts is required. Proficiency in C and C++ is also needed to manipulate Cosmolike and the C++ Cobaya-Cosmolike C++ interface. Finally, users need to understand the Fortran-2003 language to modify CAMB.
+
+Learning all these languages can be overwhelming, so to enable new users to do research that demands modifications on the inner workings of these codes, we include [here](cocoa_installation_libraries/LectNotes.pdf) a link to approximately 600 slides that provide an overview of Bash (slides 1-137), C (slides 138-371), and C++ (slides 372-599). In the future, we aim to add lectures about Python and Fortran. 
