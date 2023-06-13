@@ -202,13 +202,6 @@ Finally, set the following environmental keys
         export OBJC_INCLUDE_PATH=$CONDA_PREFIX/include/:OBJC_INCLUDE_PATH
 
         export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
-
-        if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
-            export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake
-            export CMAKE=$ROOTDIR/.local/bin/cmake
-        else
-            export CMAKE=cmake
-        fi
  
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
 
