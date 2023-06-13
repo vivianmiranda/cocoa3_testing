@@ -262,7 +262,7 @@ class CAMBparams(F2003Class):
         Set parameters determining overall calculation accuracy (large values may give big slow down).
         For finer control you can set individual accuracy parameters by changing CAMBParams.Accuracy
         (:class:`.model.AccuracyParams`) .
-
+    
         :param AccuracyBoost: increase AccuracyBoost to decrease integration step size, increase density of k
                               sampling, etc.
         :param lSampleBoost: increase lSampleBoost to increase density of L sampling for CMB
