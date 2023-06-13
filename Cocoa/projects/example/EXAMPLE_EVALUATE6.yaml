@@ -185,8 +185,8 @@ theory:
       dark_energy_model: ppf
       DoLateRadTruncation: False
       lmax: 5000
-      lens_potential_accuracy: 4
-      AccuracyBoost:  1.3
+      lens_potential_accuracy: 8
+      AccuracyBoost:  2.0
       lSampleBoost:   1.0
       lAccuracyBoost: 1.0
       num_massive_neutrinos: 1
