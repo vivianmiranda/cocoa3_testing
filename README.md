@@ -155,11 +155,11 @@ Assuming the user opted for the easier *Conda installation*, type:
 
     $ conda activate cocoa
     
-    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone https://github.com/CosmoLike/cocoa.git
+    $(cocoa) git clone https://github.com/CosmoLike/cocoa.git
 
 to clone the repository. Cocoa developers with set ssh keys in GitHub should instead use the command
 
-    $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:CosmoLike/cocoa.git
+    $(cocoa) git clone git@github.com:CosmoLike/cocoa.git
 
 (**Warning**) We have a limited monthly quota in bandwidth for Git LFS files, and therefore we ask users to use good judgment in the number of times they clone files from Cocoa's main repository.
  
@@ -562,44 +562,35 @@ Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries
 
 The accurate computation of many CMB and large-scale-structure data vectors requires high `AccuracyBoost` values in CAMB. However, this parameter is particularly inefficient, causing an exponential increase in CAMB's runtime. This issue has been frequent enough that we provide below a simple but partial remedy. 
 
-The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost should be adjusted until the $\chi^2$ of the adopted experiments remain stable. 
+The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost must be fine-tuned until the $\chi^2$ of the adopted experiments remain stable. However, we do not need to raise the boost factor in all CAMB modules by the same amount to achieve such stability. 
 
-The crucial point to note is that not all CAMB modules need a higher boost factor. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. 
+The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. Below is an example of possible modifications: 
 
-Below is an example of possible modifications: 
-
-    def set_accuracy(self, AccuracyBoost=1., ...):
-        (...)
-        
+    def set_accuracy(self, AccuracyBoost=1., lSampleBoost=1., lAccuracyBoost=1., DoLateRadTruncation=True): 
         #COCOA: BEGINS
-        #COCOA: Set most flags to a modest hardcoded increase in Accuracy (Accuracy.AccuracyBoost=1.05)
-        self.Accuracy.AccuracyBoost = 1.05
-        self.Accuracy.TimeStepBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.BackgroundTimeStepBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.IntTolBoost = self.Accuracy.AccuracyBoost        
-        self.Accuracy.IntkAccuracyBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.NonFlatIntAccuracyBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.LensingBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.NonlinSourceBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.LimberBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.SourceLimberBoost = self.Accuracy.AccuracyBoost
-        self.Accuracy.neutrino_q_boost = self.Accuracy.AccuracyBoost
-
-        #COCOA: Only critical self.Accuracy flags continue to be sensitive to AccuracyBoost variable
-        #COCOA WARNING: What makes a self.Accuracy flag critical? That depends on the specific models 
-        #COCOA WARNING: and experiments under consideration in an MCMC.
-        self.Accuracy.SourcekAccuracyBoost = AccuracyBoost
-        self.Accuracy.TransferkBoost = AccuracyBoost
-        self.Accuracy.BessIntBoost = AccuracyBoost
-        self.Accuracy.BesselBoost = AccuracyBoost
-        self.Accuracy.KmaxBoost = AccuracyBoost      
+        self.Accuracy.AccuracyBoost = AccuracyBoost       
+        
+        #COCOA: below, actual boost = 1.0 + 2*(AccuracyBoost-1.0)
+        self.Accuracy.BessIntBoost = (1.0 + 2*(AccuracyBoost-1.0))/AccuracyBoost
+        self.Accuracy.IntkAccuracyBoost = (1.0 + 2*(AccuracyBoost-1.0))/AccuracyBoost
+        self.Accuracy.TransferkBoost = (1.0 + 2*(AccuracyBoost-1.0))/AccuracyBoost
+        self.Accuracy.KmaxBoost = (1.0 + 2*(AccuracyBoost-1.0))/AccuracyBoost
+        self.Accuracy.TimeStepBoost = (1.0 + 2*(AccuracyBoost-1.0))/AccuracyBoost
+        
+        #COCOA: below, actual boost = 1.0 + 5*(AccuracyBoost-1.0)
+        self.Accuracy.SourcekAccuracyBoost = (1.0 + 5*(AccuracyBoost-1.0))/AccuracyBoost
+        self.Accuracy.BesselBoost = (1.0 + 5*(AccuracyBoost-1.0))/AccuracyBoost
         #COCOA: ENDS
         
-        (...)
+        self.Accuracy.lSampleBoost = lSampleBoost
+        self.Accuracy.lAccuracyBoost = lAccuracyBoost
+        self.DoLateRadTruncation = DoLateRadTruncation
         return self
-  
-Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/` because the choice of critical `self.Accuracy` flags depends on the specific models and experiments under consideration in an MCMC. 
+        
+With the code above, the theoretical error in Simons Observatory $\chi^2$ seems to be under control (i.e., $\Delta chi^2 =$ O(few)) with `AccuracyBoost: 1.06` and `lens_potential_accuracy: 4` even away from the best-fit model so that chains can be later corrected via Importance Sampling. As a reminder, corrections based on Importance Sampling are much faster when compared to running MCMC chains with insane accuracy because they can be computed on thinned versions of converged chains and are trivially parallelizable. 
 
+Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/`.
+        
 ### Bash/C/C++ Notes <a name="lectnotes"></a>
 
 To effectively work with the Cobaya framework and Cosmolike codes at the developer level, a working knowledge of Python to understand Cobaya and Bash language to comprehend Cocoa's scripts is required. Proficiency in C and C++ is also needed to manipulate Cosmolike and the C++ Cobaya-Cosmolike C++ interface. Finally, users need to understand the Fortran-2003 language to modify CAMB.
