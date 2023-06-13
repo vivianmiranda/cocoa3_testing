@@ -51,7 +51,6 @@ Type the following commands to create the cocoa Conda environment.
        'conda-forge::git=2.33.1' \
        'conda-forge::git-lfs=3.0.2' \
        'conda-forge::hdf5=1.10.6' \
-       'conda-forge::git-lfs=3.0.2' \
        'conda-forge::cmake=3.21.3' \
        'conda-forge::boost=1.76.0' \
        'conda-forge::gsl=2.7' \
@@ -113,39 +112,96 @@ Finally, set the following environmental keys
  
     [Extracted from set_installation_options script]
   
-    elif [ -n "${MANUAL_INSTALLATION}" ]; then
-
-        export GLOBAL_PACKAGES_LOCATION=/usr/local
-        export PYTHON_VERSION=3
-        export FORTRAN_COMPILER=gfortran
-
-        export C_COMPILER=gcc
-        export CXX_COMPILER=g++
-        export GLOBALPYTHON3=python3
-        export MPI_FORTRAN_COMPILER=mpif90
-        export MPI_CXX_COMPILER=mpicc
-        export MPI_CC_COMPILER=mpicxx
-
-        # IF TRUE, THEN COCOA ADOPTS FFTW10. OTHERWISE, COCOA ADOPTS FFTW8
+    if [ -n "${MANUAL_INSTALLATION}" ]; then
+        # --------------------------------------------------------------------------------------
+        # IF SET, THEN COCOA ADOPTS FFTW10. OTHERWISE, COCOA ADOPTS FFTW8
+        # --------------------------------------------------------------------------------------
         #export FFTW_NEW_VERSION=1
-        #export DONT_USE_SYSTEM_PIP_PACKAGES=1
 
-        # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
-        #export IGNORE_EMULATOR_PIP_PACKAGES=1
+        # --------------------------------------------------------------------------------------
+        # IF SET, COCOA DOES NOT USE SYSTEM PIP PACKAGES (RELIES EXCLUSIVELY ON PIP CACHE FOLDER)
+        # --------------------------------------------------------------------------------------
+        export DONT_USE_SYSTEM_PIP_PACKAGES=1
 
-        #export IGNORE_DISTUTILS_INSTALLATION=1
-        #export IGNORE_OPENBLAS_INSTALLATION=1
-        #export IGNORE_XZ_INSTALLATION=1
-        #export IGNORE_ALL_PIP_INSTALLATION=1
-        #export IGNORE_CMAKE_INSTALLATION=1
-        #export IGNORE_CPP_BOOST_INSTALLATION=1
-        #export IGNORE_CPP_ARMA_INSTALLATION=1
-        #export IGNORE_CPP_SPDLOG_INSTALLATION=1
-        #export IGNORE_C_GSL_INSTALLATION=1
-        #export IGNORE_C_CFITSIO_INSTALLATION=1
-        #export IGNORE_C_FFTW_INSTALLATION=1
-        #export IGNORE_OPENBLAS_INSTALLATION=1
-        #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+        # --------------------------------------------------------------------------------------
+        # IF SET, COCOA WILL NOT INSTALL TENSORFLOW, KERAS, PYTORCH, GPY
+        # --------------------------------------------------------------------------------------
+        export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
+        export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
+
+        # --------------------------------------------------------------------------------------
+        # WE USE CONDA COLASLIM ENV WITH JUST PYTHON AND GCC TO TEST MANUAL INSTALLATION
+        # --------------------------------------------------------------------------------------
+        #conda create --name cocoalite python=3.7 --quiet --yes \
+        #   && conda install -n cocoalite --quiet --yes  \
+        #   'conda-forge::libgcc-ng=10.3.0' \
+        #   'conda-forge::libstdcxx-ng=10.3.0' \
+        #   'conda-forge::libgfortran-ng=10.3.0' \
+        #   'conda-forge::gxx_linux-64=10.3.0' \
+        #   'conda-forge::gcc_linux-64=10.3.0' \
+        #   'conda-forge::gfortran_linux-64=10.3.0' \
+        #   'conda-forge::openmpi=4.1.1' \
+        #   'conda-forge::sysroot_linux-64=2.17' \
+        #   'conda-forge::git=2.33.1' \
+        #   'conda-forge::git-lfs=3.0.2'
+        # --------------------------------------------------------------------------------------
+
+        export GLOBAL_PACKAGES_LOCATION=$CONDA_PREFIX
+        export GLOBALPYTHON3=$CONDA_PREFIX/bin/python${PYTHON_VERSION}
+        export PYTHON_VERSION=3.7
+
+        # --------------------------------------------------------------------------------------
+        # COMPILER
+        # --------------------------------------------------------------------------------------
+        export C_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
+        export CXX_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
+        export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
+        export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicxx
+        export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicc
+        export MPI_FORTRAN_COMPILER=$CONDA_PREFIX/bin/mpif90
+
+        # --------------------------------------------------------------------------------------
+        # USER NEEDS TO SPECIFY THE FLAGS BELOW SO COCOA CAN FIND PYTHON / GCC
+        # --------------------------------------------------------------------------------------
+        export PATH=$CONDA_PREFIX/bin:$PATH
+
+        export CFLAGS="${CFLAGS} -I$CONDA_PREFIX/include"
+
+        export LDFLAGS="${LDFLAGS} -L$CONDA_PREFIX/lib"
+
+        export C_INCLUDE_PATH=$CONDA_PREFIX/include:$C_INCLUDE_PATH
+        export C_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$C_INCLUDE_PATH
+
+        export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include:$CPLUS_INCLUDE_PATH
+        export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CPLUS_INCLUDE_PATH
+
+        export PYTHONPATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$PYTHONPATH
+        export PYTHONPATH=$CONDA_PREFIX/lib:$PYTHONPATH
+
+        export LD_RUN_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$LD_RUN_PATH
+        export LD_RUN_PATH=$CONDA_PREFIX/lib:$LD_RUN_PATH
+
+        export LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$LIBRARY_PATH
+        export LIBRARY_PATH=$CONDA_PREFIX/lib:$LIBRARY_PATH
+
+        export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/:$CMAKE_INCLUDE_PATH
+        export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CMAKE_INCLUDE_PATH    
+
+        export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$CMAKE_LIBRARY_PATH
+        export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib:$CMAKE_LIBRARY_PATH
+
+        export INCLUDE_PATH=$CONDA_PREFIX/include/:$INCLUDE_PATH
+
+        export INCLUDEPATH=$CONDA_PREFIX/include/:$INCLUDEPATH
+
+        export INCLUDE=$CONDA_PREFIX/x86_64-conda-linux-gnu/include:$INCLUDE
+        export INCLUDE=$CONDA_PREFIX/include/:$INCLUDE
+
+        export CPATH=$CONDA_PREFIX/include/:$CPATH
+
+        export OBJC_INCLUDE_PATH=$CONDA_PREFIX/include/:OBJC_INCLUDE_PATH
+
+        export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
  
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
 
@@ -181,7 +237,7 @@ The user must uncomment the appropriate key (here, we assume `MINICONDA_INSTALLA
     $(cocoa) cd ./Cocoa/
     $(cocoa) source setup_cocoa_installation_packages
 
-The script `setup_cocoa_installation_packages` decompresses the data files, which only takes a few minutes, and installs any remaining necessary packages. Typical package installation time ranges, depending on the installation method, from a few minutes (installation via Conda) to more than one hour (installation via Cocoa's internal cache). It is important to note that our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
+The script `setup_cocoa_installation_packages` decompresses the data files, which only takes a few minutes, and installs any remaining necessary packages. Typical package installation time ranges, depending on the installation method, from a few minutes (installation via Conda) to ~1/2 hour (installation via Cocoa's internal cache). It is important to note that our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
 
     Cocoa/.local/bin
     Cocoa/.local/include
