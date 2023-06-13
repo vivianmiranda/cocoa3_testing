@@ -51,7 +51,6 @@ Type the following commands to create the cocoa Conda environment.
        'conda-forge::git=2.33.1' \
        'conda-forge::git-lfs=3.0.2' \
        'conda-forge::hdf5=1.10.6' \
-       'conda-forge::git-lfs=3.0.2' \
        'conda-forge::cmake=3.21.3' \
        'conda-forge::boost=1.76.0' \
        'conda-forge::gsl=2.7' \
