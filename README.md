@@ -587,7 +587,7 @@ The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modu
         self.DoLateRadTruncation = DoLateRadTruncation
         return self
         
-With the code above, the theoretical error in Simons Observatory $\chi^2$ seems to be under control (i.e., $\Delta \chi^2 =$ O(few)) with `AccuracyBoost: 1.06` and `lens_potential_accuracy: 4` even away from the best-fit model so that chains can be later corrected via Importance Sampling. As a reminder, corrections based on Importance Sampling are much faster when compared to running MCMC chains with insane accuracy because they can be computed on thinned versions of converged chains and are trivially parallelizable. 
+With the code above, the theoretical error in Simons Observatory $\chi^2$ seems to be under control (i.e., $\Delta \chi^2 =$ O(few)) with `AccuracyBoost: 1.06` and `lens_potential_accuracy: 4` even a bit away from the best-fit model so that chains can be later corrected via Importance Sampling. As a reminder, corrections based on Importance Sampling are much faster when compared to running MCMC chains with insane accuracy because they can be computed on thinned versions of converged chains and are trivially parallelizable. 
 
 Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/`.
         
