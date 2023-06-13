@@ -562,7 +562,9 @@ Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries
 
 The accurate computation of many CMB and large-scale-structure data vectors requires high `AccuracyBoost` values in CAMB. However, this parameter is particularly inefficient, causing an exponential increase in CAMB's runtime. This issue has been frequent enough that we provide below a simple but partial remedy. 
 
-The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost must be fine-tuned until the $\chi^2$ of the adopted experiments remain stable. However, we do not need to raise the boost factor in all CAMB modules by the same amount to achieve such stability. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. Below is an example of possible modifications: 
+The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost must be fine-tuned until the $\chi^2$ of the adopted experiments remain stable. However, we do not need to raise the boost factor in all CAMB modules by the same amount to achieve such stability. 
+
+The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. Below is an example of possible modifications: 
 
     def set_accuracy(self, AccuracyBoost=1., lSampleBoost=1., lAccuracyBoost=1., DoLateRadTruncation=True): 
         #COCOA: BEGINS
