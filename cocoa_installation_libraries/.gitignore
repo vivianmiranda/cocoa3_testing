@@ -32,3 +32,5 @@ binutils-2.34/
 binutils-2.37/
 texinfo-6.7/
 binutils-gdb/
+CMake-hdf5-1.10.10/
+CMake-hdf5-1.*/
