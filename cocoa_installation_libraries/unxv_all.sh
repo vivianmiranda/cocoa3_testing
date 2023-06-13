@@ -199,12 +199,12 @@ if [ -z "${IGNORE_DISTUTILS_INSTALLATION}" ]; then
     if [ -z "${THREAD_UNXZ}" ]; then
         tar xf texinfo-6.7.xz
         proc12=$!
-        tar xf binutils-2.37.xz
+        tar xf binutils237.xz
         proc13=$!
     else
         tar xf texinfo-6.7.xz &
         proc12=$!
-        tar xf binutils-2.37.xz &
+        tar xf binutils237.xz &
         proc13=$!
     fi
 else

@@ -1,25 +1,25 @@
 if [ -z "${ROOTDIR}" ]; then
-    echo 'ERROR ROOTDIR not defined'
+    echo 'ERROR ENV VARIABLE ROOTDIR IS NOT DEFINED' >&2
     return 1
 fi
 if [ -z "${CXX_COMPILER}" ]; then
-    echo 'ERROR CXX_COMPILER not defined'
+    echo 'ERROR ENV VARIABLE CXX_COMPILER IS NOT DEFINED' >&2
     return 1
 fi
 if [ -z "${C_COMPILER}" ]; then
-    echo 'ERROR C_COMPILER not defined'
-    return 1
-fi
-if [ -z "${FORTRAN_COMPILER}" ]; then
-    echo 'ERROR C_COMPILER not defined'
+    echo 'ERROR ENV VARIABLE C_COMPILER IS NOT DEFINED' >&2
     return 1
 fi
 if [ -z "${CMAKE}" ]; then
-    echo 'ERROR CMAKE not defined'
+    echo 'ERROR ENV VARIABLE MAKE IS NOT DEFINED' >&2
+    return 1
+fi
+if [ -z "${FORTRAN_COMPILER}" ]; then
+    echo 'ERROR ENV VARIABLE FORTRAN_COMPILER IS NOT DEFINED' >&2
     return 1
 fi
 if [ -z "${MAKE_NUM_THREADS}" ]; then
-    echo 'ERROR MAKE_NUM_THREADS not defined'
+    echo 'ERROR ENV VARIABLE MAKE_NUM_THREADS IS NOT DEFINED' >&2
     return 1
 fi
 
@@ -47,7 +47,8 @@ if [ -z "${IGNORE_FORTRAN_LAPACK_INSTALLATION}" ]; then
     if [ $? -eq 0 ]; then
       echo "LAPACK CMAKE RUN DONE"
     else
-      echo "LAPACK COULD NOT RUN CMAKE - CHECK SETUP_FORTRAN_PACKAGES SCRIPT" >&2
+      echo "LAPACK COULD NOT RUN CMAKE" >&2
+      cd $ROOTDIR
       return 1
     fi
 
@@ -55,7 +56,8 @@ if [ -z "${IGNORE_FORTRAN_LAPACK_INSTALLATION}" ]; then
     if [ $? -eq 0 ]; then
       echo "LAPACK MAKE RUN DONE"
     else
-      echo "LAPACK COULD NOT RUN MAKE - CHECK SETUP_FORTRAN_PACKAGES SCRIPT" >&2
+      echo "LAPACK COULD NOT RUN MAKE" >&2
+      cd $ROOTDIR
       return 1
     fi
 
@@ -63,15 +65,28 @@ if [ -z "${IGNORE_FORTRAN_LAPACK_INSTALLATION}" ]; then
     if [ $? -eq 0 ]; then
       echo "LAPACK MAKE INSTALL RUN DONE"
     else
-      echo "LAPACK COULD NOT RUN MAKE INSTALL - CHECK SETUP_FORTRAN_PACKAGES SCRIPT" >&2
+      echo "LAPACK COULD NOT RUN MAKE INSTALL" >&2
+      cd $ROOTDIR
       return 1
     fi
   else
     $CMAKE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_INSTALL_PREFIX=$ROOTDIR/.local \
     -DCMAKE_C_COMPILER=$C_COMPILER --log-level=ERROR ../lapack-3.9.0/
+    if [ $? -ne 0 ];then
+      cd $ROOTDIR
+      return 1
+    fi
 
     make all
+    if [ $? -ne 0 ];then
+      cd $ROOTDIR
+      return 1
+    fi
     make install
+    if [ $? -ne 0 ];then
+      cd $ROOTDIR
+      return 1
+    fi
   fi
   
   cd $ROOTDIR
