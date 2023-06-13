@@ -587,7 +587,7 @@ The underlying reason for `AccuracyBoost` inefficiency is that this flag raises 
         
 With the code above, the theoretical error in $\chi^2$ seems to be under control ($\delta chi^2 =$ O(few)) with `AccuracyBoost: 1.06` and `lens_potential_accuracy: 4` even away from the best-fit model so that chains can be later corrected via Importance Sampling. As a reminder, corrections based on Importance Sampling are much faster when compared to running MCMC chains with insane accuracy because they can be computed on thinned versions of converged chains and are trivially parallelizable. 
 
-Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/` because the choice of critical `self.Accuracy` flags depends on the specific models and experiments under consideration in an MCMC.
+Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/`.
         
 ### Bash/C/C++ Notes <a name="lectnotes"></a>
 
