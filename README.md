@@ -562,9 +562,7 @@ Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries
 
 The accurate computation of many CMB and large-scale-structure data vectors requires high `AccuracyBoost` values in CAMB. However, this parameter is particularly inefficient, causing an exponential increase in CAMB's runtime. This issue has been frequent enough that we provide below a simple but partial remedy. 
 
-The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost should be adjusted until the $\chi^2$ of the adopted experiments remain stable. To achieve that, not all CAMB modules need a raise the boost factor by the same ammount. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. 
-
-Below is an example of possible modifications for Simons Obervatory likelihood: 
+The underlying reason for `AccuracyBoost` inefficiency is that this flag raises the required accuracy of multiple modules in CAMB. The appropriate boost must be fine-tuned until the $\chi^2$ of the adopted experiments remain stable. However, we do not need to raise the boost factor in all CAMB modules by the same amount to achieve such stability. The Python function `set_accuracy`,  located in the file `$ROOTDIR/external_modules/code/CAMB/camb`, can be modified for a more fine-tuned change to CAMB accuracy. Below is an example of possible modifications: 
 
     def set_accuracy(self, AccuracyBoost=1., lSampleBoost=1., lAccuracyBoost=1., DoLateRadTruncation=True): 
         #COCOA: BEGINS
@@ -587,7 +585,7 @@ Below is an example of possible modifications for Simons Obervatory likelihood:
         self.DoLateRadTruncation = DoLateRadTruncation
         return self
         
-Assuming the modification above, the theoretical error in $\chi^2$ seems to be under control ($\delta chi^2 =$ O(few)) with `AccuracyBoost: 1.06` and `lens_potential_accuracy: 4`, so chains can be later corrected via Importance Sampling. As a reminder, corrections based on Importance Sampling are much faster when compared to running MCMC chains with insane accuracy because they can be computed on thinned versions of converged chains and are trivially parallelizable. 
+With the code above, the theoretical error in $\chi^2$ seems to be under control ($\delta chi^2 =$ O(few)) with `AccuracyBoost: 1.06` and `lens_potential_accuracy: 4` even away from the best-fit model so that chains can be later corrected via Importance Sampling. As a reminder, corrections based on Importance Sampling are much faster when compared to running MCMC chains with insane accuracy because they can be computed on thinned versions of converged chains and are trivially parallelizable. 
 
 Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/` because the choice of critical `self.Accuracy` flags depends on the specific models and experiments under consideration in an MCMC.
         
