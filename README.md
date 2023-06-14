@@ -530,10 +530,10 @@ This method is slow and not advisable :stop_sign::thumbsdown:. When Conda is una
    - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
    - [Git](https://git-scm.com) v1.8+;
    - [Git LFS](https://git-lfs.github.com);
-   - [gcc](https://gcc.gnu.org) v10.*;
-   - [gfortran](https://gcc.gnu.org) v10.*;
-   - [g++](https://gcc.gnu.org) v10.*;
-   - [Python](https://www.python.org) v3.7.*;
+   - [gcc](https://gcc.gnu.org) v12.*;
+   - [gfortran](https://gcc.gnu.org) v12.*;
+   - [g++](https://gcc.gnu.org) v12.*;
+   - [Python](https://www.python.org) v3.8.*;
    - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
    - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
 
@@ -557,11 +557,6 @@ Finally, set the following environmental keys
   
     if [ -n "${MANUAL_INSTALLATION}" ]; then
         # --------------------------------------------------------------------------------------
-        # IF SET, THEN COCOA ADOPTS FFTW10. OTHERWISE, COCOA ADOPTS FFTW8
-        # --------------------------------------------------------------------------------------
-        #export FFTW_NEW_VERSION=1
-
-        # --------------------------------------------------------------------------------------
         # IF SET, COCOA DOES NOT USE SYSTEM PIP PACKAGES (RELIES EXCLUSIVELY ON PIP CACHE FOLDER)
         # --------------------------------------------------------------------------------------
         export DONT_USE_SYSTEM_PIP_PACKAGES=1
@@ -575,23 +570,23 @@ Finally, set the following environmental keys
         # --------------------------------------------------------------------------------------
         # WE USE CONDA COLASLIM ENV WITH JUST PYTHON AND GCC TO TEST MANUAL INSTALLATION
         # --------------------------------------------------------------------------------------
-        #conda create --name cocoalite python=3.7 --quiet --yes \
-        #   && conda install -n cocoalite --quiet --yes  \
-        #   'conda-forge::libgcc-ng=10.3.0' \
-        #   'conda-forge::libstdcxx-ng=10.3.0' \
-        #   'conda-forge::libgfortran-ng=10.3.0' \
-        #   'conda-forge::gxx_linux-64=10.3.0' \
-        #   'conda-forge::gcc_linux-64=10.3.0' \
-        #   'conda-forge::gfortran_linux-64=10.3.0' \
-        #   'conda-forge::openmpi=4.1.1' \
+        #conda create --name cocoalite python=3.8 --quiet --yes \
+        #   && conda install -n cocoapy38 --quiet --yes  \
+        #   'conda-forge::libgcc-ng=12.3.0' \
+        #   'conda-forge::libstdcxx-ng=12.3.0' \
+        #   'conda-forge::libgfortran-ng=12.3.0' \
+        #   'conda-forge::gxx_linux-64=12.3.0' \
+        #   'conda-forge::gcc_linux-64=12.3.0' \
+        #   'conda-forge::gfortran_linux-64=12.3.0' \
+        #   'conda-forge::openmpi=4.1.5' \
         #   'conda-forge::sysroot_linux-64=2.17' \
-        #   'conda-forge::git=2.33.1' \
-        #   'conda-forge::git-lfs=3.0.2'
+        #   'conda-forge::git=2.40.0' \
+        #   'conda-forge::git-lfs=3.3.0'
         # --------------------------------------------------------------------------------------
 
         export GLOBAL_PACKAGES_LOCATION=$CONDA_PREFIX
         export GLOBALPYTHON3=$CONDA_PREFIX/bin/python${PYTHON_VERSION}
-        export PYTHON_VERSION=3.7
+        export PYTHON_VERSION=3.8
 
         # --------------------------------------------------------------------------------------
         # COMPILER
