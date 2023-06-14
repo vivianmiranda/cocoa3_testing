@@ -514,7 +514,7 @@ With the code above, the theoretical error in Simons Observatory $\chi^2$ seems 
 
 Out of caution, we have not implemented these changes in `$ROOTDIR/external_modules/code/CAMB/`.
         
-### Bash/C/C++ Notes <a name="lectnotes"></a>
+### :book: Bash/C/C++ Notes :book: <a name="lectnotes"></a>
 
 To effectively work with the Cobaya framework and Cosmolike codes at the developer level, a working knowledge of Python to understand Cobaya and Bash language to comprehend Cocoa's scripts is required. Proficiency in C and C++ is also needed to manipulate Cosmolike and the C++ Cobaya-Cosmolike C++ interface. Finally, users need to understand the Fortran-2003 language to modify CAMB.
 
