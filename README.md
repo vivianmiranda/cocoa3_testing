@@ -37,8 +37,8 @@ We assume here the user has previously installed either [Minicoda](https://docs.
 
 Type the following commands to create the cocoa Conda environment.
 
-        conda create --name cocoapy38 python=3.8 --quiet --yes \
-           && conda install -n cocoapy38 --quiet --yes  \
+        conda create --name cocoa python=3.8 --quiet --yes \
+           && conda install -n cocoa --quiet --yes  \
            'conda-forge::libgcc-ng=12.3.0' \
            'conda-forge::libstdcxx-ng=12.3.0' \
            'conda-forge::libgfortran-ng=12.3.0' \
