@@ -83,9 +83,11 @@ Assuming the user opted for the easier *Conda installation*, type:
 
         $ conda activate cocoa
     
-        $(cocoa) git clone https://github.com/CosmoLike/cocoa.git
+        $(cocoa) git clone --depth 1 https://github.com/CosmoLike/cocoa.git
 
-to clone the repository. Cocoa developers with set ssh keys in GitHub should instead use the command
+to clone the repository. 
+
+Cocoa developers should drop the shallow clone option `--depth 1`; they should also authenticate to GitHub via ssh keys and use the command instead
 
         $(cocoa) git clone git@github.com:CosmoLike/cocoa.git
 
