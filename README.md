@@ -73,7 +73,7 @@ When adopting this installation method, users must activate the Conda environmen
     
 Furthermore, users must install GIT-LFS on the first loading of the Conda cocoa environment.
 
-        $(cocoa) $CONDA_PREFIX/bin/git-lfs install
+        $(cocoa) git-lfs install
 
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code).
 
