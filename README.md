@@ -35,45 +35,45 @@ We assume here the user has previously installed either [Minicoda](https://docs.
 
 Type the following commands to create the cocoa Conda environment.
 
-    $ conda create --name cocoa python=3.7 --quiet --yes \
-       && conda install -n cocoa --quiet --yes  \
-       'conda-forge::libgcc-ng=10.3.0' \
-       'conda-forge::libstdcxx-ng=10.3.0' \
-       'conda-forge::libgfortran-ng=10.3.0' \
-       'conda-forge::gxx_linux-64=10.3.0' \
-       'conda-forge::gcc_linux-64=10.3.0' \
-       'conda-forge::gfortran_linux-64=10.3.0' \
-       'conda-forge::openmpi=4.1.1' \
-       'conda-forge::sysroot_linux-64=2.17' \
-       'conda-forge::git=2.33.1' \
-       'conda-forge::git-lfs=3.0.2' \
-       'conda-forge::hdf5=1.10.6' \
-       'conda-forge::cmake=3.21.3' \
-       'conda-forge::boost=1.76.0' \
-       'conda-forge::gsl=2.7' \
-       'conda-forge::fftw=3.3.10' \
-       'conda-forge::cfitsio=4.0.0' \
-       'conda-forge::openblas=0.3.18' \
-       'conda-forge::lapack=3.9.0' \
-       'conda-forge::armadillo=10.7.3'\
-       'conda-forge::expat=2.4.1' \
-       'conda-forge::cython=0.29.24' \
-       'conda-forge::numpy=1.21.4' \
-       'conda-forge::scipy=1.7.2' \
-       'conda-forge::pandas=1.3.4' \
-       'conda-forge::mpi4py=3.1.2' \
-       'conda-forge::matplotlib=3.5.1' \
-       'conda-forge::astropy=4.3.1'
+        conda create --name cocoa python=3.7 --quiet --yes \
+           && conda install -n cocoa --quiet --yes  \
+           'conda-forge::libgcc-ng=10.3.0' \
+           'conda-forge::libstdcxx-ng=10.3.0' \
+           'conda-forge::libgfortran-ng=10.3.0' \
+           'conda-forge::gxx_linux-64=10.3.0' \
+           'conda-forge::gcc_linux-64=10.3.0' \
+           'conda-forge::gfortran_linux-64=10.3.0' \
+           'conda-forge::openmpi=4.1.1' \
+           'conda-forge::sysroot_linux-64=2.17' \
+           'conda-forge::git=2.33.1' \
+           'conda-forge::git-lfs=3.0.2' \
+           'conda-forge::hdf5=1.10.6' \
+           'conda-forge::cmake=3.21.3' \
+           'conda-forge::boost=1.76.0' \
+           'conda-forge::gsl=2.7' \
+           'conda-forge::fftw=3.3.10' \
+           'conda-forge::cfitsio=4.0.0' \
+           'conda-forge::openblas=0.3.18' \
+           'conda-forge::lapack=3.9.0' \
+           'conda-forge::armadillo=10.7.3'\
+           'conda-forge::expat=2.4.1' \
+           'conda-forge::cython=0.29.24' \
+           'conda-forge::numpy=1.21.4' \
+           'conda-forge::scipy=1.7.2' \
+           'conda-forge::pandas=1.3.4' \
+           'conda-forge::mpi4py=3.1.2' \
+           'conda-forge::matplotlib=3.5.1' \
+           'conda-forge::astropy=4.3.1'
       
 For those working on projects that utilize machine-learning-based emulators, the Appendix [Setting-up conda environment for Machine Learning emulators](#ml_emulators) provides additional commands for installing the necessary packages.
 
 When adopting this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below.
 
-    $ conda activate cocoa
+        $ conda activate cocoa
     
 Furthermore, users must install GIT-LFS on the first loading of the Conda cocoa environment.
 
-    $(cocoa) $CONDA_PREFIX/bin/git-lfs install
+        $(cocoa) $CONDA_PREFIX/bin/git-lfs install
 
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code).
 
@@ -81,13 +81,13 @@ Users can now proceed to the section [Installation of Cobaya base code](#cobaya_
 
 Assuming the user opted for the easier *Conda installation*, type:
 
-    $ conda activate cocoa
+        $ conda activate cocoa
     
-    $(cocoa) git clone https://github.com/CosmoLike/cocoa.git
+        $(cocoa) git clone https://github.com/CosmoLike/cocoa.git
 
 to clone the repository. Cocoa developers with set ssh keys in GitHub should instead use the command
 
-    $(cocoa) git clone git@github.com:CosmoLike/cocoa.git
+        $(cocoa) git clone git@github.com:CosmoLike/cocoa.git
 
 (**Warning**) We have a limited monthly quota in bandwidth for Git LFS files, and therefore we ask users to use good judgment in the number of times they clone files from Cocoa's main repository.
  
@@ -180,11 +180,11 @@ Why did we choose to have two separate bash environments? Users should be able t
 
 One model evaluation:
 
-     $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_EVALUATE1.yaml -f
+        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_EVALUATE1.yaml -f
      
 MCMC:
 
-     $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
+        $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
 
 (**expert**) Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
 
@@ -192,8 +192,8 @@ MCMC:
 
 Once the work is done, type:
 
-    $(cocoa)(.local) source stop_cocoa
-    $(cocoa) conda deactivate cocoa
+        $(cocoa)(.local) source stop_cocoa
+        $(cocoa) conda deactivate cocoa
 
 ## Running Cosmolike projects <a name="running_cosmolike_projects"></a> 
 
@@ -201,12 +201,12 @@ The *projects* folder was designed to include Cosmolike projects. Similar to the
 
 **Step 1 of 5**: activate the Conda Cocoa environment
     
-    $ conda activate cocoa
+        $ conda activate cocoa
 
 **Step 2 of 5**: go to the project folder (`./cocoa/Cocoa/projects`) and clone a Cosmolike project, with fictitious name `XXX`:
     
-    $(cocoa) cd ./cocoa/Cocoa/projects
-    $(cocoa) $CONDA_PREFIX/bin/git clone git@github.com:CosmoLike/cocoa_XXX.git XXX
+        $(cocoa) cd ./cocoa/Cocoa/projects
+        $(cocoa) $CONDA_PREFIX/bin/git clone git@github.com:CosmoLike/cocoa_XXX.git XXX
 
 By convention, the Cosmolike Organization hosts a Cobaya-Cosmolike project named XXX at `CosmoLike/cocoa_XXX`. However, our provided scripts and template YAML files assume the removal of the `cocoa_` prefix when cloning the repository. The prefix `cocoa_` on the Cosmolike organization avoids mixing Cobaya-Cosmolike projects with code meant to be run on the legacy CosmoLike code.
 
@@ -214,19 +214,19 @@ Example of cosmolike projects: [lsst_y1](https://github.com/CosmoLike/cocoa_lsst
  
 **Step 3 of 5**: go back to Cocoa main folder, and activate the private python environment
     
-    $(cocoa) cd ../
-    $(cocoa) source start_cocoa
+        $(cocoa) cd ../
+        $(cocoa) source start_cocoa
  
 Remember to run the start_cocoa script only after cloning the project repository is essential. The script *start_cocoa* creates necessary symbolic links and also adds the *Cobaya-Cosmolike interface* of all projects to `LD_LIBRARY_PATH` and `PYTHONPATH` paths.
 
 **Step 4 of 5**: compile the project
  
-     $(cocoa)(.local) source ./projects/XXX/scripts/compile_XXX
+        $(cocoa)(.local) source ./projects/XXX/scripts/compile_XXX
   
  **Step 5 of 5**: select the number of OpenMP cores and run a template yaml file
     
-    $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
-    $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
+        $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
+        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
 (**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
 
