@@ -254,7 +254,7 @@ We provide the docker image [whovian-cocoa](https://hub.docker.com/r/vivianmiran
 
 To download and run the container for the first time, type:
 
-     docker run --platform linux/amd64 --hostname cocoa --name cocoa2023 -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cocoa
+         docker run --platform linux/amd64 --hostname cocoa --name cocoa2023 -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cocoa
 
 Following the command above, users should see the following text on the screen terminal
 
@@ -264,34 +264,34 @@ Following the command above, users should see the following text on the screen t
 
 When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below.
 
-    whovian@cocoa:~$ conda init bash
-    whovian@cocoa:~$ source ~/.bashrc
+        whovian@cocoa:~$ conda init bash
+        whovian@cocoa:~$ source ~/.bashrc
 
 The container already comes with conda Cocoa environment pre-installed:
 
-    $ whovian@cocoa:~$ conda activate cocoa
+        whovian@cocoa:~$ conda activate cocoa
 
 When the user exits the container, how to restart it? Type 
     
-    $ docker start -ai cocoa2023
+        $ docker start -ai cocoa2023
 
 How to run Jupyter Notebooks remotely when using Cocoa within the whovian-cocoa container? First, type the following command:
 
-    whovian@cocoa:~$ jupyter notebook --no-browser --port=8080
+        whovian@cocoa:~$ jupyter notebook --no-browser --port=8080
 
 The terminal will show a message similar to the following template:
 
-    [... NotebookApp] Writing notebook server cookie secret to /home/whovian/.local/share/jupyter/runtime/notebook_cookie_secret
-    [... NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
-    [... NotebookApp] Serving notebooks from local directory: /home/whovian/host
-    [... NotebookApp] Jupyter Notebook 6.1.1 is running at:
-    [... NotebookApp] http://f0a13949f6b5:8888/?token=XXX
-    [... NotebookApp] or http://127.0.0.1:8888/?token=XXX
-    [... NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+        [... NotebookApp] Writing notebook server cookie secret to /home/whovian/.local/share/jupyter/runtime/notebook_cookie_secret
+        [... NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+        [... NotebookApp] Serving notebooks from local directory: /home/whovian/host
+        [... NotebookApp] Jupyter Notebook 6.1.1 is running at:
+        [... NotebookApp] http://f0a13949f6b5:8888/?token=XXX
+        [... NotebookApp] or http://127.0.0.1:8888/?token=XXX
+        [... NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
 
 Below, we assume the user runs the container in a server with the URL `your_sever.com`. We also presume the server can be accessed via ssh protocol. From a local PC, type:
 
-    $ ssh your_username@your_sever.com -L 8080:localhost:8080
+        $ ssh your_username@your_sever.com -L 8080:localhost:8080
 
 Finally, go to a browser and type `http://localhost:8080/?token=XXX`, where `XXX` is the previously saved token.
 
@@ -299,33 +299,33 @@ Finally, go to a browser and type `http://localhost:8080/?token=XXX`, where `XXX
 
 Download and run Miniconda installation script (please adapt `CONDA_DIR`):
 
-    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
+        export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
 
-    mkdir $CONDA_DIR
+        mkdir $CONDA_DIR
 
-    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
-    
-    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
+        wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
+
+        /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
 
 After installation, users must source conda configuration file
 
-    source $CONDA_DIR/etc/profile.d/conda.sh \
-    && conda config --set auto_update_conda false \
-    && conda config --set show_channel_urls true \
-    && conda config --set auto_activate_base false \
-    && conda config --prepend channels conda-forge \
-    && conda config --set channel_priority strict \
-    && conda init bash
+        source $CONDA_DIR/etc/profile.d/conda.sh \
+            && conda config --set auto_update_conda false \
+            && conda config --set show_channel_urls true \
+            && conda config --set auto_activate_base false \
+            && conda config --prepend channels conda-forge \
+            && conda config --set channel_priority strict \
+            && conda init bash
     
 ### Compiling Boltzmann, CosmoLike and Likelihood codes separatelly <a name="appendix_compile_separatelly"></a>
 
 To avoid excessive compilation times during development, users can use specialized scripts located at `Cocoa/installation_scripts/` that compile only a specific module. A few examples of these scripts are: 
 
-    $(cocoa)(.local) source ./installation_scripts/compile_class
-    $(cocoa)(.local) source ./installation_scripts/compile_camb
-    $(cocoa)(.local) source ./installation_scripts/compile_planck
-    $(cocoa)(.local) source ./installation_scripts/compile_act
-    $(cocoa)(.local) source ./installation_scripts/setup_polychord
+        $(cocoa)(.local) source ./installation_scripts/compile_class
+        $(cocoa)(.local) source ./installation_scripts/compile_camb
+        $(cocoa)(.local) source ./installation_scripts/compile_planck
+        $(cocoa)(.local) source ./installation_scripts/compile_act
+        $(cocoa)(.local) source ./installation_scripts/setup_polychord
     
 ### Warning about Weak Lensing YAML files in Cobaya <a name="appendix_example_runs"></a>
 
