@@ -37,8 +37,8 @@ We assume here the user has previously installed either [Minicoda](https://docs.
 
 Type the following commands to create the cocoa Conda environment.
 
-        conda create --name cocoa python=3.8 --quiet --yes \
-           && conda install -n cocoa --quiet --yes  \
+        conda create --name cocoapy38 python=3.8 --quiet --yes \
+           && conda install -n cocoapy38 --quiet --yes  \
            'conda-forge::libgcc-ng=12.3.0' \
            'conda-forge::libstdcxx-ng=12.3.0' \
            'conda-forge::libgfortran-ng=12.3.0' \
@@ -49,22 +49,24 @@ Type the following commands to create the cocoa Conda environment.
            'conda-forge::sysroot_linux-64=2.17' \
            'conda-forge::git=2.40.0' \
            'conda-forge::git-lfs=3.3.0' \
-           'conda-forge::hdf5=1.10.6' \
-           'conda-forge::cmake=3.21.3' \
-           'conda-forge::boost=1.81.0' \
-           'conda-forge::gsl=2.7' \
            'conda-forge::fftw=3.3.10' \
            'conda-forge::cfitsio=4.0.0' \
-           'conda-forge::openblas=0.3.18' \
+           'conda-forge::hdf5=1.14.0' \
            'conda-forge::lapack=3.9.0' \
-           'conda-forge::armadillo=11.4.4'\
-           'conda-forge::expat=2.4.1' \
+           'conda-forge::openblas=0.3.23' \
+           'conda-forge::lapack=3.9.0' \
+           'conda-forge::gsl=2.7' \
+           'conda-forge::cmake=3.26.4' \
+           'conda-forge::xz==5.2.6' \
+           'conda-forge::armadillo=11.4.4' \
+           'conda-forge::boost-cpp=1.81.0' \
+           'conda-forge::expat=2.5.0' \
            'conda-forge::cython=0.29.35' \
-           'conda-forge::mpi4py=3.1.4' \
            'conda-forge::scipy=1.10.1' \
            'conda-forge::pandas=1.5.3' \
-           'conda-forge::numpy=1.24.3' \
-           'conda-forge::matplotlib=3.7.1'
+           'conda-forge::numpy=1.23.5' \
+           'conda-forge::matplotlib=3.7.1' \
+           'conda-forge::mpi4py=3.1.4'
       
 For those working on projects that utilize machine-learning-based emulators, the Appendix [Setting-up conda environment for Machine Learning emulators](#ml_emulators) provides additional commands for installing the necessary packages.
 
