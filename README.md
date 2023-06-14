@@ -12,11 +12,11 @@
     4. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     5. [Warning about Weak Lensing YAML files in Cobaya](#appendix_example_runs)
     6. [Manual Blocking of Cosmolike Parameters](#manual_blocking_cosmolike)
-    7. [Setting-up conda environment for Machine Learning emulators](#ml_emulators)
-    8. [Adding a new modified CAMB/CLASS to Cocoa (external readme)](Cocoa/external_modules/code)
-    9. [Fine-tunning CAMB Accuracy](#camb_accuracy)
-    10. [Bash/C/C++ Notes](#lectnotes)
-    11. [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache)
+    7. [Adding a new modified CAMB/CLASS to Cocoa (external readme)](Cocoa/external_modules/code)
+    8. [Fine-tunning CAMB Accuracy](#camb_accuracy)
+    9. [Bash/C/C++ Notes](#lectnotes)
+    10. [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache)
+    11. [Setting-up conda environment for Machine Learning emulators](#ml_emulators)
 
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
@@ -449,42 +449,7 @@ Below we provide an example YAML configuration for an MCMC chain that with DES 3
                 burn_in: 0
                 Rminus1_single_split: 4
                 
-### Setting-up conda environment for Machine Learning emulators <a name="ml_emulators"></a>
 
-If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based project via Conda, then type
-
-        $ conda activate cocoa 
-      
-        $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
-            'pyDOE2==1.2.1' \
-            'gpy==1.10' \
-            'tensorflow-cpu==2.8.0' \
-            'keras==2.8.0' \
-            'keras-preprocessing==1.1.2' \
-            'torch==1.11.0+cpu' \
-            'torchvision==0.12.0+cpu' -f https://download.pytorch.org/whl/torch_stable.html
-
-In case there are GPUs available, the following commands will install the GPU version of 
-Tensorflow, Keras and Pytorch.
-
-        $(cocoa) CONDA_PREFIX/bin/pip install --no-cache-dir \
-            'pyDOE2==1.2.1' \
-            'gpy==1.10' \
-            'tensorflow==2.8.0' \
-            'keras==2.8.0' \
-            'keras-preprocessing==1.1.2' \
-            'torch==1.11.0' \
-            'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
-
-Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
-
-For users that opted for the manual installation via Cocoa's internal cache, commenting out the environmental flags shown below, located at *set_installation_options* script, will enable the installation of machine-learning-related libraries via pip.  
-
-        # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
-        #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
-        #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
-
-Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of the Machine Learning packages listed above will require an active internet connection.
 
 ### Fine-tunning CAMB Accuracy <a name="camb_accuracy"></a>
 
@@ -664,3 +629,40 @@ The, fine-tunning over the use of system-wide packages instead of our local copi
        
     
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
+
+### Setting-up conda environment for Machine Learning emulators <a name="ml_emulators"></a>
+
+If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based project via Conda, then type
+
+        $ conda activate cocoa 
+      
+        $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'pyDOE2==1.2.1' \
+            'gpy==1.10' \
+            'tensorflow-cpu==2.8.0' \
+            'keras==2.8.0' \
+            'keras-preprocessing==1.1.2' \
+            'torch==1.11.0+cpu' \
+            'torchvision==0.12.0+cpu' -f https://download.pytorch.org/whl/torch_stable.html
+
+In case there are GPUs available, the following commands will install the GPU version of 
+Tensorflow, Keras and Pytorch.
+
+        $(cocoa) CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'pyDOE2==1.2.1' \
+            'gpy==1.10' \
+            'tensorflow==2.8.0' \
+            'keras==2.8.0' \
+            'keras-preprocessing==1.1.2' \
+            'torch==1.11.0' \
+            'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
+
+Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
+
+For users that opted for the manual installation via Cocoa's internal cache, commenting out the environmental flags shown below, located at *set_installation_options* script, will enable the installation of machine-learning-related libraries via pip.  
+
+        # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
+        #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
+        #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
+
+Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of the Machine Learning packages listed above will require an active internet connection.
