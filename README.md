@@ -93,36 +93,64 @@ to clone the repository. Cocoa developers with set ssh keys in GitHub should ins
  
 Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the *Cocoa/set_installation_options* script, as shown below:
 
-    [Extracted from set_installation_options script]
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    # ----------------------- HOW COCOA SHOULD BE INSTALLED? -------------------------------
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    export MINICONDA_INSTALLATION=1
-    #export MANUAL_INSTALLATION=1
+        [Extracted from set_installation_options script]
+        # --------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------
+        # ----------------------- HOW COCOA SHOULD BE INSTALLED? -------------------------------
+        # --------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------
+        export MINICONDA_INSTALLATION=1
+        #export MANUAL_INSTALLATION=1
     
 The user must uncomment the appropriate key (here, we assume `MINICONDA_INSTALLATION`), and then type the following command
 
-    $(cocoa) cd ./Cocoa/
-    $(cocoa) source setup_cocoa_installation_packages
+        $(cocoa) cd ./Cocoa/
+        $(cocoa) source setup_cocoa_installation_packages
 
 The script `setup_cocoa_installation_packages` decompresses the data files, which only takes a few minutes, and installs any remaining necessary packages. Typical package installation time ranges, depending on the installation method, from a few minutes (installation via Conda) to ~1/2 hour (installation via Cocoa's internal cache). It is important to note that our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
 
-    Cocoa/.local/bin
-    Cocoa/.local/include
-    Cocoa/.local/lib
-    Cocoa/.local/share
+        Cocoa/.local/bin
+        Cocoa/.local/include
+        Cocoa/.local/lib
+        Cocoa/.local/share
 
 This behavior is critical to enable users to work on multiple instances of Cocoa simultaneously.
 
 Finally, type
 
-    $(cocoa) source compile_external_modules
+        $(cocoa) source compile_external_modules
     
 to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then refer to the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
+
+(**expert**) The script *set_installation_options script* contains a few additional flags that may be useful during installation. especilly if something goes wrong. They are shown below:
+
+        [Extracted from set_installation_options script]
+        # --------------------------------------------------------------------------------------
+        # --------- IF TRUE, THEN COCOA USES CLIK FROM https://github.com/benabed/clik ---------
+        # --------------------------------------------------------------------------------------
+        export USE_SPT_CLIK_PLANCK=1
+
+        # --------------------------------------------------------------------------------------
+        # ----------------- CONTROL OVER THE COMPILATION OF EXTERNAL CODES ---------------------
+        # --------------------------------------------------------------------------------------
+        #export IGNORE_CAMB_COMPILATION=1
+        export IGNORE_CLASS_COMPILATION=1
+        #export IGNORE_COSMOLIKE_COMPILATION=1
+        #export IGNORE_POLYCHORD_COMPILATION=1
+        #export IGNORE_PLANCK_COMPILATION=1
+        #export IGNORE_ACT_COMPILATION=1
+
+        # --------------------------------------------------------------------------------------
+        # IN CASE COMPILATION FAILS, THESE FLAGS WILL BE USEFUL. BY DEFAULT, THE COMPILATION'S -
+        # OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
+        # --------------------------------------------------------------------------------------
+        #export DEBUG_PLANCK_OUTPUT=1
+        #export DEBUG_CAMB_OUTPUT=1
+        #export DEBUG_CLASS_OUTPUT=1
+        #export DEBUG_POLY_OUTPUT=1
+        #export DEBUG_ACT_OUTPUT=1
 
 ## Running Cobaya Examples <a name="cobaya_base_code_examples"></a>
 
@@ -130,15 +158,15 @@ Assuming the user opted for the easier *Conda installation* and located the term
 
 **Step 1 of 5**: activate the conda environment
 
-    $ conda activate cocoa
+        $ conda activate cocoa
      
 **Step 2 of 5**: go to the Cocoa main folder 
 
-    $(cocoa) cd ./cocoa/Cocoa
+        $(cocoa) cd ./cocoa/Cocoa
 
 **Step 3 of 5**: activate the private python environment
 
-    $(cocoa) source start_cocoa
+        $(cocoa) source start_cocoa
 
 Users will see a terminal that looks like this: `$(Cocoa)(.local)`. *This is a feature, not a bug*! 
 
@@ -146,7 +174,7 @@ Why did we choose to have two separate bash environments? Users should be able t
 
 **Step 4 of 5**: select the number of OpenMP cores
     
-    $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
+        $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
 
 **Step 5 of 5**: run `cobaya-run` on a the first example YAML files we provide.
 
