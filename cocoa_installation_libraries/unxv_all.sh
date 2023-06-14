@@ -28,7 +28,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
         proc2=$!
     fi
     if [ -z "${MINICONDA_INSTALLATION}" ]; then
-      rm -rf ./$COCOA_EXPACT_DIR
+      rm -rf ./$COCOA_EXPAT_DIR
       if [ -z "${THREAD_UNXZ}" ]; then
         tar xf expat.xz
         proc2A=$!

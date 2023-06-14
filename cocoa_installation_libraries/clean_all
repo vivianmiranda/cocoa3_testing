@@ -35,9 +35,9 @@ rm -rf ./$COCOA_TEXINFO_DIR
 
 rm -rf ./$COCOA_XZ_DIR
 
-rm -rf ./$COCOA_EXPACT_DIR
+rm -rf ./$COCOA_EXPAT_DIR
 
-rm -rf $COCOA_HDF5_DIR1
+rm -rf ./$COCOA_HDF5_DIR1
 
 cd ${ROOTDIR}
 
