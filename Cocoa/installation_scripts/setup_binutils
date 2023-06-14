@@ -25,14 +25,14 @@ fi
 
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
-# ----------------------------- DISTUTILS LIBRARY  ----------------------------
+# ----------------------------- DISTUTILS LIBRARY  ---------------------------
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
 
 if [ -z "${IGNORE_DISTUTILS_INSTALLATION}" ]; then
   echo 'INSTALLING TEXINFO - THAT WILL TAKE A WHILE'
 
-  cd $ROOTDIR/../cocoa_installation_libraries/texinfo-6.7
+  cd $ROOTDIR/../cocoa_installation_libraries/$COCOA_TEXINFO_DIR
 
   if [ -z "${DEBUG_DISTUTILS_PACKAGE}" ]; then
     FC=$FORTRAN_COMPILER CC=$C_COMPILER ./configure --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null
@@ -86,7 +86,7 @@ if [ -z "${IGNORE_DISTUTILS_INSTALLATION}" ]; then
   # ----------------------------------------------------------------------------------------
   echo 'INSTALLING BINUTILS - THAT WILL TAKE A WHILE'
 
-  cd $ROOTDIR/../cocoa_installation_libraries/binutils-2.37
+  cd $ROOTDIR/../cocoa_installation_libraries/$COCOA_BINUTILS_DIR
 
   if [ -z "${DEBUG_DISTUTILS_PACKAGE}" ]; then
     FC=$FORTRAN_COMPILER CC=$C_COMPILER ./configure --prefix=$ROOTDIR/.local > /dev/null 2> /dev/null

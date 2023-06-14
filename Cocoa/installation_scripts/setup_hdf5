@@ -32,7 +32,7 @@ fi
 if [ -z "${IGNORE_HDF5_INSTALLATION}" ]; then
   echo 'INSTALLING HDF5 LIBRARY - THIS MIGHT TAKE A WHILE'
 
-  cd $ROOTDIR/../cocoa_installation_libraries/CMake-hdf5-1.10.10/hdf5-1.10.10
+  cd $ROOTDIR/../cocoa_installation_libraries/$COCOA_HDF5_DIR
   
   rm -f  CMakeCache.txt
   rm -rf CMakeFiles/

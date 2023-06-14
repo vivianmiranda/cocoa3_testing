@@ -317,3 +317,15 @@ else
     export SPDLOG_LEVEL=info
 fi
 # --------------------------------------------------------------------------------------
+export COCOA_FFTW_DIR=fftw-3.3.10/
+export COCOA_HDF5_DIR=CMake-hdf5-1.10.10/hdf5-1.10.10/
+export COCOA_CMAKE_DIR=cmake-3.17.1/
+export COCOA_CFITSIO_DIR=cfitsio-3.47/
+export COCOA_GSL_DIR=gsl-2.7/
+export COCOA_TEXINFO_DIR=texinfo-6.7/
+export COCOA_BINUTILS_DIR=binutils-2.37/
+export COCOA_LAPACK_DIR=lapack-3.9.0/
+export COCOA_SPDLOG_DIR=spdlog/
+export COCOA_ARMADILLO_DIR=armadillo-10.6.2/
+export COCOA_CARMA_DIR=carma/
+export COCOA_BOOST_DIR=boost_1_72_0/
