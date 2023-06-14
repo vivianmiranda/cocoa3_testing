@@ -91,7 +91,7 @@ Cocoa developers should drop the shallow clone option `--depth 1`; they should a
 
         $(cocoa) git clone git@github.com:CosmoLike/cocoa.git
 
-(**Warning**) We have a limited monthly quota in bandwidth for Git LFS files, and therefore we ask users to use good judgment in the number of times they clone files from Cocoa's main repository.
+:warning: **Warning** :warning: We have a limited monthly quota in bandwidth for Git LFS files, and therefore we ask users to use good judgment in the number of times they clone files from Cocoa's main repository.
  
 Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the *Cocoa/set_installation_options* script, as shown below:
 
@@ -126,7 +126,7 @@ Finally, type
     
 to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then refer to the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
 
-(**expert**) The script *set_installation_options script* contains a few additional flags that may be useful if something goes wrong. They are shown below:
+:books: **expert** :books: The script *set_installation_options script* contains a few additional flags that may be useful if something goes wrong. They are shown below:
 
         [Extracted from set_installation_options script]
         # --------------------------------------------------------------------------------------
@@ -188,9 +188,9 @@ MCMC:
 
         $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
 
-(**expert**) Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
+:books: **expert** :books: Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
 
-(**expert**) Why the `--bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS}` flag? This flag enables efficient hybrid MPI + OpenMP runs on NUMA architecture.
+:books: **expert** :books: Why the `--bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS}` flag? This flag enables efficient hybrid MPI + OpenMP runs on NUMA architecture.
 
 Once the work is done, type:
 
@@ -230,7 +230,7 @@ Remember to run the start_cocoa script only after cloning the project repository
         $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
         $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
-(**warning**) Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
+:warning: **Warning** :warning: Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
 
 ## Appendix <a name="appendix"></a>
 
@@ -262,7 +262,7 @@ Following the command above, users should see the following text on the screen t
 
 <img width="1121" alt="Screen Shot 2023-06-09 at 2 48 23 PM" src="https://github.com/vivianmiranda/cocoa3_testing/assets/3210728/8ad62524-ed62-4560-9e8e-0187a8f8cb3b">
 
-(**expert**) The flag `-v $(pwd):/home/whovian/host/` ensures that files on the host computer, where the user should install Cocoa to avoid losing work in case the docker image needs to be deleted, have been mounted to the directory `/home/whovian/host/`. Therefore, the user should see the host files of the directory where the whovian-cocoa container was initialized after typing `cd /home/whovian/host/; ls`
+:books: **expert** :books: The flag `-v $(pwd):/home/whovian/host/` ensures that files on the host computer, where the user should install Cocoa to avoid losing work in case the docker image needs to be deleted, have been mounted to the directory `/home/whovian/host/`. Therefore, the user should see the host files of the directory where the whovian-cocoa container was initialized after typing `cd /home/whovian/host/; ls`
 
 When running the container the first time, the user needs to init conda with `conda init bash` followed by `source ~/.bashrc`, as shown below.
 
@@ -329,7 +329,7 @@ To avoid excessive compilation times during development, users can use specializ
         $(cocoa)(.local) source ./installation_scripts/compile_act
         $(cocoa)(.local) source ./installation_scripts/setup_polychord
     
-### Warning about Weak Lensing YAML files in Cobaya <a name="appendix_example_runs"></a>
+### :warning: Warning :warning: Weak Lensing YAML files in Cobaya <a name="appendix_example_runs"></a>
 
 The CosmoLike pipeline takes $\Omega_m$ and $\Omega_b$, but the CAMB Boltzmann code only accepts $\Omega_c h^2$ and $\Omega_b h^2$ in Cobaya. Therefore, there are two ways of creating YAML compatible with CAMB and Cosmolike: 
 
@@ -522,7 +522,7 @@ Learning all these languages can be overwhelming, so to enable new users to do r
 
 ### Installation of Cocoa's required packages via Cocoa's internal cache <a name="required_packages_cache"></a>
 
-This method is slow and not advisable. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We provide a local copy of almost all required packages on Cocoa's cache folder named *cocoa_installation_libraries*. We assume the pre-installation of the following packages:
+This method is slow and not advisable :stop_sign::thumbsdown:. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We provide a local copy of almost all required packages on Cocoa's cache folder named *cocoa_installation_libraries*. We assume the pre-installation of the following packages:
 
    - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
    - [Git](https://git-scm.com) v1.8+;
