@@ -1,13 +1,11 @@
 # Table of contents
 1. [Overview of the Cobaya-CosmoLike Joint Architecture (Cocoa)](#overview)
-3. [Installation of Cocoa's required packages](#required_packages)
-    1. [Via Conda](#required_packages_conda)
-    3. (expert) [Via Cocoa's internal cache](#required_packages_cache)
-4. [Installation of Cobaya base code](#cobaya_base_code)
-5. [Running Cobaya Examples](#cobaya_base_code_examples)
-6. [Running Cosmolike projects](#running_cosmolike_projects)
-7. [Creating Cosmolike projects (external readme)](Cocoa/projects/)
-8. [Appendix](#appendix)
+2. [Installation of Cocoa's required packages via Conda](#required_packages_conda)
+3. [Installation of Cobaya base code](#cobaya_base_code)
+4. [Running Cobaya Examples](#cobaya_base_code_examples)
+5. [Running Cosmolike projects](#running_cosmolike_projects)
+6. [Creating Cosmolike projects (external readme)](Cocoa/projects/)
+7. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
     2. [The whovian-cocoa docker container](#appendix_jupyter_whovian)
     3. [Miniconda Installation](#overview_miniconda)
@@ -18,21 +16,20 @@
     8. [Adding a new modified CAMB/CLASS to Cocoa (external readme)](Cocoa/external_modules/code)
     9. [Fine-tunning CAMB Accuracy](#camb_accuracy)
     10. [Bash/C/C++ Notes](#lectnotes)
+    11. [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache)
 
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
 Cocoa allows users to run [CosmoLike](https://github.com/CosmoLike) routines inside the [Cobaya](https://github.com/CobayaSampler) framework. [CosmoLike](https://github.com/CosmoLike) can analyze data primarily from the [Dark Energy Survey](https://www.darkenergysurvey.org) and simulate future multi-probe analyses for LSST and Roman Space Telescope. Besides integrating [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike), Cocoa introduces shell scripts and readme instructions that allow users to containerize [Cobaya](https://github.com/CobayaSampler). The container structure ensures that users will adopt the same compiler and libraries (including their versions), and that they will be able to use multiple [Cobaya](https://github.com/CobayaSampler) instances consistently. This readme file presents basic and advanced instructions for installing all [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike) components.
 
-## Installation of Cocoa's required packages <a name="required_packages"></a>
+## Installation of Cocoa's required packages via Conda <a name="required_packages_conda"></a>
 
 There are two installation methods. Users must choose one of them:
 
-1. [Via Conda](#required_packages_conda) (easier, best)
-2. [Via Cocoa's internal cache](#required_packages_cache) (slow, not advisable) 
+1. [Via Conda](#required_packages_conda) - easier, best overall.
+2. [Via Cocoa's internal cache](#required_packages_cache) - slow, not advisable. See Appendix [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache) 
 
 We also provide the docker image whovian-cocoa to facilitate the installation of Cocoa on Windows and MacOS. For further instructions, refer to the Appendix [whovian-cocoa docker container](#appendix_jupyter_whovian).
-
-### Via Conda <a name="required_packages_conda"></a>
 
 We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If this is not the case, then refer to the Appendix [Miniconda Installation](#overview_miniconda) for further instructions.
 
@@ -79,131 +76,6 @@ Furthermore, users must install GIT-LFS on the first loading of the Conda cocoa 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs install
 
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code).
-
-### (expert) Via Cocoa's internal cache <a name="required_packages_cache"></a>
-
-This method is slow and not advisable. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We provide a local copy of almost all required packages on Cocoa's cache folder named *cocoa_installation_libraries*. We assume the pre-installation of the following packages:
-
-   - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
-   - [Git](https://git-scm.com) v1.8+;
-   - [Git LFS](https://git-lfs.github.com);
-   - [gcc](https://gcc.gnu.org) v10.*;
-   - [gfortran](https://gcc.gnu.org) v10.*;
-   - [g++](https://gcc.gnu.org) v10.*;
-   - [Python](https://www.python.org) v3.7.*;
-   - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
-   - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
-
-To perform the local semi-autonomous installation, users must modify flags written on the file *set_installation_options* because the default behavior corresponds to an installation via Conda. First, select the environmental key `MANUAL_INSTALLATION` as shown below:
-
-    [Extracted from set_installation_options script] 
-    
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    # ----------------------- HOW COCOA SHOULD BE INSTALLED? -------------------------------
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    # --------------------------------------------------------------------------------------
-    #export MINICONDA_INSTALLATION=1
-    export MANUAL_INSTALLATION=1
-    
-Finally, set the following environmental keys
- 
-    [Extracted from set_installation_options script]
-  
-    if [ -n "${MANUAL_INSTALLATION}" ]; then
-        # --------------------------------------------------------------------------------------
-        # IF SET, THEN COCOA ADOPTS FFTW10. OTHERWISE, COCOA ADOPTS FFTW8
-        # --------------------------------------------------------------------------------------
-        #export FFTW_NEW_VERSION=1
-
-        # --------------------------------------------------------------------------------------
-        # IF SET, COCOA DOES NOT USE SYSTEM PIP PACKAGES (RELIES EXCLUSIVELY ON PIP CACHE FOLDER)
-        # --------------------------------------------------------------------------------------
-        export DONT_USE_SYSTEM_PIP_PACKAGES=1
-
-        # --------------------------------------------------------------------------------------
-        # IF SET, COCOA WILL NOT INSTALL TENSORFLOW, KERAS, PYTORCH, GPY
-        # --------------------------------------------------------------------------------------
-        export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
-        export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
-
-        # --------------------------------------------------------------------------------------
-        # WE USE CONDA COLASLIM ENV WITH JUST PYTHON AND GCC TO TEST MANUAL INSTALLATION
-        # --------------------------------------------------------------------------------------
-        #conda create --name cocoalite python=3.7 --quiet --yes \
-        #   && conda install -n cocoalite --quiet --yes  \
-        #   'conda-forge::libgcc-ng=10.3.0' \
-        #   'conda-forge::libstdcxx-ng=10.3.0' \
-        #   'conda-forge::libgfortran-ng=10.3.0' \
-        #   'conda-forge::gxx_linux-64=10.3.0' \
-        #   'conda-forge::gcc_linux-64=10.3.0' \
-        #   'conda-forge::gfortran_linux-64=10.3.0' \
-        #   'conda-forge::openmpi=4.1.1' \
-        #   'conda-forge::sysroot_linux-64=2.17' \
-        #   'conda-forge::git=2.33.1' \
-        #   'conda-forge::git-lfs=3.0.2'
-        # --------------------------------------------------------------------------------------
-
-        export GLOBAL_PACKAGES_LOCATION=$CONDA_PREFIX
-        export GLOBALPYTHON3=$CONDA_PREFIX/bin/python${PYTHON_VERSION}
-        export PYTHON_VERSION=3.7
-
-        # --------------------------------------------------------------------------------------
-        # COMPILER
-        # --------------------------------------------------------------------------------------
-        export C_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
-        export CXX_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
-        export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
-        export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicxx
-        export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicc
-        export MPI_FORTRAN_COMPILER=$CONDA_PREFIX/bin/mpif90
-
-        # --------------------------------------------------------------------------------------
-        # USER NEEDS TO SPECIFY THE FLAGS BELOW SO COCOA CAN FIND PYTHON / GCC
-        # --------------------------------------------------------------------------------------
-        export PATH=$CONDA_PREFIX/bin:$PATH
-
-        export CFLAGS="${CFLAGS} -I$CONDA_PREFIX/include"
-
-        export LDFLAGS="${LDFLAGS} -L$CONDA_PREFIX/lib"
-
-        export C_INCLUDE_PATH=$CONDA_PREFIX/include:$C_INCLUDE_PATH
-        export C_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$C_INCLUDE_PATH
-
-        export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include:$CPLUS_INCLUDE_PATH
-        export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CPLUS_INCLUDE_PATH
-
-        export PYTHONPATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$PYTHONPATH
-        export PYTHONPATH=$CONDA_PREFIX/lib:$PYTHONPATH
-
-        export LD_RUN_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$LD_RUN_PATH
-        export LD_RUN_PATH=$CONDA_PREFIX/lib:$LD_RUN_PATH
-
-        export LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$LIBRARY_PATH
-        export LIBRARY_PATH=$CONDA_PREFIX/lib:$LIBRARY_PATH
-
-        export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/:$CMAKE_INCLUDE_PATH
-        export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CMAKE_INCLUDE_PATH    
-
-        export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$CMAKE_LIBRARY_PATH
-        export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib:$CMAKE_LIBRARY_PATH
-
-        export INCLUDE_PATH=$CONDA_PREFIX/include/:$INCLUDE_PATH
-
-        export INCLUDEPATH=$CONDA_PREFIX/include/:$INCLUDEPATH
-
-        export INCLUDE=$CONDA_PREFIX/x86_64-conda-linux-gnu/include:$INCLUDE
-        export INCLUDE=$CONDA_PREFIX/include/:$INCLUDE
-
-        export CPATH=$CONDA_PREFIX/include/:$CPATH
-
-        export OBJC_INCLUDE_PATH=$CONDA_PREFIX/include/:OBJC_INCLUDE_PATH
-
-        export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
- 
-Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
 
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
 
@@ -652,3 +524,143 @@ Out of caution, we have not implemented these changes in `$ROOTDIR/external_modu
 To effectively work with the Cobaya framework and Cosmolike codes at the developer level, a working knowledge of Python to understand Cobaya and Bash language to comprehend Cocoa's scripts is required. Proficiency in C and C++ is also needed to manipulate Cosmolike and the C++ Cobaya-Cosmolike C++ interface. Finally, users need to understand the Fortran-2003 language to modify CAMB.
 
 Learning all these languages can be overwhelming, so to enable new users to do research that demands modifications on the inner workings of these codes, we include [here](cocoa_installation_libraries/LectNotes.pdf) a link to approximately 600 slides that provide an overview of Bash (slides 1-137), C (slides 138-371), and C++ (slides 372-599). In the future, we aim to add lectures about Python and Fortran. 
+
+### Installation of Cocoa's required packages via Cocoa's internal cache <a name="required_packages_cache"></a>
+
+This method is slow and not advisable. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We provide a local copy of almost all required packages on Cocoa's cache folder named *cocoa_installation_libraries*. We assume the pre-installation of the following packages:
+
+   - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
+   - [Git](https://git-scm.com) v1.8+;
+   - [Git LFS](https://git-lfs.github.com);
+   - [gcc](https://gcc.gnu.org) v10.*;
+   - [gfortran](https://gcc.gnu.org) v10.*;
+   - [g++](https://gcc.gnu.org) v10.*;
+   - [Python](https://www.python.org) v3.7.*;
+   - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
+   - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
+
+To perform the local semi-autonomous installation, users must modify flags written on the file *set_installation_options* because the default behavior corresponds to an installation via Conda. First, select the environmental key `MANUAL_INSTALLATION` as shown below:
+
+    [Extracted from set_installation_options script] 
+    
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
+    # ----------------------- HOW COCOA SHOULD BE INSTALLED? -------------------------------
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------
+    #export MINICONDA_INSTALLATION=1
+    export MANUAL_INSTALLATION=1
+    
+Finally, set the following environmental keys
+ 
+    [Extracted from set_installation_options script]
+  
+    if [ -n "${MANUAL_INSTALLATION}" ]; then
+        # --------------------------------------------------------------------------------------
+        # IF SET, THEN COCOA ADOPTS FFTW10. OTHERWISE, COCOA ADOPTS FFTW8
+        # --------------------------------------------------------------------------------------
+        #export FFTW_NEW_VERSION=1
+
+        # --------------------------------------------------------------------------------------
+        # IF SET, COCOA DOES NOT USE SYSTEM PIP PACKAGES (RELIES EXCLUSIVELY ON PIP CACHE FOLDER)
+        # --------------------------------------------------------------------------------------
+        export DONT_USE_SYSTEM_PIP_PACKAGES=1
+
+        # --------------------------------------------------------------------------------------
+        # IF SET, COCOA WILL NOT INSTALL TENSORFLOW, KERAS, PYTORCH, GPY
+        # --------------------------------------------------------------------------------------
+        export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
+        export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
+
+        # --------------------------------------------------------------------------------------
+        # WE USE CONDA COLASLIM ENV WITH JUST PYTHON AND GCC TO TEST MANUAL INSTALLATION
+        # --------------------------------------------------------------------------------------
+        #conda create --name cocoalite python=3.7 --quiet --yes \
+        #   && conda install -n cocoalite --quiet --yes  \
+        #   'conda-forge::libgcc-ng=10.3.0' \
+        #   'conda-forge::libstdcxx-ng=10.3.0' \
+        #   'conda-forge::libgfortran-ng=10.3.0' \
+        #   'conda-forge::gxx_linux-64=10.3.0' \
+        #   'conda-forge::gcc_linux-64=10.3.0' \
+        #   'conda-forge::gfortran_linux-64=10.3.0' \
+        #   'conda-forge::openmpi=4.1.1' \
+        #   'conda-forge::sysroot_linux-64=2.17' \
+        #   'conda-forge::git=2.33.1' \
+        #   'conda-forge::git-lfs=3.0.2'
+        # --------------------------------------------------------------------------------------
+
+        export GLOBAL_PACKAGES_LOCATION=$CONDA_PREFIX
+        export GLOBALPYTHON3=$CONDA_PREFIX/bin/python${PYTHON_VERSION}
+        export PYTHON_VERSION=3.7
+
+        # --------------------------------------------------------------------------------------
+        # COMPILER
+        # --------------------------------------------------------------------------------------
+        export C_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
+        export CXX_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
+        export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
+        export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicxx
+        export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicc
+        export MPI_FORTRAN_COMPILER=$CONDA_PREFIX/bin/mpif90
+
+        # --------------------------------------------------------------------------------------
+        # USER NEEDS TO SPECIFY THE FLAGS BELOW SO COCOA CAN FIND PYTHON / GCC
+        # --------------------------------------------------------------------------------------
+        export PATH=$CONDA_PREFIX/bin:$PATH
+
+        export CFLAGS="${CFLAGS} -I$CONDA_PREFIX/include"
+
+        export LDFLAGS="${LDFLAGS} -L$CONDA_PREFIX/lib"
+
+        export C_INCLUDE_PATH=$CONDA_PREFIX/include:$C_INCLUDE_PATH
+        export C_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$C_INCLUDE_PATH
+
+        export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include:$CPLUS_INCLUDE_PATH
+        export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CPLUS_INCLUDE_PATH
+
+        export PYTHONPATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$PYTHONPATH
+        export PYTHONPATH=$CONDA_PREFIX/lib:$PYTHONPATH
+
+        export LD_RUN_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$LD_RUN_PATH
+        export LD_RUN_PATH=$CONDA_PREFIX/lib:$LD_RUN_PATH
+
+        export LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$LIBRARY_PATH
+        export LIBRARY_PATH=$CONDA_PREFIX/lib:$LIBRARY_PATH
+
+        export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/:$CMAKE_INCLUDE_PATH
+        export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include/python${PYTHON_VERSION}m/:$CMAKE_INCLUDE_PATH    
+
+        export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib/python$PYTHON_VERSION/site-packages:$CMAKE_LIBRARY_PATH
+        export CMAKE_LIBRARY_PATH=$CONDA_PREFIX/lib:$CMAKE_LIBRARY_PATH
+
+        export INCLUDE_PATH=$CONDA_PREFIX/include/:$INCLUDE_PATH
+
+        export INCLUDEPATH=$CONDA_PREFIX/include/:$INCLUDEPATH
+
+        export INCLUDE=$CONDA_PREFIX/x86_64-conda-linux-gnu/include:$INCLUDE
+        export INCLUDE=$CONDA_PREFIX/include/:$INCLUDE
+
+        export CPATH=$CONDA_PREFIX/include/:$CPATH
+
+        export OBJC_INCLUDE_PATH=$CONDA_PREFIX/include/:OBJC_INCLUDE_PATH
+
+        export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
+
+The, fine-tunning over the use of system-wide packages instead of our local copies can be set via the environmental flags
+
+        export IGNORE_XZ_INSTALLATION=1
+        export IGNORE_HDF5_INSTALLATION=1
+        export IGNORE_CMAKE_INSTALLATION=1
+        export IGNORE_DISTUTILS_INSTALLATION=1
+        export IGNORE_C_GSL_INSTALLATION=1
+        export IGNORE_C_CFITSIO_INSTALLATION=1
+        export IGNORE_C_FFTW_INSTALLATION=1
+        export IGNORE_CPP_BOOST_INSTALLATION=1 
+        export IGNORE_OPENBLAS_INSTALLATION=1
+        export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+        export IGNORE_CPP_ARMA_INSTALLATION=1
+       
+    
+Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)
