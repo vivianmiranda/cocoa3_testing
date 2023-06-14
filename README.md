@@ -26,8 +26,8 @@ Cocoa allows users to run [CosmoLike](https://github.com/CosmoLike) routines ins
 
 There are two installation methods. Users must choose one of them:
 
-1. [Via Conda](#required_packages_conda) - easier, best overall.
-2. [Via Cocoa's internal cache](#required_packages_cache) - slow, not advisable. See Appendix [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache) 
+1. Via Conda - easier, best overall.
+2. Via Cocoa's internal cache - slow, not advisable. See Appendix [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache) 
 
 We also provide the docker image whovian-cocoa to facilitate the installation of Cocoa on Windows and MacOS. For further instructions, refer to the Appendix [whovian-cocoa docker container](#appendix_jupyter_whovian).
 
