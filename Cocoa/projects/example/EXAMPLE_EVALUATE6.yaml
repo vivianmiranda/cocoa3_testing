@@ -124,7 +124,7 @@ params:
       loc: -0.99
       scale: 0.05
     proposal: 0.05
-    latex: w_0 + w_a
+    latex: w_{0,\mathrm{DE}}+w_{a,\mathrm{DE}}
     drop: true
   w:
     prior:

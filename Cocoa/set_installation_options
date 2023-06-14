@@ -9,8 +9,8 @@ export ROOTDIR=$PWD
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 
-export MINICONDA_INSTALLATION=1
-#export MANUAL_INSTALLATION=1
+#export MINICONDA_INSTALLATION=1
+export MANUAL_INSTALLATION=1
 
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
@@ -32,12 +32,6 @@ export MAKE_NUM_THREADS=4
 export USE_SPT_CLIK_PLANCK=1
 
 # --------------------------------------------------------------------------------------
-# ----- IF DEFINED, COSMOLIKE WILL BE COMPILED WITH DEBUG FLAG -------------------------
-# ----- DEBUG FLAG = ALL COMPILER WARNINGS + NO MATH OPTIMIZATION + NO OPENMP ----------
-# --------------------------------------------------------------------------------------
-#export COSMOLIKE_DEBUG_MODE=1
-
-# --------------------------------------------------------------------------------------
 # ----------------- CONTROL OVER THE COMPILATION OF EXTERNAL CODES ---------------------
 # --------------------------------------------------------------------------------------
 #export IGNORE_CAMB_COMPILATION=1
@@ -48,7 +42,8 @@ export IGNORE_CLASS_COMPILATION=1
 #export IGNORE_ACT_COMPILATION=1
 
 # --------------------------------------------------------------------------------------
-# --------------- IN CASE COMPILATION FAILS, THESE FLAGS CAN BE QUITE USEFUL  ----------
+# IN CASE COMPILATION FAILS, THESE FLAGS WILL BE USEFUL. BY DEFAULT, THE COMPILATION'S -
+# OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
 # --------------------------------------------------------------------------------------
 #export DEBUG_PLANCK_OUTPUT=1
 #export DEBUG_CAMB_OUTPUT=1
@@ -56,17 +51,13 @@ export IGNORE_CLASS_COMPILATION=1
 #export DEBUG_POLY_OUTPUT=1
 #export DEBUG_ACT_OUTPUT=1
 
+
 # --------------------------------------------------------------------------------------
-# - prerequisites
-#export DEBUG_CPP_PACKAGES=1
-#export DEBUG_C_PACKAGES=1
-#export DEBUG_FORTRAN_PACKAGES=1
-#export DEBUG_PIP_OUTPUT=1
-#export DEBUG_XZ_PACKAGE=1
-#export DEBUG_CMAKE_PACKAGE=1
-#export DEBUG_OPENBLAS_PACKAGE=1
-#export DEBUG_DISTUTILS_PACKAGE=1
-#export DEBUG_HDF5_PACKAGES=1
+# ----- IF DEFINED, COSMOLIKE WILL BE COMPILED WITH DEBUG FLAG -------------------------
+# ----- DEBUG FLAG = ALL COMPILER WARNINGS + NO MATH OPTIMIZATION + NO OPENMP ----------
+# --------------------------------------------------------------------------------------
+#export COSMOLIKE_DEBUG_MODE=1
+
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
@@ -161,6 +152,35 @@ if [ -n "${MANUAL_INSTALLATION}" ]; then
     export OBJC_INCLUDE_PATH=$CONDA_PREFIX/include/:OBJC_INCLUDE_PATH
     
     export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
+
+    # --------------------------------------------------------------------------------------
+    # DEBUG THE COMPILATION OF PREREQUISITES PACKAGES. BY DEFAULT, THE COMPILATION'S -------
+    # OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
+    # --------------------------------------------------------------------------------------
+    #export DEBUG_CPP_PACKAGES=1
+    #export DEBUG_C_PACKAGES=1
+    #export DEBUG_FORTRAN_PACKAGES=1
+    #export DEBUG_PIP_OUTPUT=1
+    #export DEBUG_XZ_PACKAGE=1
+    #export DEBUG_CMAKE_PACKAGE=1
+    #export DEBUG_OPENBLAS_PACKAGE=1
+    #export DEBUG_DISTUTILS_PACKAGE=1
+    #export DEBUG_HDF5_PACKAGES=1
+
+    # --------------------------------------------------------------------------------------
+    # FINE-TUNNING OVER THE USE OF SYSTEM-WIDE PACKAGES INSTEAD OF COCOA's LOCAL COPY
+    # --------------------------------------------------------------------------------------
+    #export IGNORE_XZ_INSTALLATION=1
+    #export IGNORE_DISTUTILS_INSTALLATION=1
+    #export IGNORE_C_GSL_INSTALLATION=1
+    #export IGNORE_C_CFITSIO_INSTALLATION=1
+    #export IGNORE_C_FFTW_INSTALLATION=1
+    #export IGNORE_CPP_BOOST_INSTALLATION=1
+    #export IGNORE_CMAKE_INSTALLATION=1
+    #export IGNORE_OPENBLAS_INSTALLATION=1
+    #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+    #export IGNORE_CPP_ARMA_INSTALLATION=1
+    #export IGNORE_HDF5_INSTALLATION=1
 
     if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
         export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake

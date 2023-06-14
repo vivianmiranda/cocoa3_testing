@@ -51,11 +51,11 @@ if [ -z "${IGNORE_CAMB_COMPILATION}" ]; then
 
     $PYTHON3 setup.py clean > ${OUTPUT_CAMB_1} 2> ${OUTPUT_CAMB_2}
     if [ $? -ne 0 ]; then
-      echo "CAMB COULD NOT RUN PYTHON3 SETUP.PY CLEAN"
+      echo "CAMB EDE COULD NOT RUN PYTHON3 SETUP.PY CLEAN"
       cd $ROOTDIR
       return 1
     else
-      echo "CAMB PYTHON3 SETUP.PY CLEAN DONE"
+      echo "CAMB EDE PYTHON3 SETUP.PY CLEAN DONE"
     fi
 
     COMPILER=$FORTRAN_COMPILER F90C=$FORTRAN_COMPILER $PYTHON3 setup.py build \
@@ -65,7 +65,7 @@ if [ -z "${IGNORE_CAMB_COMPILATION}" ]; then
       cd $ROOTDIR
       return 1
     else
-      echo "CAMB PYTHON3 SETUP.PY BUILD DONE"
+      echo "CAMB EDE PYTHON3 SETUP.PY BUILD DONE"
     fi
 
     cd $ROOTDIR
