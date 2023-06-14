@@ -254,7 +254,7 @@ We provide the docker image [whovian-cocoa](https://hub.docker.com/r/vivianmiran
 
 To download and run the container for the first time, type:
 
-    $ docker run --platform linux/amd64 --hostname cocoa --name cocoa2023 -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cocoa
+     docker run --platform linux/amd64 --hostname cocoa --name cocoa2023 -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cocoa
 
 Following the command above, users should see the following text on the screen terminal
 
@@ -277,7 +277,7 @@ When the user exits the container, how to restart it? Type
 
 How to run Jupyter Notebooks remotely when using Cocoa within the whovian-cocoa container? First, type the following command:
 
-    whovian@cocoa:~$ jupyter notebook --no-browser
+    whovian@cocoa:~$ jupyter notebook --no-browser --port=8080
 
 The terminal will show a message similar to the following template:
 
