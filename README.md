@@ -613,6 +613,20 @@ Finally, set the following environmental keys
 
         export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
 
+        # --------------------------------------------------------------------------------------
+        # DEBUG THE COMPILATION OF PREREQUISITES PACKAGES. BY DEFAULT, THE COMPILATION'S -------
+        # OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
+        # --------------------------------------------------------------------------------------
+        #export DEBUG_CPP_PACKAGES=1
+        #export DEBUG_C_PACKAGES=1
+        #export DEBUG_FORTRAN_PACKAGES=1
+        #export DEBUG_PIP_OUTPUT=1
+        #export DEBUG_XZ_PACKAGE=1
+        #export DEBUG_CMAKE_PACKAGE=1
+        #export DEBUG_OPENBLAS_PACKAGE=1
+        #export DEBUG_DISTUTILS_PACKAGE=1
+        #export DEBUG_HDF5_PACKAGES=1
+    
 The, fine-tunning over the use of system-wide packages instead of our local copies can be set via the environmental flags
 
         export IGNORE_XZ_INSTALLATION=1
