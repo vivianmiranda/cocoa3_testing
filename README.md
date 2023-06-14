@@ -627,7 +627,7 @@ Finally, set the following environmental keys
         #export DEBUG_DISTUTILS_PACKAGE=1
         #export DEBUG_HDF5_PACKAGES=1
     
-The, fine-tunning over the use of system-wide packages instead of our local copies can be set via the environmental flags
+The fine-tunning over the use of system-wide packages instead of our local copies can be set via the environmental flags
 
         export IGNORE_XZ_INSTALLATION=1
         export IGNORE_HDF5_INSTALLATION=1
