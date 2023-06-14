@@ -124,7 +124,7 @@ Finally, type
     
 to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then refer to the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
 
-(**expert**) The script *set_installation_options script* contains a few additional flags that may be useful during installation. especilly if something goes wrong. They are shown below:
+(**expert**) The script *set_installation_options script* contains a few additional flags that may be useful if something goes wrong. They are shown below:
 
         [Extracted from set_installation_options script]
         # --------------------------------------------------------------------------------------
