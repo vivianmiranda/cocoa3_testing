@@ -213,7 +213,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
     echo "PIP INSTALL CERTIFI DONE"
   fi
 
-  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install idna --prefix=$ROOTDIR/.local \
+  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'idna==3.4' --prefix=$ROOTDIR/.local \
     --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
     --no-index > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
   if [ $? -ne 0 ]; then
@@ -223,7 +223,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
     echo "PIP INSTALL IDNA DONE"
   fi
 
-  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install python-dateutil --prefix=$ROOTDIR/.local \
+  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'python-dateutil==2.8.2' --prefix=$ROOTDIR/.local \
     --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
     --no-index > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
   if [ $? -ne 0 ]; then
@@ -233,7 +233,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
     echo "PIP INSTALL PYTHON-DATEUTIL DONE"
   fi
 
-  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install pytz --prefix=$ROOTDIR/.local \
+  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'pytz==2022.1' --prefix=$ROOTDIR/.local \
     --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
     --no-index > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
   if [ $? -ne 0 ]; then
@@ -378,7 +378,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
     fi
   fi
 
-  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install ordered_set --prefix=$ROOTDIR/.local \
+  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'ordered_set==4.1.0' --prefix=$ROOTDIR/.local \
     --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
     --no-index > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
   if [ $? -ne 0 ]; then
@@ -497,6 +497,26 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
   #else
   #  echo "PIP INSTALL euclidemul DONE"
   #fi
+
+  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'numba==0.56.4' --prefix=$ROOTDIR/.local  \
+    --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
+    --no-index > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
+  if [ $? -ne 0 ]; then
+    echo "PROBLEM PIP INSTALL NUMBA" >&2
+    return 1
+  else
+    echo "PIP INSTALL NUMBA DONE"
+  fi
+
+  env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'PyWavelets==1.3.0' --prefix=$ROOTDIR/.local  \
+    --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
+    --no-index > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
+  if [ $? -ne 0 ]; then
+    echo "PROBLEM PIP INSTALL PYWAVELETS" >&2
+    return 1
+  else
+    echo "PIP INSTALL PYWAVELETS DONE"
+  fi
 
   env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'lenstronomy==1.11.2' \
     --prefix=$ROOTDIR/.local --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
