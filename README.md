@@ -31,7 +31,7 @@ There are two installation methods. Users must choose one of them:
 
 We also provide the docker image whovian-cocoa to facilitate the installation of Cocoa on Windows and MacOS. For further instructions, refer to the Appendix [whovian-cocoa docker container](#appendix_jupyter_whovian).
 
-We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If this is not the case, then refer to the Appendix [Miniconda Installation](#overview_miniconda) for further instructions.
+We assume here the user has previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). If this is not the case, refer to the Appendix [Miniconda Installation](#overview_miniconda) for further instructions.
 
 Type the following commands to create the cocoa Conda environment.
 
