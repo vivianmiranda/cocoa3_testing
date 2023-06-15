@@ -3,10 +3,6 @@ if [ -z "${ROOTDIR}" ]; then
     return
 fi
 
-echo 'Warning: all local required packages will be deleted'
-
-rm -rf $ROOTDIR/.local/
-
 cd $ROOTDIR/../cocoa_installation_libraries
 
 sh clean_all
