@@ -54,3 +54,4 @@ PolyChordLite/
 spdlog/
 pip_cache/
 .DS_Store
+euclidemu2-1.2.0/build/

@@ -72,7 +72,6 @@ external_modules/code/PolyChordLite/dist/
 external_modules/code/planck/code/spt_clik/svnversion
 
 external_modules/code/pyactlike/build/
-../cocoa_installation_libraries/euclidemu2-1.2.0/build/
 external_modules/code/PolyChordLite/build/
 
 cobaya/cobaya/likelihoods/XXX
