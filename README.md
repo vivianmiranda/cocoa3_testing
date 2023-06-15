@@ -679,25 +679,25 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
         $ conda activate cocoa 
       
         $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
-            'pyDOE2==1.2.1' \
-            'gpy==1.10' \
-            'tensorflow-cpu==2.8.0' \
-            'keras==2.8.0' \
+            'tensorflow-cpu==2.12.0' \
+            'keras==2.12.0' \
             'keras-preprocessing==1.1.2' \
-            'torch==1.11.0+cpu' \
-            'torchvision==0.12.0+cpu' -f https://download.pytorch.org/whl/torch_stable.html
+            'torch==1.13.1+cpu' \
+            'torchvision==0.14.1+cpu' \
+            'torchaudio==0.13.1' --extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==1.12.1+cpu torchvision==0.13.1+cpu torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cpu
 
 In case there are GPUs available, the following commands will install the GPU version of 
-Tensorflow, Keras and Pytorch.
+Tensorflow, Keras and Pytorch (assuming CUDA 11.6).
 
-        $(cocoa) CONDA_PREFIX/bin/pip install --no-cache-dir \
-            'pyDOE2==1.2.1' \
-            'gpy==1.10' \
-            'tensorflow==2.8.0' \
-            'keras==2.8.0' \
+        $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
+            'tensorflow==2.12.0' \
+            'keras==2.12.0' \
             'keras-preprocessing==1.1.2' \
-            'torch==1.11.0' \
-            'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
+            'torch==1.13.1+cu116' \
+            'torchvision==0.14.1+cu116' \
+            'torchaudio==0.13.1' --extra-index-url https://download.pytorch.org/whl/cu116
 
 Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
 
