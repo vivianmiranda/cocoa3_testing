@@ -84,16 +84,16 @@ if [ -n "${MANUAL_INSTALLATION}" ]; then
     # --------------------------------------------------------------------------------------
     #conda create --name cocoalite python=3.7 --quiet --yes \
     #   && conda install -n cocoalite --quiet --yes  \
-    #   'conda-forge::libgcc-ng=10.3.0' \
-    #   'conda-forge::libstdcxx-ng=10.3.0' \
-    #   'conda-forge::libgfortran-ng=10.3.0' \
-    #   'conda-forge::gxx_linux-64=10.3.0' \
-    #   'conda-forge::gcc_linux-64=10.3.0' \
-    #   'conda-forge::gfortran_linux-64=10.3.0' \
-    #   'conda-forge::openmpi=4.1.1' \
+    #   conda-forge::libgcc-ng=12.3.0' \
+    #   'conda-forge::libstdcxx-ng=12.3.0' \
+    #   'conda-forge::libgfortran-ng=12.3.0' \
+    #   'conda-forge::gxx_linux-64=12.3.0' \
+    #   'conda-forge::gcc_linux-64=12.3.0' \
+    #   'conda-forge::gfortran_linux-64=12.3.0' \
+    #   'conda-forge::openmpi=4.1.5' \
     #   'conda-forge::sysroot_linux-64=2.17' \
-    #   'conda-forge::git=2.33.1' \
-    #   'conda-forge::git-lfs=3.0.2'
+    #   'conda-forge::git=2.40.0' \
+    #   'conda-forge::git-lfs=3.3.0'
     # --------------------------------------------------------------------------------------
     
     export PYTHON_VERSION=3.8
