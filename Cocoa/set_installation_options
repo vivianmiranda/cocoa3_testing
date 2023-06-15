@@ -82,8 +82,8 @@ if [ -n "${MANUAL_INSTALLATION}" ]; then
     # --------------------------------------------------------------------------------------
     # WE USE CONDA COLASLIM ENV WITH JUST PYTHON AND GCC TO TEST MANUAL INSTALLATION
     # --------------------------------------------------------------------------------------
-    #conda create --name cocoalite python=3.7 --quiet --yes \
-    #   && conda install -n cocoalite --quiet --yes  \
+    #conda create --name cocoalitepy38 python=3.7 --quiet --yes \
+    #   && conda install -n cocoalitepy38 --quiet --yes  \
     #   conda-forge::libgcc-ng=12.3.0' \
     #   'conda-forge::libstdcxx-ng=12.3.0' \
     #   'conda-forge::libgfortran-ng=12.3.0' \
