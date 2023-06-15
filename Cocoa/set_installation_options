@@ -266,6 +266,13 @@ elif [ -n "${MINICONDA_INSTALLATION}" ]; then
     export IGNORE_CPP_ARMA_INSTALLATION=1
     export IGNORE_HDF5_INSTALLATION=1
 
+    # --------------------------------------------------------------------------------------
+    # DEBUG THE COMPILATION OF PREREQUISITES PACKAGES. BY DEFAULT, THE COMPILATION'S -------
+    # OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
+    # --------------------------------------------------------------------------------------
+    #export DEBUG_CPP_PACKAGES=1
+    #export DEBUG_PIP_OUTPUT=1
+
     if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
         export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake
         export CMAKE=$ROOTDIR/.local/bin/cmake

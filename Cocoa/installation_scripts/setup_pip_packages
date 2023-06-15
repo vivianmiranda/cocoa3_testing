@@ -111,6 +111,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
       'decorator==5.1.1' \
       'docutils==0.20.1' \
       'fonttools==4.40.0' \
+      'fuzzywuzzy==0.18.0' \
       'h5py==3.8.0' \
       'idna==3.4' \
       'imageio==2.31.1' \
