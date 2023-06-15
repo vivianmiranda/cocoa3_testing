@@ -6,7 +6,6 @@
 deactivate
 if [ $? -ne 0 ]; then
   echo "COCOA PRIVATE PYTHON ENV DEACTIVATION FAILED" >&2
-  return 1
 fi
 
 if [ -n "${OLD_OMP_NUM_THREADS}" ]; then

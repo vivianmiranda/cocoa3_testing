@@ -250,6 +250,8 @@ typedef struct
 typedef struct
 {
   int is_cmb_bandpower;
+  int is_cmb_kkkk_cov_from_sim;// if kkkk covmat is from sim, apply Hartlap factor
+  double alpha_Hartlap_kkkk;
   int Ncl;
   int Ntheta;
   int Ncos;
@@ -335,6 +337,7 @@ typedef struct
   double fwhm;        // beam fwhm in rad
   double sensitivity; // white noise level in muK*rad
   char pathLensRecNoise[CHAR_MAX_SIZE]; // path to precomputed noise on reconstructed kappa
+  char pathHealpixWinFunc[CHAR_MAX_SIZE]; // path to precomputed healpix window function
 } Cmb;
 
 typedef struct 
