@@ -686,8 +686,6 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
             'torchvision==0.14.1+cpu' \
             'torchaudio==0.13.1' --extra-index-url https://download.pytorch.org/whl/cpu
 
-torch==1.12.1+cpu torchvision==0.13.1+cpu torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cpu
-
 In case there are GPUs available, the following commands will install the GPU version of 
 Tensorflow, Keras and Pytorch (assuming CUDA 11.6).
 
