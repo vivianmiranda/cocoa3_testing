@@ -121,7 +121,7 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
       'GPy==1.10.0' \
       'Jinja2==3.1.2' \
       'jax==0.4.12' \
-      johnnydep==1.20.2' \ 
+      'johnnydep==1.20.2' \
       'importlib-metadata==6.6.0' \
       'kiwisolver==1.4.4' \
       'lazy_loader==0.2' \
@@ -177,19 +177,15 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
       'zipp==3.15.0' \
       'zipfile38==0.0.3' \
       'structlog==23.1.0' \
-      
-      
     --prefix=$ROOTDIR/.local \
     --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache \
     --no-index > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
   if [ $? -ne 0 ]; then
-    echo "PROBLEM PIP INSTALL" >&2
+    echo "PROBLEM PIP INSTALL CORE PACKAGES" >&2
     return 1
   else
-    echo "PIP INSTALL DONE"
+    echo "PIP INSTALL CORE PACKAGES DONE"
   fi
-
-  ##'schwimmbad==0.3.2' \
 
   env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install \
     $ROOTDIR/../cocoa_installation_libraries/pip_cache/fgspectra \
