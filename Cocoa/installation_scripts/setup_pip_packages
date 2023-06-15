@@ -170,8 +170,8 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
       'tomli==2.0.1' \
       'toml==0.10.2' \
       'tabulate==0.9.0' \
-      'urllib3==2.0.3' \
-      'wrapt==1.15.0' \
+      'urllib3==1.26.16' \
+      'wrapt==1.14.1' \
       'wheel==0.40.0' \
       'wget==3.2' \
       'wimpy==0.6' \
@@ -199,42 +199,38 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
     echo "PIP INSTALL FGSPECTRA DONE"
   fi
 
-  if [ -z "${MINICONDA_INSTALLATION}" ]; then
-    if [ -z "${IGNORE_EMULATOR_CPU_PIP_PACKAGES}" ]; then
-      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install \
-          'tensorflow-cpu==2.12.0' \
-          'keras==2.12.0' \
-          'keras-preprocessing==1.1.2' \
-          'torch==1.13.1+cpu' \
-          'torchvision==0.14.1+cpu' \
-          'torchaudio==0.13.1' \
-        --extra-index-url https://download.pytorch.org/whl/cpu
-        --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
-      if [ $? -ne 0 ]; then
-        echo "PROBLEM PIP INSTALL ML PACKAGES" >&2
-        return 1
-      else
-        echo "PIP INSTALL ML PACKAGES DONE"
-      fi
+  if [ -z "${IGNORE_EMULATOR_CPU_PIP_PACKAGES}" ]; then
+    env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install \
+        'tensorflow-cpu==2.12.0' \
+        'keras==2.12.0' \
+        'keras-preprocessing==1.1.2' \
+        'torch==1.13.1+cpu' \
+        'torchvision==0.14.1+cpu' \
+        'torchaudio==0.13.1' \
+      --extra-index-url https://download.pytorch.org/whl/cpu
+      --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
+    if [ $? -ne 0 ]; then
+      echo "PROBLEM PIP INSTALL ML PACKAGES" >&2
+      return 1
+    else
+      echo "PIP INSTALL ML PACKAGES DONE"
     fi
   fi
-  if [ -z "${MINICONDA_INSTALLATION}" ]; then
-    if [ -z "${IGNORE_EMULATOR_GPU_PIP_PACKAGES}" ]; then
-      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install \
-          'tensorflow==2.12.0' \
-          'keras==2.12.0' \
-          'keras-preprocessing==1.1.2' \
-          'torch==1.13.1+cu116' \
-          'torchvision==0.14.1+cu116' \
-          'torchaudio==0.13.1' \
-        --extra-index-url https://download.pytorch.org/whl/cu116 \
-        --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
-      if [ $? -ne 0 ]; then
-        echo "PROBLEM PIP INSTALL TENSORFLOW-GPU" >&2
-        return 1
-      else
-        echo "PIP INSTALL TENSORFLOW-GPU DONE" 
-      fi
+  if [ -z "${IGNORE_EMULATOR_GPU_PIP_PACKAGES}" ]; then
+    env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install \
+        'tensorflow==2.12.0' \
+        'keras==2.12.0' \
+        'keras-preprocessing==1.1.2' \
+        'torch==1.13.1+cu116' \
+        'torchvision==0.14.1+cu116' \
+        'torchaudio==0.13.1' \
+      --extra-index-url https://download.pytorch.org/whl/cu116 \
+      --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
+    if [ $? -ne 0 ]; then
+      echo "PROBLEM PIP INSTALL TENSORFLOW-GPU" >&2
+      return 1
+    else
+      echo "PIP INSTALL TENSORFLOW-GPU DONE" 
     fi
   fi
 fi
