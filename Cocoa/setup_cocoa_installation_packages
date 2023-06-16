@@ -228,6 +228,13 @@ if [ $? -ne 0 ]; then
   return 1
 fi
 
+source ./installation_scripts/setup_binutils
+if [ $? -ne 0 ]; then
+  echo "FAILED setup_binutils SCRIPT" >&2
+  cd $ROOTDIR
+  return 1
+fi
+
 source ./installation_scripts/setup_hdf5
 if [ $? -ne 0 ]; then
   echo "FAILED setup_hdf5 SCRIPT" >&2
