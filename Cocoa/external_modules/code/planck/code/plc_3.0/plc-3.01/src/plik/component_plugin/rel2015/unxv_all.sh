@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo 'DECOMPRESSING PLANCK LIKELIHOOD ASSOCIATED FILES - THAT MIGHT TAKE A WHILE'
-
 rm -f cib_1h_2h_100_353_Jsr-1_PS_2014_09.dat
 xz --decompress -k cib_1h_2h_100_353_Jsr-1_PS_2014_09.xz
 mv cib_1h_2h_100_353_Jsr-1_PS_2014_09 cib_1h_2h_100_353_Jsr-1_PS_2014_09.dat

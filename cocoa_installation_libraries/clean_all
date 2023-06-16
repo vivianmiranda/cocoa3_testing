@@ -3,7 +3,9 @@ if [ -z "${ROOTDIR}" ]; then
     return 1
 fi
 
-cd ${ROOTDIR}/cocoa_installation_libraries
+cd ${ROOTDIR}/../cocoa_installation_libraries
+
+echo 'CLEAN ALL INSTALLATION LIBRARIES - THAT MIGHT TAKE A WHILE'
 
 rm -rf ./$COCOA_ARMADILLO_DIR
 
@@ -34,10 +36,13 @@ rm -rf ./$COCOA_SPDLOG_DIR
 rm -rf ./$COCOA_TEXINFO_DIR
 
 rm -rf ./$COCOA_XZ_DIR
+rm -f $COCOA_XZ_FILE
 
 rm -rf ./$COCOA_EXPAT_DIR
 
 rm -rf ./$COCOA_HDF5_DIR1
+
+echo 'CLEAN ALL INSTALLATION LIBRARIES DONE'
 
 cd ${ROOTDIR}
 

@@ -1,12 +1,21 @@
 #!/bin/bash
 
+if [ -z "${ROOTDIR}" ]; then
+    echo 'ERROR ENV VARIABLE ROOTDIR IS NOT DEFINED' >&2
+    return 1
+fi
+
+source $ROOTDIR/../cocoa_installation_libraries/clean_all
+cd $ROOTDIR/../cocoa_installation_libraries/
+
+echo 'DECOMPRESSION OF INSTALLATION LIBRARIES - THAT MIGHT TAKE A WHILE'
+
 if [ -n "${THREAD_UNXZ}" ]; then
      echo 'DECOMPRESSION WILL HAPPEN IN PARALLEL'
 fi
 
 if [ -z "${IGNORE_OPENBLAS_INSTALLATION}" ]; then
     echo 'DECOMPRESSING OPENBLAS - THAT MIGHT TAKE A WHILE'
-    rm -rf ./$COCOA_OPENBLAS_DIR
     if [ -z "${THREAD_UNXZ}" ]; then
         tar xf OpenBLAS.xz
     else
@@ -19,7 +28,6 @@ fi
 
 if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
     echo 'DECOMPRESSING PIP CACHE - THAT MIGHT TAKE A WHILE'
-    rm -rf ./pip_cache/ 
     if [ -z "${THREAD_UNXZ}" ]; then
         tar xf pip_cache.xz
         proc2=$!
@@ -28,7 +36,6 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
         proc2=$!
     fi
     if [ -z "${MINICONDA_INSTALLATION}" ]; then
-      rm -rf ./$COCOA_EXPAT_DIR
       if [ -z "${THREAD_UNXZ}" ]; then
         tar xf expat.xz
         proc2A=$!
@@ -46,7 +53,6 @@ fi
 
 if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
     echo 'DECOMPRESSING CMAKE LIBRARY - THAT MIGHT TAKE A WHILE'
-    rm -rf ./$COCOA_CMAKE_DIR
     if [ -z "${THREAD_UNXZ}" ]; then
         tar xf cmake.xz
         proc3=$!
@@ -61,7 +67,6 @@ fi
 if [ -z "${IGNORE_CPP_INSTALLATION}" ]; then
     if [ -z "${IGNORE_CPP_ARMA_INSTALLATION}" ]; then
         echo 'DECOMPRESSING CPP ARMA LIBRARY'
-        rm -rf ./$COCOA_ARMADILLO_DIR
         if [ -z "${THREAD_UNXZ}" ]; then
             tar xf armadillo.xz
             proc4=$!
@@ -73,7 +78,6 @@ if [ -z "${IGNORE_CPP_INSTALLATION}" ]; then
 
     if [ -z "${IGNORE_CPP_BOOST_INSTALLATION}" ]; then
         echo 'DECOMPRESSING CPP BOOST LIBRARY - THAT MIGHT TAKE A WHILE'
-        rm -rf ./$COCOA_BOOST_DIR
         if [ -z "${THREAD_UNXZ}" ]; then
             tar xf boost.xz
             proc5=$!
@@ -85,7 +89,6 @@ if [ -z "${IGNORE_CPP_INSTALLATION}" ]; then
 
     if [ -z "${IGNORE_CPP_SPDLOG_INSTALLATION}" ]; then
         echo 'DECOMPRESSING CPP SPDLOG LIBRARY - THAT MIGHT TAKE A WHILE'
-        rm -rf ./$COCOA_SPDLOG_DIR
         if [ -z "${THREAD_UNXZ}" ]; then
             tar xf spdlog.xz
             proc6=$!
@@ -97,7 +100,6 @@ if [ -z "${IGNORE_CPP_INSTALLATION}" ]; then
 
     if [ -z "${IGNORE_CPP_CARMA_INSTALLATION}" ]; then
         echo 'DECOMPRESSING CPP CARMA LIBRARY - THAT MIGHT TAKE A WHILE'
-        rm -rf ./$COCOA_CARMA_DIR
         if [ -z "${THREAD_UNXZ}" ]; then
             tar xf carma.xz
             proc7=$!
@@ -116,18 +118,16 @@ fi
 if [ -z "${IGNORE_C_INSTALLATION}" ]; then
     if [ -z "${IGNORE_C_FFTW_INSTALLATION}" ]; then
         echo 'DECOMPRESSING C FFTW LIBRARY - THAT MIGHT TAKE A WHILE'
-        rm -rf ./$COCOA_FFTW_DIR
         if [ -z "${THREAD_UNXZ}" ]; then
             tar xf fftw.xz
             proc8=$!
         else
             tar xf fftw.xz &
-            proc=8$!
+            proc8=$!
         fi
     fi
     if [ -z "${IGNORE_C_CFITSIO_INSTALLATION}" ]; then
         echo 'DECOMPRESSING C CFITSIO LIBRARY - THAT MIGHT TAKE A WHILE'
-        rm -rf ./$COCOA_CFITSIO_DIR
         if [ -z "${THREAD_UNXZ}" ]; then
             tar xf cfitsio.xz
             proc9=$!
@@ -138,12 +138,10 @@ if [ -z "${IGNORE_C_INSTALLATION}" ]; then
     fi
     if [ -z "${IGNORE_C_GSL_INSTALLATION}" ]; then
         echo 'DECOMPRESSING C GSL LIBRARY - THAT MIGHT TAKE A WHILE'
-        rm -rf ./$COCOA_GSL_DIR
         if [ -z "${THREAD_UNXZ}" ]; then
             tar xf gsl.xz
             proc10=$!
         else
-            rm -rf ./$COCOA_GSL_DIR
             tar xf gsl.xz &
             proc10=$!
         fi
@@ -156,7 +154,6 @@ fi
 
 if [ -z "${IGNORE_FORTRAN_LAPACK_INSTALLATION}" ]; then
     echo 'DECOMPRESSING FORTRAN LAPACK LIBRARY - THAT MIGHT TAKE A WHILE'
-    rm -rf ./$COCOA_LAPACK_DIR
     if [ -z "${THREAD_UNXZ}" ]; then
       tar xf lapack.xz
       proc11=$!
@@ -170,8 +167,6 @@ fi
 
 if [ -z "${IGNORE_DISTUTILS_INSTALLATION}" ]; then
     echo 'DECOMPRESSING BINUTILS - THAT MIGHT TAKE A WHILE'
-    rm -rf ./$COCOA_BINUTILS_DIR
-    rm -rf ./$COCOA_TEXINFO_DIR
     if [ -z "${THREAD_UNXZ}" ]; then
         tar xf texinfo.xz
         proc12=$!
@@ -190,7 +185,6 @@ fi
 
 if [ -z "${IGNORE_HDF5_INSTALLATION}" ]; then
     echo 'DECOMPRESSING HDF5 LIBRARY - THAT MIGHT TAKE A WHILE'
-    rm -rf ./$COCOA_HDF5_DIR1
     if [ -z "${THREAD_UNXZ}" ]; then
       tar xf hdf5.xz
       proc14=$!
@@ -208,3 +202,7 @@ if [ -n "${THREAD_UNXZ}" ]; then
 fi
 
 wait "$proc1" "$proc2" "$proc2A" "$proc3" "$proc4" "$proc5" "$proc6" "$proc7" "$proc8" "$proc9" "$proc10" "$proc11" "$proc12" "$proc13" "$proc14" 2>/dev/null > /dev/null
+
+cd $ROOTDIR/
+
+echo 'DECOMPRESSION OF INSTALLATION LIBRARIES - DONE'
