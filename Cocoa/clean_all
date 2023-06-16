@@ -47,7 +47,7 @@ if [ -z "${ROOTDIR}" ]; then
     return 1
 fi
 
-source $ROOTDIR/../installation_scripts/clean_required
+source $ROOTDIR/../installation_scripts/clean_all
 cd $ROOTDIR
 source stop_cocoa
 rm -rf ./.local/
