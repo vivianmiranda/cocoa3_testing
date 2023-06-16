@@ -37,8 +37,8 @@ We assume here the user has previously installed either [Minicoda](https://docs.
 
 Type the following commands to create the cocoa Conda environment.
 
-        conda create --name cocoa python=3.8 --quiet --yes \
-           && conda install -n cocoa --quiet --yes  \
+        conda create --name cocoapy38 python=3.8 --quiet --yes \
+           && conda install -n cocoapy38 --quiet --yes  \
            'conda-forge::libgcc-ng=12.3.0' \
            'conda-forge::libstdcxx-ng=12.3.0' \
            'conda-forge::libgfortran-ng=12.3.0' \
@@ -72,11 +72,11 @@ For those working on projects that utilize machine-learning-based emulators, the
 
 When adopting this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below.
 
-        $ conda activate cocoa
+        $ conda activate cocoapy38
     
 Furthermore, users must install GIT-LFS on the first loading of the Conda cocoa environment.
 
-        $(cocoa) git-lfs install
+        $(cocoapy38) git-lfs install
 
 Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code).
 
@@ -84,15 +84,15 @@ Users can now proceed to the section [Installation of Cobaya base code](#cobaya_
 
 Assuming the user opted for the easier *Conda installation*, type:
 
-        $ conda activate cocoa
+        $ conda activate cocoapy38
     
-        $(cocoa) git clone --depth 1 -b mainpy38 https://github.com/CosmoLike/cocoa.git
+        $(cocoapy38) git clone --depth 1 -b mainpy38 https://github.com/CosmoLike/cocoa.git
 
 to clone the repository. 
 
 Cocoa developers should drop the shallow clone option `--depth 1`; they should also authenticate to GitHub via ssh keys and use the command instead
 
-        $(cocoa) git clone -b mainpy38 git@github.com:CosmoLike/cocoa.git
+        $(cocoapy38) git clone -b mainpy38 git@github.com:CosmoLike/cocoa.git
 
 :warning: **Warning** :warning: We have a limited monthly quota in bandwidth for Git LFS files, and therefore we ask users to use good judgment in the number of times they clone files from Cocoa's main repository.
  
@@ -111,8 +111,8 @@ Cocoa is made aware of the chosen installation method of required packages via s
     
 The user must uncomment the appropriate key (here, we assume `MINICONDA_INSTALLATION`), and then type the following command
 
-        $(cocoa) cd ./Cocoa/
-        $(cocoa) source setup_cocoa_installation_packages
+        $(cocoapy38) cd ./Cocoa/
+        $(cocoapy38) source setup_cocoa_installation_packages
 
 The script `setup_cocoa_installation_packages` decompresses the data files, which only takes a few minutes, and installs any remaining necessary packages. Typical package installation time ranges, depending on the installation method, from a few minutes (installation via Conda) to ~1/2 hour (installation via Cocoa's internal cache). It is important to note that our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
 
@@ -125,7 +125,7 @@ This behavior is critical to enable users to work on multiple instances of Cocoa
 
 Finally, type
 
-        $(cocoa) source compile_external_modules
+        $(cocoapy38) source compile_external_modules
     
 to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then refer to the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
 
@@ -167,11 +167,11 @@ Assuming the user opted for the easier *Conda installation* and located the term
      
 :two: **Step 2 of 5**: go to the Cocoa main folder 
 
-        $(cocoa) cd ./cocoa/Cocoa
+        $(cocoapy38) cd ./cocoa/Cocoa
 
 3️⃣ **Step 3 of 5**: activate the private python environment
 
-        $(cocoa) source start_cocoa
+        $(cocoapy38) source start_cocoa
 
 Users will see a terminal that looks like this: `$(Cocoa)(.local)`. *This is a feature, not a bug*! 
 
@@ -179,17 +179,17 @@ Why did we choose to have two separate bash environments? Users should be able t
 
 :four: **Step 4 of 5**: select the number of OpenMP cores
     
-        $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
+        $(cocoapy38)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
 
 :five: **Step 5 of 5**: run `cobaya-run` on a the first example YAML files we provide.
 
 One model evaluation:
 
-        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_EVALUATE1.yaml -f
+        $(cocoapy38)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_EVALUATE1.yaml -f
      
 MCMC:
 
-        $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
+        $(cocoapy38)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
 
 :books: **expert** :books: Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
 
@@ -197,8 +197,8 @@ MCMC:
 
 Once the work is done, type:
 
-        $(cocoa)(.local) source stop_cocoa
-        $(cocoa) conda deactivate cocoa
+        $(cocoapy38)(.local) source stop_cocoa
+        $(cocoapy38) conda deactivate cocoa
 
 ## Running Cosmolike projects <a name="running_cosmolike_projects"></a> 
 
@@ -206,12 +206,12 @@ The *projects* folder was designed to include Cosmolike projects. Similar to the
 
 :one: **Step 1 of 5**: activate the Conda Cocoa environment
     
-        $ conda activate cocoa
+        $ conda activate cocoapy38
 
 :two: **Step 2 of 5**: go to the project folder (`./cocoa/Cocoa/projects`) and clone a Cosmolike project, with fictitious name `XXX`:
     
-        $(cocoa) cd ./cocoa/Cocoa/projects
-        $(cocoa) $CONDA_PREFIX/bin/git clone git@github.com:CosmoLike/cocoa_XXX.git XXX
+        $(cocoapy38) cd ./cocoa/Cocoa/projects
+        $(cocoapy38) $CONDA_PREFIX/bin/git clone git@github.com:CosmoLike/cocoa_XXX.git XXX
 
 By convention, the Cosmolike Organization hosts a Cobaya-Cosmolike project named XXX at `CosmoLike/cocoa_XXX`. However, our provided scripts and template YAML files assume the removal of the `cocoa_` prefix when cloning the repository. The prefix `cocoa_` on the Cosmolike organization avoids mixing Cobaya-Cosmolike projects with code meant to be run on the legacy CosmoLike code.
 
@@ -219,19 +219,19 @@ Example of cosmolike projects: [lsst_y1](https://github.com/CosmoLike/cocoa_lsst
  
 :three: **Step 3 of 5**: go back to Cocoa main folder, and activate the private python environment
     
-        $(cocoa) cd ../
-        $(cocoa) source start_cocoa
+        $(cocoapy38) cd ../
+        $(cocoapy38) source start_cocoa
  
 Remember to run the start_cocoa script only after cloning the project repository is essential. The script *start_cocoa* creates necessary symbolic links and also adds the *Cobaya-Cosmolike interface* of all projects to `LD_LIBRARY_PATH` and `PYTHONPATH` paths.
 
 :four: **Step 4 of 5**: compile the project
  
-        $(cocoa)(.local) source ./projects/XXX/scripts/compile_XXX
+        $(cocoapy38)(.local) source ./projects/XXX/scripts/compile_XXX
   
 :five:  **Step 5 of 5**: select the number of OpenMP cores and run a template yaml file
     
-        $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
-        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
+        $(cocoapy38)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
+        $(cocoapy38)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
 :warning: **Warning** :warning: Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
 
@@ -326,11 +326,11 @@ After installation, users must source conda configuration file
 
 To avoid excessive compilation times during development, users can use specialized scripts located at `Cocoa/installation_scripts/` that compile only a specific module. A few examples of these scripts are: 
 
-        $(cocoa)(.local) source ./installation_scripts/compile_class
-        $(cocoa)(.local) source ./installation_scripts/compile_camb
-        $(cocoa)(.local) source ./installation_scripts/compile_planck
-        $(cocoa)(.local) source ./installation_scripts/compile_act
-        $(cocoa)(.local) source ./installation_scripts/setup_polychord
+        $(cocoapy38)(.local) source ./installation_scripts/compile_class
+        $(cocoapy38)(.local) source ./installation_scripts/compile_camb
+        $(cocoapy38)(.local) source ./installation_scripts/compile_planck
+        $(cocoapy38)(.local) source ./installation_scripts/compile_act
+        $(cocoapy38)(.local) source ./installation_scripts/setup_polychord
     
 ### :warning: Warning :warning: Weak Lensing YAML files in Cobaya <a name="appendix_example_runs"></a>
 
@@ -678,7 +678,7 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
 
         $ conda activate cocoa 
       
-        $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
+        $(cocoapy38) $CONDA_PREFIX/bin/pip install --no-cache-dir \
             'tensorflow-cpu==2.12.0' \
             'keras==2.12.0' \
             'keras-preprocessing==1.1.2' \
@@ -689,7 +689,7 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
 In case there are GPUs available, the following commands will install the GPU version of 
 Tensorflow, Keras and Pytorch (assuming CUDA 11.6).
 
-        $(cocoa) $CONDA_PREFIX/bin/pip install --no-cache-dir \
+        $(cocoapy38) $CONDA_PREFIX/bin/pip install --no-cache-dir \
             'tensorflow==2.12.0' \
             'keras==2.12.0' \
             'keras-preprocessing==1.1.2' \
