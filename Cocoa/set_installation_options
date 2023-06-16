@@ -23,7 +23,7 @@ export MINICONDA_INSTALLATION=1
 # ----- SETUP_REQUIRED_PACKAGES SCRIPT MAY TAKE A LONG TIME - THREADING W/ 4 CORES -----
 # --------------------------------------------------------------------------------------
 export THREAD_UNXZ=1
-export MAKE_NUM_THREADS=10
+export MAKE_NUM_THREADS=4
 
 # --------------------------------------------------------------------------------------
 # --------- IF TRUE, THEN COCOA USES CLIK FROM https://github.com/benabed/clik ---------
