@@ -150,6 +150,11 @@ fi
 # ----------------------------------------------------------------------------
 
 source $ROOTDIR/.local/bin/activate
+if [ $? -ne 0 ]; then
+  echo "COCOA PRIVATE PYTHON ENV ACTIVATION FAILED" >&2
+  source stop_cocoa
+  return 1
+fi
 
 export PATH=$ROOTDIR/.local/bin:$PATH
 
