@@ -1,10 +1,10 @@
 if [ -z "${ROOTDIR}" ]; then
-    echo 'ERROR ROOTDIR not define'
-    return
+    echo 'ERROR ENV VARIABLE ROOTDIR IS NOT DEFINED' >&2
+    return 1
 fi
 if [ -z "${PYTHON3}" ]; then
-    echo 'ERROR PYTHON3 not define'
-    return
+    echo 'ERROR ENV VARIABLE PYTHON3 IS NOT DEFINED' >&2
+    return 1
 fi
 
 # ----------------------------------------------------------------------------
@@ -12,6 +12,7 @@ fi
 # ------------------------- REMOVE PLANCK LIKELIHOOD -------------------------
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
+echo 'CLEANING PLANCK LIKELIHOOD'
 
 rm -f $ROOTDIR/.local/bin/clik*
 
@@ -56,4 +57,6 @@ else
     unset CLIK_PLUGIN
 fi
 
+echo 'CLEANING PLANCK LIKELIHOOD DONE'
 cd $ROOTDIR
+
