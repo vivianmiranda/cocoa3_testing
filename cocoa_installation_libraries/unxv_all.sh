@@ -139,7 +139,7 @@ if [ -z "${IGNORE_C_INSTALLATION}" ]; then
             else
                 rm -rf ./fftw-3.3.10/
                 tar xf fftw3310.xz &
-                proc=8$!
+                proc8=$!
             fi
         fi
     fi
