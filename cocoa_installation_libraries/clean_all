@@ -42,6 +42,8 @@ rm -rf ./$COCOA_EXPAT_DIR
 
 rm -rf ./$COCOA_HDF5_DIR1
 
+rm -rf ./cocoa_build
+
 echo 'CLEAN ALL INSTALLATION LIBRARIES DONE'
 
 cd ${ROOTDIR}
