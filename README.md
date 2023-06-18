@@ -304,6 +304,8 @@ Below, we assume the user runs the container in a server with the URL `your_seve
 
 Finally, go to a browser and type `http://localhost:8080/?token=XXX`, where `XXX` is the previously saved token.
 
+PS: The docker container also has the conda environment `cocoalite` that is useful in the rare case someone want to install Cocoa via the slow/not-advisable instructions on section [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache)
+
 ### Miniconda Installation <a name="overview_miniconda"></a>
 
 Download and run Miniconda installation script (please adapt `CONDA_DIR`):
@@ -541,6 +543,21 @@ This method is slow and not advisable :stop_sign::thumbsdown:. When Conda is una
    - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
    - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
 
+The conda environment `cocoalitepy38` contains the minimum packages necessary for this installation method
+
+        conda create --name cocoalitepy38 python=3.8 --quiet --yes \
+        && conda install -n cocoalitepy38 --quiet --yes  \
+            'conda-forge::libgcc-ng=12.3.0' \
+            'conda-forge::libstdcxx-ng=12.3.0' \
+            'conda-forge::libgfortran-ng=12.3.0' \
+            'conda-forge::gxx_linux-64=12.3.0' \
+            'conda-forge::gcc_linux-64=12.3.0' \
+            'conda-forge::gfortran_linux-64=12.3.0' \
+            'conda-forge::openmpi=4.1.5' \
+            'conda-forge::sysroot_linux-64=2.17' \
+            'conda-forge::git=2.40.0' \
+            'conda-forge::git-lfs=3.3.0'
+    
 To perform the local semi-autonomous installation, users must modify flags written on the file *set_installation_options* because the default behavior corresponds to an installation via Conda. First, select the environmental key `MANUAL_INSTALLATION` as shown below:
 
     [Extracted from set_installation_options script] 
@@ -691,7 +708,7 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
             'torchaudio==0.13.1' --extra-index-url https://download.pytorch.org/whl/cpu
 
 In case there are GPUs available, the following commands will install the GPU version of 
-Tensorflow, Keras and Pytorch (assuming CUDA 11.6).
+Tensorflow, Keras and Pytorch (assuming CUDA 11.6, click [here](https://pytorch.org/get-started/previous-versions/) for additional information).
 
         $(cocoapy38) $CONDA_PREFIX/bin/pip install --no-cache-dir \
             'tensorflow==2.12.0' \
@@ -703,10 +720,10 @@ Tensorflow, Keras and Pytorch (assuming CUDA 11.6).
 
 Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
 
-For users that opted for the manual installation via Cocoa's internal cache, commenting out the environmental flags shown below, located at *set_installation_options* script, will enable the installation of machine-learning-related libraries via pip.  
+Commenting out the environmental flags shown below, located at *set_installation_options* script, will enable the installation of machine-learning-related libraries via pip.  
 
         # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
         #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
         #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
 
-Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of the Machine Learning packages listed above will require an active internet connection.
+Unlike most installed pip prerequisites, which are cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of the Machine Learning packages listed above requires an active internet connection.
