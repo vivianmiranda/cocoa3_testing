@@ -73,7 +73,7 @@ if [ -n "${MANUAL_INSTALLATION}" ]; then
     export DONT_USE_SYSTEM_PIP_PACKAGES=1
     
     # --------------------------------------------------------------------------------------
-    # IF NOT SET, COCOA WILL INSTALL TENSORFLOW, KERAS, PYTORCH, GPY (NOT FROM PIP_CACHE)
+    # IF NOT SET, COCOA WILL INSTALL TENSORFLOW, KERAS, PYTORCH (NOT FROM PIP_CACHE)
     # --------------------------------------------------------------------------------------
     export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
     export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
@@ -243,7 +243,7 @@ elif [ -n "${MINICONDA_INSTALLATION}" ]; then
     export IGNORE_HDF5_INSTALLATION=1
 
     # --------------------------------------------------------------------------------------
-    # IF NOT SET, COCOA WILL INSTALL TENSORFLOW, KERAS, PYTORCH, GPY (NOT FROM PIP_CACHE)
+    # IF NOT SET, COCOA WILL INSTALL TENSORFLOW, KERAS, PYTORCH (NOT FROM PIP_CACHE)
     # --------------------------------------------------------------------------------------
     export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
     export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1

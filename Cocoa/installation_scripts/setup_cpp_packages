@@ -90,6 +90,7 @@ if [ -z "${IGNORE_CPP_SPDLOG_INSTALLATION}" ]; then
   fi
 
   cd $ROOTDIR
+  echo 'INSTALLING CPP SPDLOG LIBRARY - DONE'
 fi
 
 # --------------------------------------------------------------------------------------
@@ -157,6 +158,7 @@ if [ -z "${IGNORE_CPP_ARMA_INSTALLATION}" ]; then
   fi
 
   cd $ROOTDIR
+  echo 'INSTALLING CPP ARMADILLO LIBRARY - DONE'
 fi
 
 # --------------------------------------------------------------------------------------
@@ -176,6 +178,7 @@ if [ -z "${IGNORE_CPP_CARMA_INSTALLATION}" ]; then
   cp -r ./carma_bits $ROOTDIR/.local/include/
 
   cd $ROOTDIR
+  echo 'INSTALLING CARMA -  THE PYTHON <-> ARMADILLO CONVERSION - DONE'
 fi
 
 # --------------------------------------------------------------------------------------
@@ -219,6 +222,7 @@ if [ -z "${IGNORE_CPP_BOOST_INSTALLATION}" ]; then
   fi
   
   cd $ROOTDIR
+  echo 'INSTALLING CPP BOOST LIBRARY - DONE'
 fi
 
 # --------------------------------------------------------------------------------------

@@ -77,4 +77,5 @@ if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
   fi
 
   cd $ROOTDIR
+  echo 'INSTALLING CMAKE - DONE'
 fi

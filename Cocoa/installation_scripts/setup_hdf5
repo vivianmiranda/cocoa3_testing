@@ -92,4 +92,5 @@ if [ -z "${IGNORE_HDF5_INSTALLATION}" ]; then
   fi
 
   cd $ROOTDIR
+  echo 'INSTALLING HDF5 LIBRARY - DONE'
 fi
