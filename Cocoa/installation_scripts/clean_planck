@@ -34,27 +34,12 @@ fi
 
 rm -f .lock-waf_*
 
-
 if [ -z "${DEBUG_PLANCK_OUTPUT}" ]; then
   export OUTPUT_PLANCK_1="/dev/null"
   export OUTPUT_PLANCK_2="/dev/null"
 else
   export OUTPUT_PLANCK_1="/dev/tty"
   export OUTPUT_PLANCK_2="/dev/tty"
-fi
-
-$PYTHON3 waf uninstall > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
-if [ $? -ne 0 ]; then
-  echo "PLANCK COULD NOT RUN WAF UNINSTALL" 
-else
-  echo "PLANCK WAF UNINSTALL DONE"
-fi
-
-$PYTHON3 waf clean > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
-if [ $? -ne 0 ]; then
-  echo "PLANCK COULD NOT RUN WAF CLEAN"
-else
-  echo "PLANCK WAF CLEAN DONE"
 fi
 
 $PYTHON3 waf distclean > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
