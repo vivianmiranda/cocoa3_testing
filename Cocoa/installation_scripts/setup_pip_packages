@@ -563,21 +563,14 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
       fi
       
       env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'torch==1.11.0+cpu' \
+        'torchvision==0.12.0+cpu' \
+        --extra-index-url https://download.pytorch.org/whl/cpu \
         --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
       if [ $? -ne 0 ]; then
-        echo "PROBLEM PIP INSTALL TORCH" >&2
+        echo "PROBLEM PIP INSTALL TORCH/TORCHVISION" >&2
         return 1
       else
-        echo "PIP INSTALL TORCH DONE"
-      fi
-
-      env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'torchvision==0.12.0+cpu' \
-        --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
-      if [ $? -ne 0 ]; then
-        echo "PROBLEM PIP INSTALL TORCHVISION" >&2
-        return 1
-      else
-        echo "PIP INSTALL TORCHVISION DONE"
+        echo "PIP INSTALL TORCH/TORCHVISION DONE"
       fi
 
       env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'gpy==1.10' --prefix=$ROOTDIR/.local \
@@ -634,23 +627,18 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
     else
       echo "PIP INSTALL KERAS-PREPROCESSING DONE"
     fi
-    
-    env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'torch==1.11.0' \
-      --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
-    if [ $? -ne 0 ]; then
-      echo "PROBLEM PIP INSTALL TORCH-GPU" >&2
-      return 1
-    else
-      echo "PIP INSTALL TORCH-GPU DONE"
-    fi
 
-    env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'torchvision==0.12.0+cpu' \
+    # WE ASSUME CUDA 10.2
+    
+    env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'torch==1.11.0+cu102' \
+      'torchvision==0.12.0+cu102' \
+      --extra-index-url https://download.pytorch.org/whl/cu102 \
       --prefix=$ROOTDIR/.local > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
     if [ $? -ne 0 ]; then
-      echo "PROBLEM PIP INSTALL TORCHVISION" >&2
+      echo "PROBLEM PIP INSTALL TORCH/TORCHVISION" >&2
       return 1
     else
-      echo "PIP INSTALL TORCHVISION DONE"
+      echo "PIP INSTALL TORCH/TORCHVISION DONE"
     fi
 
     env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install 'gpy==1.10' --prefix=$ROOTDIR/.local \
