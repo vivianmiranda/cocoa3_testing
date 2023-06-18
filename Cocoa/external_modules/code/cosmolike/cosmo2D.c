@@ -45,26 +45,64 @@ double beam_cmb(const double l)
   return exp(-l*(l+1.0)*sigma*sigma)*norm;
 }
 
+double w_pixel(const double ell)
+{
+  static int lbins;
+  static double *cl_pixel =0;
+  FILE* ein;
+  int l = (int) ceil(ell);
+
+  if (cl_pixel == 0)
+  {
+    ein = fopen(cmb.pathHealpixWinFunc, "r");
+    if (ein == NULL)
+    {
+      log_info("Can not open file %s, ignore healpix window function\n",
+        cmb.pathHealpixWinFunc);
+      lbins = 0;
+      cl_pixel = malloc(sizeof(double));
+      cl_pixel[0] = 1.0;
+    }
+    else
+    {
+      fclose(ein);
+      lbins = line_count(cmb.pathHealpixWinFunc);
+      cl_pixel = malloc(sizeof(double)*lbins);
+      ein = fopen(cmb.pathHealpixWinFunc, "r");
+      for (int i = 0; i < lbins; i++)
+      {
+        int tmp;
+        double tmp2;
+        fscanf(ein, "%d %le\n", &tmp, &tmp2);
+        cl_pixel[i] = tmp2;
+      }
+      fclose(ein);
+    }
+  }
+  if (lbins>0){return (l < lbins) ? cl_pixel[l] : 0.0;}
+  else{return 1.0;}
+}
+
 double C_gk_tomo_limber_nointerp_wrapper(double l, int ni, int use_linear_ps,
 const int init_static_vars_only)
 {
-  return C_gk_tomo_limber_nointerp(l, ni, use_linear_ps, init_static_vars_only)*beam_cmb(l);
+  return C_gk_tomo_limber_nointerp(l, ni, use_linear_ps, init_static_vars_only)*beam_cmb(l)*w_pixel(l);
 }
 
 double C_gk_tomo_limber_wrapper(double l, int ni)
 {
-  return C_gk_tomo_limber(l, ni)*beam_cmb(l);
+  return C_gk_tomo_limber(l, ni)*beam_cmb(l)*w_pixel(l);
 }
 
 double C_ks_tomo_limber_nointerp_wrapper(double l, int ni, int use_linear_ps, 
 const int init_static_vars_only)
 {
-  return C_ks_tomo_limber_nointerp(l, ni, use_linear_ps, init_static_vars_only)*beam_cmb(l);
+  return C_ks_tomo_limber_nointerp(l, ni, use_linear_ps, init_static_vars_only)*beam_cmb(l)*w_pixel(l);
 }
 
 double C_ks_tomo_limber_wrapper(double l, int ni)
 {
-  return C_ks_tomo_limber(l, ni)*beam_cmb(l);
+  return C_ks_tomo_limber(l, ni)*beam_cmb(l)*w_pixel(l);
 }
 
 static int has_b2_galaxies()
@@ -2977,7 +3015,7 @@ const int init_static_vars_only)
     }
     else 
     {
-      res =  (init_static_vars_only == 1) ? int_for_C_gs_tomo_limber(amin, (void*) ar) :
+      res = (init_static_vars_only == 1) ? int_for_C_gs_tomo_limber(amin, (void*) ar) :
         like.high_def_integration == 2 ?
         int_gsl_integrate_high_precision(int_for_C_gs_tomo_limber, (void*) ar, amin, amax, NULL, 
           GSL_WORKSPACE_SIZE) :
@@ -3061,8 +3099,7 @@ double C_gs_tomo_limber(double l, int ni, int nj)
           const int ZLNZ = ZL(k);
           const int ZSNZ = ZS(k);
           const double lnl = lnlmin + i*dlnl;
-          const double ll = exp(lnl);
-          table[k][i] = C_gs_tomo_limber_nointerp(ll, ZLNZ, ZSNZ, use_linear_ps_limber, 0);
+          table[k][i] = C_gs_tomo_limber_nointerp(exp(lnl), ZLNZ, ZSNZ, use_linear_ps_limber, 0);
         }
       }
     }
@@ -3128,7 +3165,7 @@ double C_gs_tomo_limber(double l, int ni, int nj)
   {
     log_warn("l = %e > l_max = %e. Extrapolation adopted", l, exp(lnlmax));
   }
-  
+
   double f1 = 0.;
   if (test_zoverlap(ni, nj) && osc[q] == 0)
   {
@@ -3772,7 +3809,7 @@ double int_for_C_ks_limber(double a, void* params)
     {
       const double norm = (cosmology.Omega_m*nuisance.c1rhocrit_ia/growfac_a)*
         nuisance.A_ia*pow(1.0/(a*nuisance.oneplusz0_ia), nuisance.eta_ia);
-      res = -(WS1*WK2*norm + WK1*WK2);
+      res = (-WS1*WK2*norm + WK1*WK2);
 
       break;
     }
