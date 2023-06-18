@@ -35,8 +35,8 @@ if [ -z "${IGNORE_DISTUTILS_INSTALLATION}" ]; then
   cd $ROOTDIR/../cocoa_installation_libraries/texinfo-6.7
 
   if [ -z "${DEBUG_DISTUTILS_PACKAGE}" ]; then
-    FC=$FORTRAN_COMPILER CC=$C_COMPILER ./configure --prefix=$ROOTDIR/.local \
-      --disable-perl-xs > /dev/null 2> /dev/null
+    FC=$FORTRAN_COMPILER CC=$C_COMPILER ./configure --prefix=$ROOTDIR/.local --disable-perl-xs \
+      > /dev/null 2> /dev/null
     if [ $? -eq 0 ]; then
       echo "TEXINFO CONFIGURE RUN DONE"
     else
@@ -63,7 +63,7 @@ if [ -z "${IGNORE_DISTUTILS_INSTALLATION}" ]; then
       return 1
     fi
   else
-    FC=$FORTRAN_COMPILER CC=$C_COMPILER ./configure --prefix=$ROOTDIR/.local
+    FC=$FORTRAN_COMPILER CC=$C_COMPILER ./configure --disable-perl-xs --prefix=$ROOTDIR/.local
     if [ $? -ne 0 ];then
       cd $ROOTDIR
       return 1
