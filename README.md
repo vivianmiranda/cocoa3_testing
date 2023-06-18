@@ -545,7 +545,7 @@ This method is slow and not advisable :stop_sign::thumbsdown:. When Conda is una
 The conda environment `cocoalite` contains the minimum packages necessary for this installation method
 
     conda create --name cocoalite python=3.7 --quiet --yes \
-         && conda install -n cocoalite --quiet --yes  \
+    && conda install -n cocoalite --quiet --yes  \
          'conda-forge::libgcc-ng=10.3.0' \
          'conda-forge::libstdcxx-ng=10.3.0' \
          'conda-forge::libgfortran-ng=10.3.0' \
