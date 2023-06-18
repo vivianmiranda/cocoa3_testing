@@ -710,10 +710,10 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
             'keras==2.8.0' \
             'keras-preprocessing==1.1.2' \
             'torch==1.11.0+cpu' \
-            'torchvision==0.12.0+cpu' -f https://download.pytorch.org/whl/torch_stable.html
+            'torchvision==0.12.0+cpu' --extra-index-url https://download.pytorch.org/whl/cpu
 
 In case there are GPUs available, the following commands will install the GPU version of 
-Tensorflow, Keras and Pytorch.
+Tensorflow, Keras and Pytorch (assuming CUDA 10.2, click [here](https://pytorch.org/get-started/previous-versions/) for additional information).
 
         $(cocoa) CONDA_PREFIX/bin/pip install --no-cache-dir \
             'pyDOE2==1.2.1' \
@@ -721,15 +721,15 @@ Tensorflow, Keras and Pytorch.
             'tensorflow==2.8.0' \
             'keras==2.8.0' \
             'keras-preprocessing==1.1.2' \
-            'torch==1.11.0' \
-            'torchvision==0.12.0' -f https://download.pytorch.org/whl/torch_stable.html
+            'torch==1.11.0+cu102' \
+            'torchvision==0.12.0+cu102' --extra-index-url https://download.pytorch.org/whl/cu102
 
 Based on our experience, we recommend utilizing the GPU versions to train the emulator while using the CPU versions to run the MCMCs. This is because our supercomputers possess a greater number of CPU-only nodes. It may be helpful to create two separate conda environments for this purpose. One could be named `cocoa` (CPU-only), while the other could be named `cocoaemu` and contain the GPU versions of the machine learning packages.
 
-For users that opted for the manual installation via Cocoa's internal cache, commenting out the environmental flags shown below, located at *set_installation_options* script, will enable the installation of machine-learning-related libraries via pip.  
+Commenting out the environmental flags shown below, located at *set_installation_options* script, will enable the installation of machine-learning-related libraries via pip.  
 
         # IF TRUE, THEN COCOA WON'T INSTALL TENSORFLOW, KERAS and PYTORCH
         #export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
         #export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
 
-Unlike most installed pip prerequisites, cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of the Machine Learning packages listed above will require an active internet connection.
+Unlike most installed pip prerequisites, which are cached at `cocoa_installation_libraries/pip_cache.xz`, the installation of the Machine Learning packages listed above requires an active internet connection.
