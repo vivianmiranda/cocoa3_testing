@@ -184,12 +184,17 @@ Why did we choose to have two separate bash environments? Users should be able t
 
 One model evaluation:
 
-        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_EVALUATE1.yaml -f
-     
+        $(cocoa)(.local) $COCOA_RUN_EVALUATE ./projects/example/EXAMPLE_EVALUATE1.yaml -f
+        
+The flag `COCOA_RUN_EVALUATE` is an alias for `mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run` 
+        
 MCMC:
 
-        $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
+        $(cocoa)(.local) export NTASKS=4
+        $(cocoa)(.local) $COCOA_RUN_MCMC ./projects/example/EXAMPLE_MCMC1.yaml -f
 
+The flag `COCOA_RUN_MCMC` is an alias for `mpirun -n ${NTASKS} --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run`
+        
 :books: **expert** :books: Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
 
 :books: **expert** :books: Why the `--bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS}` flag? This flag enables efficient hybrid MPI + OpenMP runs on NUMA architecture.
@@ -231,9 +236,6 @@ Remember to run the start_cocoa script only after cloning the project repository
     
         $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
         $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
-
-Alternatively, users can equivalently run
-        $(cocoa)(.local) $COCOA_RUN ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
 :warning: **Warning** :warning: Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
 
