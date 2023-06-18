@@ -303,6 +303,8 @@ Below, we assume the user runs the container in a server with the URL `your_seve
 
 Finally, go to a browser and type `http://localhost:8080/?token=XXX`, where `XXX` is the previously saved token.
 
+PS: The docker container also has the conda environment `cocoalite` that is useful in the rare case someone want to install Cocoa via the slow/not-advisable instructions on section [Installation of Cocoa's required packages via Cocoa's internal cache](#required_packages_cache)
+
 ### Miniconda Installation <a name="overview_miniconda"></a>
 
 Download and run Miniconda installation script (please adapt `CONDA_DIR`):
@@ -539,6 +541,21 @@ This method is slow and not advisable :stop_sign::thumbsdown:. When Conda is una
    - [Python](https://www.python.org) v3.7.*;
    - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
    - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
+
+The conda environment `cocoalite` contains the minimum packages necessary for this installation method
+
+    conda create --name cocoalite python=3.7 --quiet --yes \
+         && conda install -n cocoalite --quiet --yes  \
+         'conda-forge::libgcc-ng=10.3.0' \
+         'conda-forge::libstdcxx-ng=10.3.0' \
+         'conda-forge::libgfortran-ng=10.3.0' \
+         'conda-forge::gxx_linux-64=10.3.0' \
+         'conda-forge::gcc_linux-64=10.3.0' \
+         'conda-forge::gfortran_linux-64=10.3.0' \
+         'conda-forge::openmpi=4.1.1' \
+         'conda-forge::sysroot_linux-64=2.17' \
+         'conda-forge::git=2.33.1' \
+         'conda-forge::git-lfs=3.0.2'
 
 To perform the local semi-autonomous installation, users must modify flags written on the file *set_installation_options* because the default behavior corresponds to an installation via Conda. First, select the environmental key `MANUAL_INSTALLATION` as shown below:
 
