@@ -708,7 +708,7 @@ If the user wants to add Tensorflow, Keras and Pytorch for an emulator-based pro
             'torchaudio==0.13.1' --extra-index-url https://download.pytorch.org/whl/cpu
 
 In case there are GPUs available, the following commands will install the GPU version of 
-Tensorflow, Keras and Pytorch (assuming CUDA 11.6).
+Tensorflow, Keras and Pytorch (assuming CUDA 11.6, click [here](https://pytorch.org/get-started/previous-versions/) for additional information).
 
         $(cocoapy38) $CONDA_PREFIX/bin/pip install --no-cache-dir \
             'tensorflow==2.12.0' \
