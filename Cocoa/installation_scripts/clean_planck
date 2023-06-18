@@ -26,15 +26,49 @@ rm -rf $ROOTDIR/.local/share/clik
 
 rm -f $ROOTDIR/.local/include/clik*
 
-cd $ROOTDIR/external_modules/code/planck/code/plc_3.0/plc-3.01/
+if [ -z "${USE_SPT_CLIK_PLANCK}" ]; then
+  cd $ROOTDIR/external_modules/code/planck/code/plc_3.0/plc-3.1/
+else
+  cd $ROOTDIR/external_modules/code/planck/code/spt_clik/
+fi
 
 rm -f .lock-waf_*
 
-$PYTHON3 waf uninstall
 
-$PYTHON3 waf clean
+if [ -z "${DEBUG_PLANCK_OUTPUT}" ]; then
+  export OUTPUT_PLANCK_1="/dev/null"
+  export OUTPUT_PLANCK_2="/dev/null"
+else
+  export OUTPUT_PLANCK_1="/dev/tty"
+  export OUTPUT_PLANCK_2="/dev/tty"
+fi
 
-$PYTHON3 waf distclean
+$PYTHON3 waf uninstall > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
+if [ $? -ne 0 ]; then
+  echo "PLANCK COULD NOT RUN WAF UNINSTALL" 
+  cd $ROOTDIR
+  return 1
+else
+  echo "PLANCK WAF UNINSTALL DONE"
+fi
+
+$PYTHON3 waf clean > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
+if [ $? -ne 0 ]; then
+  echo "PLANCK COULD NOT RUN WAF CLEAN"
+  cd $ROOTDIR
+  return 1
+else
+  echo "PLANCK WAF CLEAN DONE"
+fi
+
+$PYTHON3 waf distclean > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
+if [ $? -ne 0 ]; then
+  echo "PLANCK COULD NOT RUN WAF DISTCLEAN"
+  cd $ROOTDIR
+  return 1
+else
+  echo "PLANCK WAF DISTCLEAN DONE"
+fi
 
 echo 'CLEANING PLANCK LIKELIHOOD DONE'
 cd $ROOTDIR
