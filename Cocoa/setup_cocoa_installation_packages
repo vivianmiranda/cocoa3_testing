@@ -25,7 +25,6 @@ fi
 if [ -n "${LD_LIBRARY_PATH}" ]; then
     export OLD_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 else
-    # -n fails if string is null
     export OLD_LD_LIBRARY_PATH="x"
 fi
 
@@ -142,7 +141,12 @@ if [ -n "${SET_INSTALLATION_OPTIONS}" ]; then
 else
     source set_installation_options
 fi
-
+if [ -n "${MINICONDA_INSTALLATION}" ]; then
+    if [ ${CONDA_SHLVL} -ne 1 ]; then
+        echo "MINICONDA_INSTALLATION SET BUT CONDA ENVIRONMENT NOT ACTIVATED"
+        return 1
+    fi
+fi
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
 # ---------------------- Activate Virtual Enviroment -------------------------

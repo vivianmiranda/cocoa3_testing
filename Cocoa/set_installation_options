@@ -42,6 +42,12 @@ export IGNORE_CLASS_COMPILATION=1
 #export IGNORE_ACT_COMPILATION=1
 
 # --------------------------------------------------------------------------------------
+# ----- IF DEFINED, COSMOLIKE WILL BE COMPILED WITH DEBUG FLAG -------------------------
+# ----- DEBUG FLAG = ALL COMPILER WARNINGS + NO MATH OPTIMIZATION + NO OPENMP ----------
+# --------------------------------------------------------------------------------------
+#export COSMOLIKE_DEBUG_MODE=1
+
+# --------------------------------------------------------------------------------------
 # IN CASE COMPILATION FAILS, THESE FLAGS WILL BE USEFUL. BY DEFAULT, THE COMPILATION'S -
 # OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
 # --------------------------------------------------------------------------------------
@@ -51,12 +57,19 @@ export IGNORE_CLASS_COMPILATION=1
 #export DEBUG_POLY_OUTPUT=1
 #export DEBUG_ACT_OUTPUT=1
 
-
 # --------------------------------------------------------------------------------------
-# ----- IF DEFINED, COSMOLIKE WILL BE COMPILED WITH DEBUG FLAG -------------------------
-# ----- DEBUG FLAG = ALL COMPILER WARNINGS + NO MATH OPTIMIZATION + NO OPENMP ----------
+# DEBUG THE COMPILATION OF PREREQUISITES PACKAGES. BY DEFAULT, THE COMPILATION'S -------
+# OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
 # --------------------------------------------------------------------------------------
-#export COSMOLIKE_DEBUG_MODE=1
+#export DEBUG_CPP_PACKAGES=1
+#export DEBUG_C_PACKAGES=1
+#export DEBUG_FORTRAN_PACKAGES=1
+#export DEBUG_PIP_OUTPUT=1
+#export DEBUG_XZ_PACKAGE=1
+#export DEBUG_CMAKE_PACKAGE=1
+#export DEBUG_OPENBLAS_PACKAGE=1
+#export DEBUG_DISTUTILS_PACKAGE=1
+#export DEBUG_HDF5_PACKAGES=1
 
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
@@ -99,16 +112,6 @@ if [ -n "${MANUAL_INSTALLATION}" ]; then
     export PYTHON_VERSION=3.7
     export GLOBAL_PACKAGES_LOCATION=$CONDA_PREFIX
     export GLOBALPYTHON3=$CONDA_PREFIX/bin/python${PYTHON_VERSION}
-
-    # --------------------------------------------------------------------------------------
-    # COMPILER
-    # --------------------------------------------------------------------------------------
-    export C_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
-    export CXX_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
-    export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
-    export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicxx
-    export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicc
-    export MPI_FORTRAN_COMPILER=$CONDA_PREFIX/bin/mpif90
     
     # --------------------------------------------------------------------------------------
     # USER NEEDS TO SPECIFY THE FLAGS BELOW SO COCOA CAN FIND PYTHON / GCC / HDF5
@@ -154,40 +157,29 @@ if [ -n "${MANUAL_INSTALLATION}" ]; then
     export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
 
     # --------------------------------------------------------------------------------------
-    # DEBUG THE COMPILATION OF PREREQUISITES PACKAGES. BY DEFAULT, THE COMPILATION'S -------
-    # OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
+    # COMPILER
     # --------------------------------------------------------------------------------------
-    #export DEBUG_CPP_PACKAGES=1
-    #export DEBUG_C_PACKAGES=1
-    #export DEBUG_FORTRAN_PACKAGES=1
-    #export DEBUG_PIP_OUTPUT=1
-    #export DEBUG_XZ_PACKAGE=1
-    #export DEBUG_CMAKE_PACKAGE=1
-    #export DEBUG_OPENBLAS_PACKAGE=1
-    #export DEBUG_DISTUTILS_PACKAGE=1
-    #export DEBUG_HDF5_PACKAGES=1
-
+    export C_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
+    export CXX_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
+    export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
+    export MPI_FORTRAN_COMPILER=$CONDA_PREFIX/bin/mpif90
+    export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicc
+    export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicxx
+    
     # --------------------------------------------------------------------------------------
     # FINE-TUNNING OVER THE USE OF SYSTEM-WIDE PACKAGES INSTEAD OF COCOA's LOCAL COPY
     # --------------------------------------------------------------------------------------
     #export IGNORE_XZ_INSTALLATION=1
     #export IGNORE_DISTUTILS_INSTALLATION=1
+    #export IGNORE_CMAKE_INSTALLATION=1
+    #export IGNORE_HDF5_INSTALLATION=1
     #export IGNORE_C_GSL_INSTALLATION=1
     #export IGNORE_C_CFITSIO_INSTALLATION=1
     #export IGNORE_C_FFTW_INSTALLATION=1
-    #export IGNORE_CPP_BOOST_INSTALLATION=1
-    #export IGNORE_CMAKE_INSTALLATION=1
     #export IGNORE_OPENBLAS_INSTALLATION=1
     #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+    #export IGNORE_CPP_BOOST_INSTALLATION=1
     #export IGNORE_CPP_ARMA_INSTALLATION=1
-    #export IGNORE_HDF5_INSTALLATION=1
-
-    if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
-        export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake
-        export CMAKE=$ROOTDIR/.local/bin/cmake
-    else
-        export CMAKE=cmake
-    fi
 
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
@@ -239,47 +231,59 @@ elif [ -n "${MINICONDA_INSTALLATION}" ]; then
     
     export OBJC_PATH=$CONDA_PREFIX/include/:OBJC_PATH
 
-    ulimit -s unlimited
-
     # --------------------------------------------------------------------------------------
     # COMPILER
     # --------------------------------------------------------------------------------------
-    export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
     export C_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
     export CXX_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
+    export FORTRAN_COMPILER=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran
     export MPI_FORTRAN_COMPILER=$CONDA_PREFIX/bin/mpif90
-    export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicc
-    export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicxx
+    export MPI_CC_COMPILER=$CONDA_PREFIX/bin/mpicc
+    export MPI_CXX_COMPILER=$CONDA_PREFIX/bin/mpicxx
 
     # --------------------------------------------------------------------------------------
     # IGNORE MOST PACKAGES (ALREADY ON CONDA)
     # --------------------------------------------------------------------------------------
     export IGNORE_XZ_INSTALLATION=1
     export IGNORE_DISTUTILS_INSTALLATION=1
-    export IGNORE_C_GSL_INSTALLATION=1
-    export IGNORE_C_CFITSIO_INSTALLATION=1
-    export IGNORE_C_FFTW_INSTALLATION=1
-    export IGNORE_CPP_BOOST_INSTALLATION=1
     export IGNORE_CMAKE_INSTALLATION=1
+    export IGNORE_HDF5_INSTALLATION=1
     export IGNORE_OPENBLAS_INSTALLATION=1
     export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+    export IGNORE_CPP_BOOST_INSTALLATION=1
     export IGNORE_CPP_ARMA_INSTALLATION=1
-    export IGNORE_HDF5_INSTALLATION=1
+    export IGNORE_C_CFITSIO_INSTALLATION=1
+    export IGNORE_C_FFTW_INSTALLATION=1
+    export IGNORE_C_GSL_INSTALLATION=1
 
-    if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
-        export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake
-        export CMAKE=$ROOTDIR/.local/bin/cmake
-    else
-        export CMAKE=cmake
-    fi
+    # --------------------------------------------------------------------------------------
+    # IF NOT SET, COCOA WILL INSTALL TENSORFLOW, KERAS, PYTORCH, GPY (NOT FROM PIP_CACHE)
+    # --------------------------------------------------------------------------------------
+    export IGNORE_EMULATOR_CPU_PIP_PACKAGES=1
+    export IGNORE_EMULATOR_GPU_PIP_PACKAGES=1
+
+    # --------------------------------------------------------------------------------------
+    # DEBUG THE COMPILATION OF PREREQUISITES PACKAGES. BY DEFAULT, THE COMPILATION'S -------
+    # OUTPUT IS NOT WRITTEN ON THE TERMINAL. THESE FLAGS ENABLE THAT OUTPUT ---------------- 
+    # --------------------------------------------------------------------------------------
+    #export DEBUG_CPP_PACKAGES=1
+    #export DEBUG_PIP_OUTPUT=1
 fi
-
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 # --------------------------------- DERIVED OPTIONS  -----------------------------------
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+ulimit -s unlimited
+# --------------------------------------------------------------------------------------
+if [ -z "${IGNORE_CMAKE_INSTALLATION}" ]; then
+    export CMAKE_ROOT=$ROOTDIR/.local/bin/cmake
+    export CMAKE=$ROOTDIR/.local/bin/cmake
+else
+    export CMAKE=cmake
+fi
 # --------------------------------------------------------------------------------------
 if [ -n "${IGNORE_CPP_INSTALLATION}" ]; then
     export IGNORE_CPP_BOOST_INSTALLATION=1
