@@ -25,7 +25,6 @@ fi
 if [ -n "${LD_LIBRARY_PATH}" ]; then
     export OLD_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 else
-    # -n fails if string is null
     export OLD_LD_LIBRARY_PATH="x"
 fi
 
@@ -145,6 +144,7 @@ fi
 if [ -n "${MINICONDA_INSTALLATION}" ]; then
     if [ ${CONDA_SHLVL} -ne 1 ]; then
         echo "MINICONDA_INSTALLATION SET BUT CONDA ENVIRONMENT NOT ACTIVATED"
+        source stop_cocoa
         return 1
     fi
 fi
@@ -219,11 +219,13 @@ if [ $? -ne 0 ]; then
   return 1
 fi
 
-source ./installation_scripts/setup_decompress_files
-if [ $? -ne 0 ]; then
-  echo "FAILED setup_decompress_files SCRIPT" >&2
-  cd $ROOTDIR
-  return 1
+if [ -z "${DEBUG_SKIP_FILE_DECOMPRESSION_SETUP_COCOA}" ]; then
+  source ./installation_scripts/setup_decompress_files
+  if [ $? -ne 0 ]; then
+    echo "FAILED setup_decompress_files SCRIPT" >&2
+    cd $ROOTDIR
+    return 1
+  fi
 fi
 
 source ./installation_scripts/setup_cmake

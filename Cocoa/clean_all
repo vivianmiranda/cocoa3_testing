@@ -1,6 +1,6 @@
 if [ -z "${ROOTDIR}" ]; then
-    echo 'ERROR ROOTDIR not defined'
-    return
+    echo 'ERROR ENV VARIABLE ROOTDIR IS NOT DEFINED' >&2
+    return 1
 fi
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ fi
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 if [ -z "${ROOTDIR}" ]; then
-    echo 'ERROR ROOTDIR not defined'
+    echo 'ERROR ENV VARIABLE ROOTDIR IS NOT DEFINED' >&2
     return 1
 fi
 
@@ -43,7 +43,7 @@ sh clean_all.sh
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 if [ -z "${ROOTDIR}" ]; then
-    echo 'ERROR ROOTDIR not defined'
+    echo 'ERROR ENV VARIABLE ROOTDIR IS NOT DEFINED' >&2
     return 1
 fi
 

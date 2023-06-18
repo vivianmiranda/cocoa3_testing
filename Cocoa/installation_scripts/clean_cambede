@@ -35,8 +35,6 @@ fi
 $PYTHON3 setup.py clean > ${OUTPUT_CAMB_1} 2> ${OUTPUT_CAMB_2}
 if [ $? -ne 0 ]; then
   echo "CAMB EDE COULD NOT RUN PYTHON3 SETUP.PY CLEAN"
-  cd $ROOTDIR
-  return 1
 else
   echo "CAMB EDE PYTHON3 SETUP.PY CLEAN DONE"
 fi
