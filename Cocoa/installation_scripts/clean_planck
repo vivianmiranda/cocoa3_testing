@@ -46,8 +46,6 @@ fi
 $PYTHON3 waf uninstall > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
 if [ $? -ne 0 ]; then
   echo "PLANCK COULD NOT RUN WAF UNINSTALL" 
-  cd $ROOTDIR
-  return 1
 else
   echo "PLANCK WAF UNINSTALL DONE"
 fi
@@ -55,8 +53,6 @@ fi
 $PYTHON3 waf clean > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
 if [ $? -ne 0 ]; then
   echo "PLANCK COULD NOT RUN WAF CLEAN"
-  cd $ROOTDIR
-  return 1
 else
   echo "PLANCK WAF CLEAN DONE"
 fi
@@ -64,8 +60,6 @@ fi
 $PYTHON3 waf distclean > ${OUTPUT_PLANCK_1} 2> ${OUTPUT_PLANCK_2}
 if [ $? -ne 0 ]; then
   echo "PLANCK COULD NOT RUN WAF DISTCLEAN"
-  cd $ROOTDIR
-  return 1
 else
   echo "PLANCK WAF DISTCLEAN DONE"
 fi

@@ -152,7 +152,7 @@ fi
 source $ROOTDIR/.local/bin/activate
 if [ $? -ne 0 ]; then
   echo "COCOA PRIVATE PYTHON ENV ACTIVATION FAILED" >&2
-  source stop_cocoa
+  echo "PLEASE RUN STOP_COCOA TO CLEN ENVIRONMENTAL FLAGS" >&2
   return 1
 fi
 

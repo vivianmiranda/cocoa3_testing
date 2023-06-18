@@ -29,8 +29,6 @@ cd $ROOTDIR/external_modules/code/PolyChordLite/
 make clean > ${OUTPUT_POLY_1} 2> ${OUTPUT_POLY_2}
 if [ $? -ne 0 ]; then
   echo "POLYCHORD COULD NOT RUN MAKE CLEAN"
-  cd $ROOTDIR
-  return 1
 else
   echo "POLYCHORD MAKE CLEAN RUN DONE"
 fi

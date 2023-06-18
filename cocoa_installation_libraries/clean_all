@@ -3,6 +3,10 @@ if [ -z "${ROOTDIR}" ]; then
     return 1
 fi
 
+cd ${ROOTDIR}/../cocoa_installation_libraries
+
+echo 'CLEAN ALL INSTALLATION LIBRARIES - THAT MIGHT TAKE A WHILE'
+
 rm -rf ./armadillo-10.6.2
 
 rm -rf ./binutils-2.34
@@ -41,3 +45,10 @@ rm -rf ./expat241
 
 rm -rf ./cocoa_build
 
+rm -rf ./CMake-hdf5-1.10.10
+
+rm -rf ./binutils-2.37
+
+echo 'CLEAN ALL INSTALLATION LIBRARIES DONE'
+
+cd ${ROOTDIR}
