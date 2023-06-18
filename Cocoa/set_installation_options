@@ -9,8 +9,8 @@ export ROOTDIR=$PWD
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 
-#export MINICONDA_INSTALLATION=1
-export MANUAL_INSTALLATION=1
+export MINICONDA_INSTALLATION=1
+#export MANUAL_INSTALLATION=1
 
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
@@ -329,4 +329,4 @@ fi
 # --------------------------------------------------------------------------------------
 export COCOA_RUN_EVALUATE="mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run"
 
-export COCOA_RUN_MCMC="mpirun -n ${NTASKS} --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run"
+export COCOA_RUN_MCMC="mpirun -n 4 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run"
