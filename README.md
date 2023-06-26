@@ -185,12 +185,14 @@ Why did we choose to have two separate bash environments? Users should be able t
 One model evaluation:
 
         $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} ./projects/example/EXAMPLE_EVALUATE1.yaml -f
+
+We offer the flag `COCOA_RUN_EVALUATE` as an alias (syntax-sugar) for `mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run`. To use `COCOA_RUN_EVALUATE` correctly, users must set `export OMP_NUM_THREADS=4` before starting the Cocoa environment with `source start_cocoa`.
         
 MCMC:
 
         $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
 
-The flag `COCOA_RUN_MCMC` is an alias for `mpirun -n 4 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run`
+We offer the flag `COCOA_RUN_MCMC` as an alias (syntax-sugar) for `mpirun -n 4 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run`. To use `COCOA_RUN_MCMC` correctly, users must set `export OMP_NUM_THREADS=4` before starting the Cocoa environment with `source start_cocoa`.
         
 :books: **expert** :books: Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
 
