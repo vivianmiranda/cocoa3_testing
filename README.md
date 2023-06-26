@@ -163,7 +163,7 @@ Assuming the user opted for the easier *Conda installation* and located the term
 
 :one: **Step 1 of 5**: activate the conda environment
 
-        $ conda activate cocoa
+        $ conda activate cocoapy38
      
 :two: **Step 2 of 5**: go to the Cocoa main folder 
 
