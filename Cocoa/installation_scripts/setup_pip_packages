@@ -64,7 +64,6 @@ fi
 # ----------------------------------------------------------------------------
 
 if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
-  
   if [ -z "${MINICONDA_INSTALLATION}" ]; then
     env CXX=$CXX_COMPILER CC=$C_COMPILER $PIP3 install \
         'cython==0.29.35' \
@@ -90,10 +89,10 @@ if [ -z "${IGNORE_ALL_PIP_INSTALLATION}" ]; then
       --find-links file:$ROOTDIR/../cocoa_installation_libraries/pip_cache --no-index \
       --force-reinstall > ${OUTPUT_PIP_1} 2> ${OUTPUT_PIP_2}
     if [ $? -ne 0 ]; then
-      echo "PROBLEM PIP INSTALL NUMPY" >&2
+      echo "PROBLEM PIP INSTALL (BASIC PACKAGES)" >&2
       return 1
     else
-      echo "PIP INSTALL NUMPY DONE"
+      echo "PIP INSTALL DONE (BASIC PACKAGES)"
     fi
   fi
 
