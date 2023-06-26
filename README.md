@@ -184,13 +184,11 @@ Why did we choose to have two separate bash environments? Users should be able t
 
 One model evaluation:
 
-        $(cocoa)(.local) $COCOA_RUN_EVALUATE ./projects/example/EXAMPLE_EVALUATE1.yaml -f
-        
-The flag `COCOA_RUN_EVALUATE` is an alias for `mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run` 
+        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} ./projects/example/EXAMPLE_EVALUATE1.yaml -f
         
 MCMC:
 
-        $(cocoa)(.local) $COCOA_RUN_MCMC ./projects/example/EXAMPLE_MCMC1.yaml -f
+        $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core:overload-allowed --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
 
 The flag `COCOA_RUN_MCMC` is an alias for `mpirun -n 4 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run`
         
@@ -234,7 +232,7 @@ Remember to run the start_cocoa script only after cloning the project repository
 :five:  **Step 5 of 5**: select the number of OpenMP cores and run a template yaml file
     
         $(cocoa)(.local) export OMP_PROC_BIND=close; export OMP_NUM_THREADS=4
-        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
+        $(cocoa)(.local) mpirun -n 1 --mca btl tcp,self --bind-to core:overload-allowed --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} ./projects/XXX/EXAMPLE_EVALUATE1.yaml -f
 
 :warning: **Warning** :warning: Be careful when creating YAML for weak lensing projects in Cobaya using the $\Omega_m/\Omega_b$ parameterization. See Appendix [warning about weak lensing YAML files](#appendix_example_runs) for further details.
 
